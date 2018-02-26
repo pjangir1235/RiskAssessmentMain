@@ -5,11 +5,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class GetAllData {
-    @Autowired
-    private GetAirportData airportData;
+	@Autowired
+	private GetAirportData airportData;
 
-    public void getData() {
-	airportData.getAirport();
+	public void getData() {
+		airportData.getAirportData();
 
-    }
+	}
 }

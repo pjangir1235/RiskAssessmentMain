@@ -5,22 +5,23 @@ import java.util.Iterator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.riskAssessment.POJO.Airport_Location;
+import com.riskAssessment.ProducerDispatcher.AirportDispatcher;
+import com.riskAssessment.ProducerPOJO.AirportLocation;
 import com.riskAssessment.intefaceRepository.AirportRepo;
 
 @Service
 public class GetAirportData {
-    @Autowired
-    AirportRepo airport;
-    @Autowired
-    AirportDispatcher dispatcher;
+	@Autowired
+	AirportRepo airport;
+	@Autowired
+	AirportDispatcher dispatcher;
 
-    public void getAirport() {
-	Iterable<Airport_Location> itr = airport.findAll();
-	Iterator<Airport_Location> iter = itr.iterator();
-	while (iter.hasNext())
-	    dispatcher.dispatch(iter.next());
+	public void getAirportData() {
+		Iterable<AirportLocation> itr = airport.findAll();
+		Iterator<AirportLocation> iter = itr.iterator();
+		while (iter.hasNext())
+			dispatcher.dispatch(iter.next());
 
-    }
+	}
 
 }

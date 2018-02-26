@@ -3,9 +3,9 @@ package com.riskAssessment.intefaceRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.riskAssessment.POJO.Airport_Location;
+import com.riskAssessment.ProducerPOJO.AirportLocation;
 
 @Repository
-public interface AirportRepo extends CrudRepository<Airport_Location, Long> {
+public interface AirportRepo extends CrudRepository<AirportLocation, Long> {
 
 }

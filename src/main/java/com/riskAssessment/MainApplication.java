@@ -7,11 +7,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaRepositories("com.riskAssessment.intefaceRepository")
-@EntityScan("com.riskAssessment.POJO")
-// @EnableAutoConfiguration (exclude = { DataSourceAutoConfiguration.class })
+// @ComponentScan({ "com.riskAssessment.*" })
+@EntityScan("com.riskAssessment.ProducerPOJO")
 public class MainApplication {
-    public static void main(String[] args) throws Exception {
-	SpringApplication.run(MainApplication.class, args);
+	public static void main(String[] args) throws Exception {
+		SpringApplication.run(MainApplication.class, args);
 
-    }
+	}
 }
