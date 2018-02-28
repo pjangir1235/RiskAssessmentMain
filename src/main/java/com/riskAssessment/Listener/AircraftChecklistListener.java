@@ -11,27 +11,27 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
-import com.riskAssessment.ConsumerPOJO.AirportData;
+import com.riskAssessment.ConsumerPOJO.AircraftChecklistData;
 import com.riskAssessment.DataStorageConsumerr.StoreRecord;
 
 @Component
-public class AirportListener {
+public class AircraftChecklistListener {
 
 	@Autowired
 	StoreRecord record;
 	public final CountDownLatch countDownLatch1 = new CountDownLatch(3);
 
-	private static final Logger log = LoggerFactory.getLogger(AirportListener.class);
+	private static final Logger log = LoggerFactory.getLogger(AircraftChecklistListener.class);
 
-	@KafkaListener(topics = "${kafka.topic-airport}", containerFactory = "airportKafkaListenerContainerFactory")
-	public void airportListener(@Payload AirportData schedule, @Header(KafkaHeaders.OFFSET) Integer offset,
-			@Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
+	@KafkaListener(topics = "${kafka.topic-aircraftChecklist}", containerFactory = "aircraftChecklistKafkaListenerContainerFactory")
+
+	public void aircraftChecklistListner(@Payload AircraftChecklistData schedule,
+			@Header(KafkaHeaders.OFFSET) Integer offset, @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
 			@Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
 		log.info("Processing topic = {}, partition = {}, offset = {}, workUnit = {}", topic, partition, offset,
 				schedule);
-		record.setAirportObj(schedule);
-		record.setAirportCount(record.getAirportCount() - 1);
-		System.out.println(schedule.toString());
+		record.setAircraftChecklist(schedule);
+		record.setAircraftChecklistCount(record.getAircraftChecklistCount() - 1);
 		countDownLatch1.countDown();
 
 	}

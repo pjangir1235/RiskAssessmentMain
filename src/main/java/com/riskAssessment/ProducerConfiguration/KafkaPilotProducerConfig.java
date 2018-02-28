@@ -8,29 +8,27 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 
-import com.riskAssessment.ProducerPOJO.Airport;
+import com.riskAssessment.ProducerPOJO.Pilot;
 
 @Configuration
-public class KafkaAirportProducerConfig {
-
+public class KafkaPilotProducerConfig {
 	@Autowired
 	private KafkaProducerCommonProperty property;
 
-	@Value("${kafka.topic-airport}")
+	@Value("${kafka.topic-pilot}")
 	private String topic;
 
 	@Bean
-	public ProducerFactory<Integer, Airport> producerFactory() {
+	public ProducerFactory<Integer, Pilot> producerFactory() {
 		return new DefaultKafkaProducerFactory<>(property.producerConfigs(), property.setIntegerKeySerializer(),
 				property.setJsonSerializer());
 	}
 
 	@Bean
-	public KafkaTemplate<Integer, Airport> airportKafkaTemplate() {
+	public KafkaTemplate<Integer, Pilot> pilotKafkaTemplate() {
 
-		KafkaTemplate<Integer, Airport> kafkaTemplate = new KafkaTemplate<>(producerFactory());
+		KafkaTemplate<Integer, Pilot> kafkaTemplate = new KafkaTemplate<>(producerFactory());
 		kafkaTemplate.setDefaultTopic(topic);
 		return kafkaTemplate;
 	}
-
 }

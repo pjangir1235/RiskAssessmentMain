@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaRepositories("com.riskAssessment.intefaceRepository")
-// @ComponentScan({ "com.riskAssessment.*" })
 @EntityScan("com.riskAssessment.ProducerPOJO")
 public class MainApplication {
 	public static void main(String[] args) throws Exception {

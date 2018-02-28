@@ -7,24 +7,25 @@ import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
 
 import com.riskAssessment.DataStorageConsumerr.StoreRecord;
-import com.riskAssessment.ProducerPOJO.Airport;
+import com.riskAssessment.ProducerPOJO.AircraftType;
 
 @Service
-public class AirportDispatcher {
+public class AircraftTypeDispatcher {
 	@Autowired
-	private KafkaTemplate<Integer, Airport> kafkaTemplate;
+	private KafkaTemplate<Integer, AircraftType> kafkaTemplate;
 
 	@Autowired
 	StoreRecord record;
 	// private static final Logger LOGGER =
 	// LoggerFactory.getLogger(AirportDispatcher.class);
 
-	public boolean dispatch(Airport craft) {
+	public boolean dispatch(AircraftType craft) {
 		try {
-			SendResult<Integer, Airport> sendResult = kafkaTemplate.sendDefault(craft.getAirportId(), craft)
+			SendResult<Integer, AircraftType> sendResult = kafkaTemplate.sendDefault(craft.getAircraftTypeId(), craft)
 					.get();
-			record.setAirportCount(record.getAirportCount() + 1);
+			record.setAircraftTypeCount(record.getAircraftTypeCount() + 1);
 			RecordMetadata recordMetadata = sendResult.getRecordMetadata();
+
 			System.out.println("Piyush  " + recordMetadata.offset());
 			return true;
 		} catch (Exception e) {

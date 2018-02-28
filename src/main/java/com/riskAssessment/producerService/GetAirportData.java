@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.riskAssessment.ProducerDispatcher.AirportDispatcher;
-import com.riskAssessment.ProducerPOJO.AirportLocation;
+import com.riskAssessment.ProducerPOJO.Airport;
 import com.riskAssessment.intefaceRepository.AirportRepo;
 
 @Service
@@ -17,8 +17,8 @@ public class GetAirportData {
 	AirportDispatcher dispatcher;
 
 	public void getAirportData() {
-		Iterable<AirportLocation> itr = airport.findAll();
-		Iterator<AirportLocation> iter = itr.iterator();
+		Iterable<Airport> itr = airport.findAll();
+		Iterator<Airport> iter = itr.iterator();
 		while (iter.hasNext())
 			dispatcher.dispatch(iter.next());
 
