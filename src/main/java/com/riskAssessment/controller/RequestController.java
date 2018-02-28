@@ -186,7 +186,7 @@ public class RequestController {
 	public List<FlightScheduleData> getFlightSchedule() {
 		try {
 
-			producer.getFlightSchedulePilotValues();
+			producer.getFlightScheduleValues();
 			while (record.getFlightScheduleCount() != 0) {
 				System.out.println("record" + record.getFlightScheduleCount());
 				Thread.sleep(1000);

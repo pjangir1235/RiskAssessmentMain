@@ -28,9 +28,10 @@ public class FlightScheduleListener {
 	public void flightScheduleListner(@Payload FlightScheduleData schedule, @Header(KafkaHeaders.OFFSET) Integer offset,
 			@Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
 			@Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
-		System.out.println("Hii");
+		System.out.println("Hiipiyush");
 		log.info("Processing topic = {}, partition = {}, offset = {}, workUnit = {}", topic, partition, offset,
 				schedule);
+		System.out.println("hello");
 		record.setFlightSchedule(schedule);
 		record.setFlightScheduleCount(record.getFlightScheduleCount() - 1);
 		countDownLatch1.countDown();

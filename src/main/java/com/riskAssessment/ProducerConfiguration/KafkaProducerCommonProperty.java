@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.IntegerSerializer;
 import org.apache.kafka.common.serialization.Serializer;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,4 +40,8 @@ public class KafkaProducerCommonProperty {
 		return new JsonSerializer();
 	}
 
+	@Bean
+	public Serializer setStringSerializer() {
+		return new StringSerializer();
+	}
 }

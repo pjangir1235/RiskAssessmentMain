@@ -26,7 +26,7 @@ public class FlightScheduleDispatcher {
 			record.setFlightScheduleCount(record.getFlightScheduleCount() + 1);
 			RecordMetadata recordMetadata = sendResult.getRecordMetadata();
 
-			System.out.println("Piyush  " + recordMetadata.offset());
+			System.out.println("Piyush  " + recordMetadata.offset() + "  " + recordMetadata);
 			return true;
 		} catch (Exception e) {
 			throw new RuntimeException(e);

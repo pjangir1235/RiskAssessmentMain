@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.IntegerDeserializer;
-import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -216,23 +215,23 @@ public class ConsumerCommonConfig {
 	}
 
 	@Bean
-	public ConcurrentKafkaListenerContainerFactory<String, PilotDesignationData> pilotDesignationKafkaListenerContainerFactory() {
-		ConcurrentKafkaListenerContainerFactory<String, PilotDesignationData> factory = new ConcurrentKafkaListenerContainerFactory<>();
+	public ConcurrentKafkaListenerContainerFactory<Integer, PilotDesignationData> pilotDesignationKafkaListenerContainerFactory() {
+		ConcurrentKafkaListenerContainerFactory<Integer, PilotDesignationData> factory = new ConcurrentKafkaListenerContainerFactory<>();
 		factory.setConsumerFactory(pilotDesignationConsumerFactory());
 		return factory;
 	}
 
-	public ConsumerFactory<String, PilotDesignationData> pilotDesignationConsumerFactory() {
+	public ConsumerFactory<Integer, PilotDesignationData> pilotDesignationConsumerFactory() {
 		Map<String, Object> props = new HashMap<>();
 		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap);
 		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
 		props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "100");
 		props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "15000");
-		props.put(ConsumerConfig.GROUP_ID_CONFIG, "pilotDesignation");
+		props.put(ConsumerConfig.GROUP_ID_CONFIG, "pilotDesignationCy");
 		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
 		props.put(ConsumerConfig.RECONNECT_BACKOFF_MS_CONFIG, "100");
-		return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(),
-				new JsonDeserializer(AircraftData.class));
+		return new DefaultKafkaConsumerFactory<>(props, new IntegerDeserializer(),
+				new JsonDeserializer(PilotDesignationData.class));
 	}
 
 	@Bean
@@ -252,7 +251,7 @@ public class ConsumerCommonConfig {
 		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
 		props.put(ConsumerConfig.RECONNECT_BACKOFF_MS_CONFIG, "100");
 		return new DefaultKafkaConsumerFactory<>(props, new IntegerDeserializer(),
-				new JsonDeserializer(AircraftData.class));
+				new JsonDeserializer(RestDetailData.class));
 	}
 
 	@Bean

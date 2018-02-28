@@ -1,6 +1,7 @@
 package com.riskAssessment.ProducerConfiguration;
 
-import org.apache.kafka.common.serialization.StringSerializer;
+import javax.validation.constraints.Null;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -21,15 +22,14 @@ public class KafkaPilotDesignationProducerConfig {
 	private String topic;
 
 	@Bean
-	public ProducerFactory<String, PilotDesignation> producerFactory() {
-		return new DefaultKafkaProducerFactory<>(property.producerConfigs(), new StringSerializer(),
-				property.setJsonSerializer());
+	public ProducerFactory<Null, PilotDesignation> producerFactory() {
+		return new DefaultKafkaProducerFactory<>(property.producerConfigs(), null, property.setJsonSerializer());
 	}
 
 	@Bean
-	public KafkaTemplate<String, PilotDesignation> pilotDesignationKafkaTemplate() {
+	public KafkaTemplate<Null, PilotDesignation> pilotDesignationKafkaTemplate() {
 
-		KafkaTemplate<String, PilotDesignation> kafkaTemplate = new KafkaTemplate<>(producerFactory());
+		KafkaTemplate<Null, PilotDesignation> kafkaTemplate = new KafkaTemplate<>(producerFactory());
 		kafkaTemplate.setDefaultTopic(topic);
 		return kafkaTemplate;
 	}
