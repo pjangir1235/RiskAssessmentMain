@@ -50,4 +50,8 @@ public class Pilot {
 
 	private String pilotName;
 	private String pilotDesignationCode;
+	@Override
+	public String toString() {
+		return getPilotName();
+	}
 }

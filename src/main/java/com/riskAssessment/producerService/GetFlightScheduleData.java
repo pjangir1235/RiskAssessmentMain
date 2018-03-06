@@ -24,4 +24,7 @@ public class GetFlightScheduleData {
 			craftDispatcher.dispatch(iter.next());
 
 	}
+//	public void getFlightSchedulePilotData() {
+//		Iterable<FlightSchedule> 
+//	}
 }

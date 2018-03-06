@@ -7,5 +7,6 @@ import com.riskAssessment.ProducerPOJO.FlightSchedule;
 
 @Repository
 public interface FlightScheduleRepo extends CrudRepository<FlightSchedule, Long> {
+		
 
 }

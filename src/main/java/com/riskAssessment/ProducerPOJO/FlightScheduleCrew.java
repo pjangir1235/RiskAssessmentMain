@@ -11,9 +11,9 @@ import javax.persistence.Table;
 public class FlightScheduleCrew {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer crewMemberId;
 	private Integer flightScheduleId;
-
+	private Integer crewMemberId;
+	
 	public FlightScheduleCrew() {
 		super();
 	}

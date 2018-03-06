@@ -1,9 +1,15 @@
 package com.riskAssessment.ProducerPOJO;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +25,24 @@ public class FlightSchedule {
 	private String timeDeparture;
 	private String timeArrival;
 	private Integer duration;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "flight_schedule_pilot", joinColumns = {
+			@JoinColumn(name = "flightScheduleId") }, inverseJoinColumns = { @JoinColumn(name = "pilotId") })
+	List<Pilot> pilots;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "flight_schedule_crew", joinColumns = {
+			@JoinColumn(name = "flightScheduleId") }, inverseJoinColumns = { @JoinColumn(name = "crewMemberId") })
+	List<Crew> crews;
+	
+	public List<Crew> getCrews() {
+		return crews;
+	}
+
+	public void setCrews(List<Crew> crews) {
+		this.crews = crews;
+	}
 
 	public FlightSchedule() {
 		super();
@@ -100,6 +124,19 @@ public class FlightSchedule {
 
 	public void setDuration(Integer duration) {
 		this.duration = duration;
+	}
+
+	public List<Pilot> getPilots() {
+		return pilots;
+	}
+
+	public void setPilots(List<Pilot> pilots) {
+		this.pilots = pilots;
+	}
+
+	@Override
+	public String toString() {
+		return this.sourceAirportCode + "  " + this.flightScheduleId + " " + this.getPilots()+" "+this.getCrews();
 	}
 
 }

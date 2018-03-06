@@ -51,5 +51,9 @@ public class Crew {
 		this.crewMemberName = crewMemberName;
 		this.mobile = mobile;
 	}
+	@Override
+	public String toString() {
+		return this.getCrewMemberName();
+	}
 
 }
