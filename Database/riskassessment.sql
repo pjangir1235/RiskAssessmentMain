@@ -327,6 +327,33 @@ INSERT INTO `rest_detail` VALUES (10001,'2018-03-02',530),(10001,'2018-03-04',55
 UNLOCK TABLES;
 
 --
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user` (
+  `User_Name` varchar(45) NOT NULL,
+  `Email_Id` varchar(45) NOT NULL,
+  `Password` varchar(45) NOT NULL,
+  `Mobile_No` varchar(45) NOT NULL,
+  PRIMARY KEY (`User_Name`),
+  UNIQUE KEY `Email_Id_UNIQUE` (`Email_Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES ('admin','pj@gmail.com','admin','8056109998'),('piyush','jp@gmail.com','jangir','8003214011');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping events for database 'riskassessment'
 --
 
@@ -343,4 +370,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-28 14:41:17
+-- Dump completed on 2018-03-05 11:40:30

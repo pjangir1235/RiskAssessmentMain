@@ -18,7 +18,7 @@
 .top-bar{
 
   background: rgb(243, 240, 240);
-   width: 1580px; 
+   width: 100%; 
   height: 100px;
   margin-bottom: 0px; 
   
@@ -31,6 +31,8 @@
 } 
 .middle-design{
   /* background-color: rgb(255, 255, 255); */
+  width: 100%;
+
   height: 800px;
 
 }
@@ -46,8 +48,8 @@
     left: 0px;
     right: 0px;
     height: 800px;
-    width: 1580px;
-    width: 1;
+    width: 100%;
+    max-width: 1490;
     background-repeat: no-repeat; 
     
     z-index: -1;
@@ -82,10 +84,11 @@
   /* background-color:transparent; */
   border: 0px solid slategrey;
   top: 70px;
-  left:150px;
+  left:8%;
  right: 30px;
   text-align: center;
-  width: 1150px;
+  width: 84%;
+  max-width: 1350px;
   background-color: transparent;
 
 }
@@ -125,7 +128,7 @@
 }
 .selection-location{
   width: 83%;
-  margin-left: 0%;
+  /* margin-left: 0%; */
   border-radius:7px;
   
 }
@@ -141,8 +144,8 @@
 .schedule-table-location{
   position:relative;
   top:120px;
-  left:15%;
-  width: 1100px;
+  left:12%;
+  width: 80%;
   height: 400px;
 
 }
@@ -204,44 +207,53 @@ thead th:last-child {
 /* //////////////////////////////////////////     report Analysis*/
 
 .top-div-analysis{
-  width: 1490px;
+  width:100%;
+  max-width: 1490px;
   height: 80px;
   /* border:  1px solid black; */
   margin-top: 20px;
   margin-left: 10px;
   margin-right: 10px;
+  
 }
 .middle-div-analysis{
-  width: 1490px;
-  height: 570px;
-  
+  width: 100%;
+  max-width: 1500x;
+  border-bottom: 3px solid rgb(240, 237, 237);
+  height: auto;
+  max-height: 570px;
+  border-top:3px solid rgb(240, 237, 237);
   margin-top:10px;
-  margin-left: 10px;
   margin-right: 10px;
  }
 .bottom-div-analysis{
-  width: 1490px;
+  width: 100%;
+  max-width: 1490px;
   height: 100px;
   /* border:  1px solid black; */
-  margin-top: 10px;
+  margin-top: 20px;
   margin-left: 10px;
   margin-right: 10px;
 }
 .middle-table-analysis{
   background-color: rgba(0, 0, 0, 0.0);
-  height:550px;
+  height:100%;
+  max-height: 550px;
   width:100%;
+  max-width: 1500;
+ /* border: 1px solid green; */
  
 }
-.middle-table-analysis tr{
-  
- }
+
 .middle-table-analysis-td{
-    width:500px;
+    width:29%;
+    max-width: 500px;
     padding: 25px;
     height: 282px;
-   
-    border-right: 2px solid rgb(194, 191, 191);
+    
+    /* border: 1px solid blue; */
+    border-right: 3px solid rgb(240, 237, 237);
+    /* border: 1px solid blue; */
  }
  .middle-table-analysis-td:last-child{
   border-right: 0px solid transparent;
@@ -249,6 +261,10 @@ thead th:last-child {
 
 .middle-table-analysis thead,
 .middle-table-analysis tbody {
+  width:100%;
+  max-width: 1500px;
+  height: 100%;
+  max-height: 550px;
   background:  rgba(0,0, 0, 0.0) ;
   border: 0px solid transparent;
   
@@ -257,17 +273,22 @@ thead th:last-child {
 
 .div-middle{
   /* border: 1px solid darkgreen; */
-  height: 28  px;
+  height: 9 px;
 }
 .div-middle-first{
   float: left;
+  height: 38px;
   /* border: 1px solid yellow; */
   /* border-right: 1px solid yellow; */
   width: 93%;
+  font-size: 18px;
 }
+/* , */
 .div-middle-second{
   float: right;
+  height: 38px;
   /* border: 1px solid violet; */
+  font-size: 10px;
   width: 7%;
 }
 
@@ -280,8 +301,9 @@ thead th:last-child {
   /* border: 2px solid yellow; */
   height: 40px;
   float: left;
-  width: 400px;
-  margin-left: 90px;
+  width: 26%;
+  max-width:400px ;
+  margin-left: 6%;
   
   
 }
@@ -291,13 +313,15 @@ thead th:last-child {
 }
 .bottom-div-analysis-partition-second{
   /* border: 1px solid violet; */
+  width: 90%;
   height: 60px;
 }
 .bottom-div-analysis-left-first{
   /* border: 2px solid yellow; */
   height: 40px;
   float: left;
-  width: 297px;
+  width: 20%;
+  
   
 }
 .bottom-div-analysis-left-second{
@@ -311,14 +335,15 @@ thead th:last-child {
   border-radius: 50%;
   behavior: url(PIE.htc);
   /* remove if you don't care about IE8 */
-  width: 20px;
-  height: 20px;
-  padding: 2px;
-  background: rgb(221, 180, 104);
-  border: 2px solid transparent ;
+  width: 25px;
+  height: 25px;
+  padding: 3px;
+  background: rgb(250, 177, 41);
+  border: 2px solid rgb(233, 151, 0) ;
   color: rgb(0, 0, 0);
   text-align: center;
-  font: 10px Arial, sans-serif;
+  font: 13px Arial, sans-serif;
+  font-family: monospace;
 }
 
 h5{
@@ -342,3 +367,9 @@ h4{
   margin-left: 10px;
   margin-top: 4px;
 }
+
+.dataTables_filter input{
+  height:35px;
+  border-radius: 8px;
+}
+

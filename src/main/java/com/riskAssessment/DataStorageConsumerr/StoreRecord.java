@@ -14,6 +14,7 @@ import com.riskAssessment.ConsumerPOJO.FlightSchedulePilotData;
 import com.riskAssessment.ConsumerPOJO.PilotData;
 import com.riskAssessment.ConsumerPOJO.PilotDesignationData;
 import com.riskAssessment.ConsumerPOJO.RestDetailData;
+import com.riskAssessment.ConsumerPOJO.UserData;
 
 public class StoreRecord {
 
@@ -28,10 +29,12 @@ public class StoreRecord {
 	private List<PilotDesignationData> pilotDesignation = new ArrayList<>();
 	private List<RestDetailData> restDetail = new ArrayList<>();
 	private List<PilotData> pilot = new ArrayList<>();
+	private List<UserData> user=new ArrayList<>();
 
 	private int airportCount = 0;
 	private int aircraftCount = 0;
 	private int aircraftChecklistCount = 0;
+	private int userCount=0;
 
 	public int getAircraftChecklistCount() {
 		return aircraftChecklistCount;
@@ -68,6 +71,13 @@ public class StoreRecord {
 
 	public void setCrewCount(int crewCount) {
 		this.crewCount = crewCount;
+	}
+	public int getUserCount() {
+		return userCount;
+	}
+
+	public void setUserCount(int userCount) {
+		this.userCount = userCount;
 	}
 
 	public int getFlightScheduleCount() {
@@ -161,10 +171,10 @@ public class StoreRecord {
 			List<AircraftChecklistData> aircraftChecklist, List<AircraftTypeData> aircraftType, List<CrewData> crew,
 			List<FlightScheduleData> flightSchedule, List<FlightScheduleCrewData> flightScheduleCrew,
 			List<FlightSchedulePilotData> flightSchedulePilot, List<PilotDesignationData> pilotDesignation,
-			List<RestDetailData> restDetail, List<PilotData> pilot, int airportCount, int aircraftCount,
+			List<RestDetailData> restDetail, List<PilotData> pilot, List<UserData> user,int airportCount, int aircraftCount,
 			int aircraftChecklistCount, int aircraftTypeCount, int crewCount, int flightScheduleCount,
 			int flightScheduleCrewCount, int flightSchedulePilotCount, int pilotCount, int pilotDesignationCount,
-			int restDetailCount) {
+			int restDetailCount,int userCount) {
 		super();
 		this.airport = airport;
 		this.aircraft = aircraft;
@@ -177,6 +187,7 @@ public class StoreRecord {
 		this.pilotDesignation = pilotDesignation;
 		this.restDetail = restDetail;
 		this.pilot = pilot;
+		this.user=user;
 		this.airportCount = airportCount;
 		this.aircraftCount = aircraftCount;
 		this.aircraftChecklistCount = aircraftChecklistCount;
@@ -188,6 +199,7 @@ public class StoreRecord {
 		this.pilotCount = pilotCount;
 		this.pilotDesignationCount = pilotDesignationCount;
 		this.restDetailCount = restDetailCount;
+		this.userCount = userCount;
 	}
 
 	public List<AircraftChecklistData> getAircraftChecklist() {
@@ -220,6 +232,13 @@ public class StoreRecord {
 
 	public void setFlightSchedule(FlightScheduleData flightSchedule) {
 		this.flightSchedule.add(flightSchedule);
+	}
+	public List<UserData> getUser() {
+		return user;
+	}
+
+	public void setUser(UserData user) {
+		this.user.add(user);
 	}
 
 	public List<FlightScheduleCrewData> getFlightScheduleCrew() {
@@ -278,5 +297,9 @@ public class StoreRecord {
 		pilotDesignation = new ArrayList<>();
 		restDetail = new ArrayList<>();
 		pilot = new ArrayList<>();
+		user=new ArrayList<>();
+	}
+	public void DestroyUser() {
+		user=new ArrayList<>();
 	}
 }

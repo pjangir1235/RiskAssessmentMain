@@ -22,5 +22,7 @@ public interface ProducerDao {
 	void getPilotDesignationValues();
 
 	void getRestDetailValues();
+	
+	void getUserValues(String userName,String Password);
 
 }

@@ -39,6 +39,9 @@ public class GetAllData implements ProducerDao {
 
 	@Autowired
 	private GetRestDetailData restDetailData;
+	
+	@Autowired
+	private GetUserData userData;
 
 	@Override
 	public void getAiprotValues() {
@@ -100,5 +103,13 @@ public class GetAllData implements ProducerDao {
 	public void getRestDetailValues() {
 		restDetailData.getRestDetailData();
 	}
+
+	@Override
+	public void getUserValues(String userName,String password) {
+		userData.getUserData(userName,password);
+		
+	}
+
+
 
 }

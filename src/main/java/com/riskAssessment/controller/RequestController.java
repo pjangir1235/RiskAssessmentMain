@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -19,6 +21,7 @@ import com.riskAssessment.ConsumerPOJO.FlightSchedulePilotData;
 import com.riskAssessment.ConsumerPOJO.PilotData;
 import com.riskAssessment.ConsumerPOJO.PilotDesignationData;
 import com.riskAssessment.ConsumerPOJO.RestDetailData;
+import com.riskAssessment.ConsumerPOJO.UserData;
 import com.riskAssessment.DAO.ProducerDao;
 import com.riskAssessment.DataStorageConsumerr.StoreRecord;
 
@@ -261,6 +264,26 @@ public class RequestController {
 		} finally {
 
 			record.destroy();
+		}
+
+	}
+	@PostMapping("/user")
+	@ResponseBody
+	public List<UserData> getUser(@RequestBody UserData user) {
+			try {
+				record.DestroyUser();
+			producer.getUserValues(user.getUserName(),user.getPassword());
+			while (record.getUserCount() != 0) {
+				System.out.println("record" + record.getUserCount());
+				Thread.sleep(300);
+			}
+			return record.getUser();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+
+			
 		}
 
 	}

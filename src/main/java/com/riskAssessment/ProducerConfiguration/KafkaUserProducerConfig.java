@@ -2,6 +2,7 @@ package com.riskAssessment.ProducerConfiguration;
 
 import javax.validation.constraints.Null;
 
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -14,23 +15,23 @@ import com.riskAssessment.ProducerPOJO.PilotDesignation;
 import com.riskAssessment.ProducerPOJO.User;
 
 @Configuration
-public class KafkaPilotDesignationProducerConfig {
+public class KafkaUserProducerConfig {
 
 	@Autowired
 	private KafkaProducerCommonProperty property;
 
-	@Value("${kafka.topic-pilotDesignation}")
+	@Value("${kafka.topic-user}")
 	private String topic;
 
 	@Bean
-	public ProducerFactory<Null, PilotDesignation> producerFactory() {
-		return new DefaultKafkaProducerFactory<>(property.producerConfigs(), null, property.setJsonSerializer());
+	public ProducerFactory<Integer, User> producerFactory() {
+		return new DefaultKafkaProducerFactory<>(property.producerConfigs(), property.setIntegerKeySerializer(), property.setJsonSerializer());
 	}
 
 	@Bean
-	public KafkaTemplate<Null, PilotDesignation> pilotDesignationKafkaTemplate() {
+	public KafkaTemplate<Integer, User> userKafkaTemplate() {
 
-		KafkaTemplate<Null, PilotDesignation> kafkaTemplate = new KafkaTemplate<>(producerFactory());
+		KafkaTemplate<Integer, User> kafkaTemplate = new KafkaTemplate<>(producerFactory());
 		kafkaTemplate.setDefaultTopic(topic);
 		return kafkaTemplate;
 	}

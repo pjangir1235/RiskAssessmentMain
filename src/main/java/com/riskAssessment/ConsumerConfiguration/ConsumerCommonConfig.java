@@ -25,6 +25,7 @@ import com.riskAssessment.ConsumerPOJO.FlightSchedulePilotData;
 import com.riskAssessment.ConsumerPOJO.PilotData;
 import com.riskAssessment.ConsumerPOJO.PilotDesignationData;
 import com.riskAssessment.ConsumerPOJO.RestDetailData;
+import com.riskAssessment.ConsumerPOJO.UserData;
 import com.riskAssessment.DataStorageConsumerr.StoreRecord;
 
 @Configuration
@@ -227,7 +228,7 @@ public class ConsumerCommonConfig {
 		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
 		props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "100");
 		props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "15000");
-		props.put(ConsumerConfig.GROUP_ID_CONFIG, "pilotDesignationCy");
+		props.put(ConsumerConfig.GROUP_ID_CONFIG, "pilotDesignation");
 		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
 		props.put(ConsumerConfig.RECONNECT_BACKOFF_MS_CONFIG, "100");
 		return new DefaultKafkaConsumerFactory<>(props, new IntegerDeserializer(),
@@ -255,8 +256,26 @@ public class ConsumerCommonConfig {
 	}
 
 	@Bean
-	public StoreRecord store() {
-		return new StoreRecord();
+	public ConcurrentKafkaListenerContainerFactory<Integer, UserData> userKafkaListenerContainerFactory() {
+		ConcurrentKafkaListenerContainerFactory<Integer, UserData> factory = new ConcurrentKafkaListenerContainerFactory<>();
+		factory.setConsumerFactory(userConsumerFactory());
+		return factory;
 	}
+
+	public ConsumerFactory<Integer, UserData> userConsumerFactory() {
+		Map<String, Object> props = new HashMap<>();
+		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap);
+		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
+		props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "100");
+		props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "15000");
+		props.put(ConsumerConfig.GROUP_ID_CONFIG, "user");
+		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
+		props.put(ConsumerConfig.RECONNECT_BACKOFF_MS_CONFIG, "100");
+		return new DefaultKafkaConsumerFactory<>(props, new IntegerDeserializer(),
+				new JsonDeserializer(UserData.class));
+	}
+	
+
+	
 
 }

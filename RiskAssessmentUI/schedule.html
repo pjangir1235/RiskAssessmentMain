@@ -4,12 +4,13 @@
     <label class="text-label" style="margin-left:10%;">Location</label>
 
     <select class="selection-location">
+      <option ng-repeat="loc in location">{{loc.airportCode}}-{{loc.airportName}}</option>
 
     </select>
   </div>
   <div style="float:left; width:30% ">
-    <label class="text-label">Date</label>
-    <input type="date" class="input-date" id="date">
+    <label class="text-label" style="margin-left: 50px;">Date</label>
+    <input type="date" class="input-date" id="date" style="height:39px;border-radius: 6px;">
   </div>
   <button type="button" class="button warning" style="width: 150px;margin-top: 50px;margin-left: 80px;border-radius: 5px" ng-click="startAnalysis()">Start Analysis</button>
 
@@ -30,11 +31,11 @@
 
     </thead>
 
-    <tbody>
+    <tbody ng-repeat="schedule in schedules">
 
       <tr>
-        <td style="width:30px;" s></td>
-        <td>1234</td>
+        <td style="width:30px;"></td>
+        <td>schedule.</td>
         <td>AC001</td>
         <td style="width:250px;">Charles A. Lindbergh</td>
         <td>09:00:00</td>
@@ -66,6 +67,7 @@
       order: [[1, 'asc']]
     });
     $('.dataTables_filter input').attr("placeholder", "Search");
+    $('.dataTables_filter input').attr("height", "500px");
   });
 
 </script>

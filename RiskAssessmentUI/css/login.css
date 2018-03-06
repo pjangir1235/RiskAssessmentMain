@@ -47,6 +47,9 @@
 
 .sign-in-form input {
   color: rgb(0, 0, 0);
+  height: 38px;
+  border-radius: 30px;
+  
 }
 
 .sign-in-form input:focus {
@@ -55,7 +58,9 @@
 
 .sign-in-form-username,
 .sign-in-form-password {
-  border-radius: 30px;
+ 
+  
+
   border: none;
   opacity: .3;
   transition: all ease .8s;
