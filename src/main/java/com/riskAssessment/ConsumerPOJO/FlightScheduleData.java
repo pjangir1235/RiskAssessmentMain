@@ -1,5 +1,7 @@
 package com.riskAssessment.ConsumerPOJO;
 
+import java.util.List;
+
 public class FlightScheduleData {
 	private int flightScheduleId;
 	private String aircraftCode;
@@ -8,6 +10,24 @@ public class FlightScheduleData {
 	private String dateOfDeparture;
 	private String timeDeparture;
 	private String timeArrival;
+	private List<PilotData> pilots;
+	private List<CrewData> crews;
+	public List<PilotData> getPilots() {
+		return pilots;
+	}
+
+	public void setPilots(List<PilotData> pilots) {
+		this.pilots = pilots;
+	}
+
+	public List<CrewData> getCrews() {
+		return crews;
+	}
+
+	public void setCrews(List<CrewData> crews) {
+		this.crews = crews;
+	}
+
 	int duration;
 
 	public FlightScheduleData() {

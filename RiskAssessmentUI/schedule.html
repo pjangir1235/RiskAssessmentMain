@@ -3,27 +3,28 @@
   <div style="float:left; width:80% ">
     <label class="text-label" style="margin-left:10%;">Location</label>
 
-    <select class="selection-location">
-      <option ng-repeat="loc in location">{{loc.airportCode}}-{{loc.airportName}}</option>
+    <select class="selection-location" ng-model="locationValue" ng-change="checkLocation()">
+      <option ng-repeat="loc in location" value="{{loc.airportCode}}">{{loc.airportCode}}-{{loc.airportName}}</option>
 
     </select>
   </div>
   <div style="float:left; width:30% ">
     <label class="text-label" style="margin-left: 50px;">Date</label>
-    <input type="date" class="input-date" id="date" style="height:39px;border-radius: 6px;">
+    <input type="date" class="input-date" id="date" style="height:39px;border-radius: 6px;" ng-model="dateValue" ng-change="getSchedule()">
   </div>
-  <button type="button" class="button warning" style="width: 150px;margin-top: 50px;margin-left: 80px;border-radius: 5px" ng-click="startAnalysis()">Start Analysis</button>
+  <button type="button " class="button warning " style="width: 150px;margin-top: 50px;margin-left: 80px;border-radius:
+      5px " ng-click="analysis() " ng-disabled="analysisButton">Start Analysis</button>
 
 </div>
 
-<div class="schedule-table-location">
-  <table id="example" class="display schedule-table fixed-table-container" width="100%" cellspacing="0">
+<div class="schedule-table-location ">
+  <table id="example " class="display schedule-table fixed-table-container " width="100% " cellspacing="0 " ng-hide="table_hide">
     <thead>
       <tr>
-        <th style="width:30px;"></th>
-        <th>Flight No.</th>
+        <th style="width:30px; "></th>
+        <th>Schedule Id</th>
         <th>Aircraft Code</th>
-        <th style="width:250px;">Captain Name </th>
+        <th style="width:250px; ">Captain Name </th>
         <th>Time Departure</th>
         <th>Dest Airport</th>
         <th>Duration(mins)</th>
@@ -34,17 +35,18 @@
     <tbody ng-repeat="schedule in schedules">
 
       <tr>
-        <td style="width:30px;"></td>
-        <td>schedule.</td>
-        <td>AC001</td>
-        <td style="width:250px;">Charles A. Lindbergh</td>
-        <td>09:00:00</td>
-        <td>EWR</td>
-        <td>255</td>
+        <td style="width:30px; ">
+          <input class="form-check-input" name="group" type="radio" id="radio {{schedule.flightScheduleId}}" value="{{schedule.position}}"
+            ng-model="$parent.SelectedScheduleId">
+        </td>
+        <td>{{schedule.flightScheduleId}}</td>
+        <td>{{schedule.aircraftCode}}</td>
+        <td style="width:250px; ">{{schedule.captain}}</td>
+        <td>{{schedule.timeDeparture}}</td>
+        <td>{{schedule.destinationAirportCode}}</td>
+        <td>{{schedule.duration}}</td>
 
       </tr>
-
-
 
     </tbody>
   </table>
@@ -52,9 +54,9 @@
 <script>
   $(document).ready(function () {
     $('#example').DataTable({
-      "scrollCollapse": false,
-      "paging": false,
-      "language": { search: "" },
+      "scrollCollapse ": false,
+      "paging ": false,
+      "language ": { search: " " },
       columnDefs: [{
         orderable: false,
         className: 'select-checkbox',
@@ -66,8 +68,8 @@
       },
       order: [[1, 'asc']]
     });
-    $('.dataTables_filter input').attr("placeholder", "Search");
-    $('.dataTables_filter input').attr("height", "500px");
+    $('.dataTables_filter input').attr("placeholder ", "Search ");
+    $('.dataTables_filter input').attr("height ", "500px ");
   });
 
 </script>

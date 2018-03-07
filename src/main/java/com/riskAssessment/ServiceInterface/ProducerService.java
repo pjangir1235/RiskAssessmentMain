@@ -1,6 +1,8 @@
-package com.riskAssessment.DAO;
+package com.riskAssessment.ServiceInterface;
 
-public interface ProducerDao {
+import com.riskAssessment.POJO.ScheduleRequestData;
+
+public interface ProducerService {
 	void getAiprotValues();
 
 	void getAircraftValues();
@@ -9,7 +11,7 @@ public interface ProducerDao {
 
 	void getFlightScheduleCrewValues();
 
-	void getFlightScheduleValues();
+	void getFlightScheduleValues(ScheduleRequestData req);
 
 	void getFlightSchedulePilotValues();
 
@@ -22,7 +24,9 @@ public interface ProducerDao {
 	void getPilotDesignationValues();
 
 	void getRestDetailValues();
-	
-	void getUserValues(String userName,String Password);
+
+	void getUserValues(String userName, String Password);
+
+	void checkFetchData();
 
 }

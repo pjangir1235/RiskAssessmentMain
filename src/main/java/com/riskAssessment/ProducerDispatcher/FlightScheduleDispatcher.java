@@ -1,7 +1,9 @@
 package com.riskAssessment.ProducerDispatcher;
 
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
 
 import com.riskAssessment.DataStorageConsumerr.StoreRecord;
@@ -20,18 +22,18 @@ public class FlightScheduleDispatcher {
 	public boolean dispatch(FlightSchedule craft) {
 		
 		System.out.println(craft.toString());
-		return true;
-//		try {
-//			SendResult<Integer, FlightSchedule> sendResult = kafkaTemplate
-//					.sendDefault(craft.getFlightScheduleId(), craft).get();
-//			record.setFlightScheduleCount(record.getFlightScheduleCount() + 1);
-//			RecordMetadata recordMetadata = sendResult.getRecordMetadata();
-//
-//			System.out.println("Piyush  " + recordMetadata.offset() + "  " + recordMetadata);
-//			return true;
-//		} catch (Exception e) {
-//			throw new RuntimeException(e);
-//		}
+	
+		try {
+			SendResult<Integer, FlightSchedule> sendResult = kafkaTemplate
+					.sendDefault(craft.getFlightScheduleId(), craft).get();
+			record.setFlightScheduleCount(record.getFlightScheduleCount() + 1);
+			RecordMetadata recordMetadata = sendResult.getRecordMetadata();
+
+			System.out.println("Piyush  " + recordMetadata.offset() + "  " + recordMetadata);
+			return true;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }
