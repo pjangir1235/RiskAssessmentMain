@@ -16,12 +16,6 @@ public class Aircraft {
 	private String aircraftCode;
 	private Integer aircraftType;
 
-	public Aircraft(Integer aircraftId, String aircraftCode, Integer aircraftType) {
-		super();
-		this.aircraftId = aircraftId;
-		this.aircraftCode = aircraftCode;
-		this.aircraftType = aircraftType;
-	}
 
 	public Aircraft() {
 		super();

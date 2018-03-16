@@ -36,9 +36,7 @@ public class StoreRecord {
 	private int aircraftChecklistCount = 0;
 	private int userCount=0;
 
-	public int getAircraftChecklistCount() {
-		return aircraftChecklistCount;
-	}
+
 
 	private int aircraftTypeCount = 0;
 	private int crewCount = 0;
@@ -49,10 +47,10 @@ public class StoreRecord {
 	private int pilotDesignationCount = 0;
 	private int restDetailCount = 0;
 
-	public int Aircraft() {
+
+	public int getAircraftChecklistCount() {
 		return aircraftChecklistCount;
 	}
-
 	public void setAircraftChecklistCount(int aircraftChecklistCount) {
 		this.aircraftChecklistCount = aircraftChecklistCount;
 	}
@@ -167,40 +165,7 @@ public class StoreRecord {
 
 	}
 
-	public StoreRecord(List<AirportData> airport, List<AircraftData> aircraft,
-			List<AircraftChecklistData> aircraftChecklist, List<AircraftTypeData> aircraftType, List<CrewData> crew,
-			List<FlightScheduleData> flightSchedule, List<FlightScheduleCrewData> flightScheduleCrew,
-			List<FlightSchedulePilotData> flightSchedulePilot, List<PilotDesignationData> pilotDesignation,
-			List<RestDetailData> restDetail, List<PilotData> pilot, List<UserData> user,int airportCount, int aircraftCount,
-			int aircraftChecklistCount, int aircraftTypeCount, int crewCount, int flightScheduleCount,
-			int flightScheduleCrewCount, int flightSchedulePilotCount, int pilotCount, int pilotDesignationCount,
-			int restDetailCount,int userCount) {
-		super();
-		this.airport = airport;
-		this.aircraft = aircraft;
-		this.aircraftChecklist = aircraftChecklist;
-		this.aircraftType = aircraftType;
-		this.crew = crew;
-		this.flightSchedule = flightSchedule;
-		this.flightScheduleCrew = flightScheduleCrew;
-		this.flightSchedulePilot = flightSchedulePilot;
-		this.pilotDesignation = pilotDesignation;
-		this.restDetail = restDetail;
-		this.pilot = pilot;
-		this.user=user;
-		this.airportCount = airportCount;
-		this.aircraftCount = aircraftCount;
-		this.aircraftChecklistCount = aircraftChecklistCount;
-		this.aircraftTypeCount = aircraftTypeCount;
-		this.crewCount = crewCount;
-		this.flightScheduleCount = flightScheduleCount;
-		this.flightScheduleCrewCount = flightScheduleCrewCount;
-		this.flightSchedulePilotCount = flightSchedulePilotCount;
-		this.pilotCount = pilotCount;
-		this.pilotDesignationCount = pilotDesignationCount;
-		this.restDetailCount = restDetailCount;
-		this.userCount = userCount;
-	}
+
 
 	public List<AircraftChecklistData> getAircraftChecklist() {
 		return aircraftChecklist;
@@ -299,7 +264,7 @@ public class StoreRecord {
 		pilot = new ArrayList<>();
 		user=new ArrayList<>();
 	}
-	public void DestroyUser() {
+	public void destroyUser() {
 		user=new ArrayList<>();
 	}
 }

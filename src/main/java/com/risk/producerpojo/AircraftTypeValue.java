@@ -8,20 +8,14 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "aircraft_type_detail")
-public class AircraftType {
+public class AircraftTypeValue {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer aircraftTypeId;
 	private String aircraftType;
 
-	public AircraftType() {
+	public AircraftTypeValue() {
 		super();
-	}
-
-	public AircraftType(Integer aircraftTypeId, String aircraftType) {
-		super();
-		this.aircraftTypeId = aircraftTypeId;
-		this.aircraftType = aircraftType;
 	}
 
 	public Integer getAircraftTypeId() {

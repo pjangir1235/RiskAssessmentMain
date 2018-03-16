@@ -5,11 +5,8 @@ import java.util.Iterator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.risk.intefacerepository.PilotDesignationRepo;
 import com.risk.intefacerepository.UserRepo;
-import com.risk.producerdispatcher.PilotDesignationDispatcher;
 import com.risk.producerdispatcher.UserDispatcher;
-import com.risk.producerpojo.PilotDesignation;
 import com.risk.producerpojo.User;
 
 @Service

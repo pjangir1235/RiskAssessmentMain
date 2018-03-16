@@ -32,15 +32,14 @@ public class GetAllData implements ProducerService {
 	@Autowired
 	private GetCrewData crewData;
 
-	@Autowired
-	private GetFlightScheduleCrewData flightScheduleCrewData;
 
 	@Autowired
 	private GetFlightScheduleData flightScheduleData;
 
 	@Autowired
+	private GetFlightScheduleCrewData flightScheduleCrewData;
+	@Autowired
 	private GetFlightSchedulePilotData flightSchedulePilotData;
-
 	@Autowired
 	private GetPilotData pilotData;
 
@@ -73,11 +72,7 @@ public class GetAllData implements ProducerService {
 
 	}
 
-	@Override
-	public void getFlightScheduleCrewValues() {
-		flightScheduleCrewData.getFlightScheduleCrewData();
 
-	}
 
 	@Override
 	public void getFlightScheduleValues(ScheduleRequestData req) {
@@ -86,10 +81,17 @@ public class GetAllData implements ProducerService {
 	}
 
 	@Override
+	public void getFlightScheduleCrewValues() {
+		flightScheduleCrewData.getFlightScheduleCrewData();
+
+	}
+	@Override
 	public void getFlightSchedulePilotValues() {
 		flightSchedulePilotData.getFlightSchedulePilotData();
 
 	}
+
+
 
 	@Override
 	public void getAircraftChecklistValues() {

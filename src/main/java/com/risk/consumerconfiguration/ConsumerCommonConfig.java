@@ -33,6 +33,27 @@ public class ConsumerCommonConfig {
 
 	@Value("${kafka.bootstrap}")
 	private String bootstrap;
+	@Value("${consumer-enable-auto-commit}")
+	private Boolean enableCommit;
+	@Value("${consumer-auto-commit-interval}")
+	private String commitIntervalValue;
+	@Value("${consumer-session-timeout}")
+	private String sessionTimeOut;
+	@Value("${consumer-auto-offset}")
+	private String consumerAutoOffset;
+	@Value("${consumer-reconnect-backoff}")
+	private String reconnectBackoff;
+
+	public Map<String, Object> commonProperty() {
+		Map<String, Object> props = new HashMap<>();
+		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap);
+		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, enableCommit);
+		props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, commitIntervalValue);
+		props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, sessionTimeOut);
+		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, consumerAutoOffset);
+		props.put(ConsumerConfig.RECONNECT_BACKOFF_MS_CONFIG, reconnectBackoff);
+		return props;
+	}
 
 	@Bean
 	public ConcurrentKafkaListenerContainerFactory<Integer, AirportData> airportKafkaListenerContainerFactory() {
@@ -43,14 +64,8 @@ public class ConsumerCommonConfig {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ConsumerFactory<Integer, AirportData> airportConsumerFactory() {
-		Map<String, Object> props = new HashMap<>();
-		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap);
-		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
-		props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "100");
-		props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "15000");
+		Map<String, Object> props = commonProperty();
 		props.put(ConsumerConfig.GROUP_ID_CONFIG, "airport");
-		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
-		props.put(ConsumerConfig.RECONNECT_BACKOFF_MS_CONFIG, "100");
 		return new DefaultKafkaConsumerFactory<>(props, new IntegerDeserializer(),
 				new JsonDeserializer(AirportData.class));
 	}
@@ -64,14 +79,8 @@ public class ConsumerCommonConfig {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ConsumerFactory<Integer, AircraftData> aircraftConsumerFactory() {
-		Map<String, Object> props = new HashMap<>();
-		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap);
-		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
-		props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "100");
-		props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "15000");
+		Map<String, Object> props = commonProperty();
 		props.put(ConsumerConfig.GROUP_ID_CONFIG, "aircraft");
-		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
-		props.put(ConsumerConfig.RECONNECT_BACKOFF_MS_CONFIG, "100");
 		return new DefaultKafkaConsumerFactory<>(props, new IntegerDeserializer(),
 				new JsonDeserializer(AircraftData.class));
 	}
@@ -85,14 +94,8 @@ public class ConsumerCommonConfig {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ConsumerFactory<Integer, AircraftChecklistData> aircraftChecklistConsumerFactory() {
-		Map<String, Object> props = new HashMap<>();
-		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap);
-		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
-		props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "100");
-		props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "15000");
+		Map<String, Object> props = commonProperty();
 		props.put(ConsumerConfig.GROUP_ID_CONFIG, "aircraftChecklist");
-		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
-		props.put(ConsumerConfig.RECONNECT_BACKOFF_MS_CONFIG, "100");
 		return new DefaultKafkaConsumerFactory<>(props, new IntegerDeserializer(),
 				new JsonDeserializer(AircraftChecklistData.class));
 	}
@@ -106,14 +109,8 @@ public class ConsumerCommonConfig {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ConsumerFactory<Integer, AircraftTypeData> aircraftTypeDataConsumerFactory() {
-		Map<String, Object> props = new HashMap<>();
-		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap);
-		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
-		props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "100");
-		props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "15000");
+		Map<String, Object> props = commonProperty();
 		props.put(ConsumerConfig.GROUP_ID_CONFIG, "aircraftTypeData");
-		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
-		props.put(ConsumerConfig.RECONNECT_BACKOFF_MS_CONFIG, "100");
 		return new DefaultKafkaConsumerFactory<>(props, new IntegerDeserializer(),
 				new JsonDeserializer(AircraftTypeData.class));
 	}
@@ -127,14 +124,8 @@ public class ConsumerCommonConfig {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ConsumerFactory<Integer, CrewData> crewDataConsumerFactory() {
-		Map<String, Object> props = new HashMap<>();
-		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap);
-		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
-		props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "100");
-		props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "15000");
+		Map<String, Object> props = commonProperty();
 		props.put(ConsumerConfig.GROUP_ID_CONFIG, "crew");
-		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
-		props.put(ConsumerConfig.RECONNECT_BACKOFF_MS_CONFIG, "100");
 		return new DefaultKafkaConsumerFactory<>(props, new IntegerDeserializer(),
 				new JsonDeserializer(CrewData.class));
 	}
@@ -145,16 +136,12 @@ public class ConsumerCommonConfig {
 		factory.setConsumerFactory(flightScheduleConsumerFactory());
 		return factory;
 	}
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ConsumerFactory<Integer, FlightScheduleData> flightScheduleConsumerFactory() {
-		Map<String, Object> props = new HashMap<>();
-		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap);
-		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
-		props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "100");
-		props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "15000");
+		Map<String, Object> props = commonProperty();
+
 		props.put(ConsumerConfig.GROUP_ID_CONFIG, "flightSchedule");
-		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
-		props.put(ConsumerConfig.RECONNECT_BACKOFF_MS_CONFIG, "100");
 		return new DefaultKafkaConsumerFactory<>(props, new IntegerDeserializer(),
 				new JsonDeserializer(FlightScheduleData.class));
 	}
@@ -165,16 +152,11 @@ public class ConsumerCommonConfig {
 		factory.setConsumerFactory(flightScheduleCrewConsumerFactory());
 		return factory;
 	}
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ConsumerFactory<Integer, FlightScheduleCrewData> flightScheduleCrewConsumerFactory() {
-		Map<String, Object> props = new HashMap<>();
-		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap);
-		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
-		props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "100");
-		props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "15000");
+		Map<String, Object> props = commonProperty();
 		props.put(ConsumerConfig.GROUP_ID_CONFIG, "flightScheduleCrewData");
-		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
-		props.put(ConsumerConfig.RECONNECT_BACKOFF_MS_CONFIG, "100");
 		return new DefaultKafkaConsumerFactory<>(props, new IntegerDeserializer(),
 				new JsonDeserializer(FlightScheduleCrewData.class));
 	}
@@ -186,16 +168,10 @@ public class ConsumerCommonConfig {
 		return factory;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ConsumerFactory<Integer, FlightSchedulePilotData> flightSchedulePilotConsumerFactory() {
-		Map<String, Object> props = new HashMap<>();
-		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap);
-		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
-		props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "100");
-		props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "15000");
+		Map<String, Object> props = commonProperty();
 		props.put(ConsumerConfig.GROUP_ID_CONFIG, "flightSchedulePilot");
-		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
-		props.put(ConsumerConfig.RECONNECT_BACKOFF_MS_CONFIG, "100");
 		return new DefaultKafkaConsumerFactory<>(props, new IntegerDeserializer(),
 				new JsonDeserializer(FlightSchedulePilotData.class));
 	}
@@ -206,16 +182,12 @@ public class ConsumerCommonConfig {
 		factory.setConsumerFactory(pilotConsumerFactory());
 		return factory;
 	}
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ConsumerFactory<Integer, PilotData> pilotConsumerFactory() {
-		Map<String, Object> props = new HashMap<>();
-		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap);
-		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
-		props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "100");
-		props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "15000");
+		Map<String, Object> props = commonProperty();
+
 		props.put(ConsumerConfig.GROUP_ID_CONFIG, "pilot");
-		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
-		props.put(ConsumerConfig.RECONNECT_BACKOFF_MS_CONFIG, "100");
 		return new DefaultKafkaConsumerFactory<>(props, new IntegerDeserializer(),
 				new JsonDeserializer(PilotData.class));
 	}
@@ -226,16 +198,11 @@ public class ConsumerCommonConfig {
 		factory.setConsumerFactory(pilotDesignationConsumerFactory());
 		return factory;
 	}
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ConsumerFactory<Integer, PilotDesignationData> pilotDesignationConsumerFactory() {
-		Map<String, Object> props = new HashMap<>();
-		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap);
-		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
-		props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "100");
-		props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "15000");
+		Map<String, Object> props = commonProperty();
 		props.put(ConsumerConfig.GROUP_ID_CONFIG, "pilotDesignation");
-		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
-		props.put(ConsumerConfig.RECONNECT_BACKOFF_MS_CONFIG, "100");
 		return new DefaultKafkaConsumerFactory<>(props, new IntegerDeserializer(),
 				new JsonDeserializer(PilotDesignationData.class));
 	}
@@ -246,16 +213,11 @@ public class ConsumerCommonConfig {
 		factory.setConsumerFactory(restDetailConsumerFactory());
 		return factory;
 	}
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ConsumerFactory<Integer, RestDetailData> restDetailConsumerFactory() {
-		Map<String, Object> props = new HashMap<>();
-		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap);
-		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
-		props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "100");
-		props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "15000");
+		Map<String, Object> props = commonProperty();
 		props.put(ConsumerConfig.GROUP_ID_CONFIG, "restDetail");
-		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
-		props.put(ConsumerConfig.RECONNECT_BACKOFF_MS_CONFIG, "100");
 		return new DefaultKafkaConsumerFactory<>(props, new IntegerDeserializer(),
 				new JsonDeserializer(RestDetailData.class));
 	}
@@ -266,21 +228,14 @@ public class ConsumerCommonConfig {
 		factory.setConsumerFactory(userConsumerFactory());
 		return factory;
 	}
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ConsumerFactory<Integer, UserData> userConsumerFactory() {
-		Map<String, Object> props = new HashMap<>();
-		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap);
-		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
-		props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "100");
-		props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "15000");
+		Map<String, Object> props = commonProperty();
+
 		props.put(ConsumerConfig.GROUP_ID_CONFIG, "user");
-		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
-		props.put(ConsumerConfig.RECONNECT_BACKOFF_MS_CONFIG, "100");
 		return new DefaultKafkaConsumerFactory<>(props, new IntegerDeserializer(),
 				new JsonDeserializer(UserData.class));
 	}
-
-
-
 
 }

@@ -13,15 +13,9 @@ public class FlightScheduleCrew {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer flightScheduleId;
 	private Integer crewMemberId;
-	
+
 	public FlightScheduleCrew() {
 		super();
-	}
-
-	public FlightScheduleCrew(Integer crewMemberId, Integer flightScheduleId) {
-		super();
-		this.crewMemberId = crewMemberId;
-		this.flightScheduleId = flightScheduleId;
 	}
 
 	public Integer getCrewMemberId() {

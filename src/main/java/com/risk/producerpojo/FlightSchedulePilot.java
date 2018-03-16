@@ -34,10 +34,5 @@ public class FlightSchedulePilot {
 		this.pilotId = pilotId;
 	}
 
-	public FlightSchedulePilot(Integer flightScheduleId, Integer pilotId) {
-		super();
-		this.flightScheduleId = flightScheduleId;
-		this.pilotId = pilotId;
-	}
 
 }

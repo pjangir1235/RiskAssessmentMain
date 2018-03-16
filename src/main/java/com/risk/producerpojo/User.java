@@ -20,7 +20,7 @@ public class User {
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
-	
+
 	public String getUserName() {
 		return userName;
 	}
@@ -36,12 +36,7 @@ public class User {
 	public User() {
 		super();
 	}
-	public User(Integer userId, String userName, String password) {
-		super();
-		this.userId = userId;
-		this.userName = userName;
-		this.password = password;
-	}
-	
+
+
 
 }

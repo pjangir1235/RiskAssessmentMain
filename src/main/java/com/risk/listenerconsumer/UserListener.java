@@ -11,7 +11,6 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
-import com.risk.consumerpojo.PilotDesignationData;
 import com.risk.consumerpojo.UserData;
 import com.risk.datastorageconsumer.StoreRecord;
 
@@ -26,8 +25,8 @@ public class UserListener {
 
 	@KafkaListener(topics = "${kafka.topic-user}", containerFactory = "userKafkaListenerContainerFactory")
 
-	public void userListner(@Payload UserData schedule,
-			@Header(KafkaHeaders.OFFSET) Integer offset, @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
+	public void userListner(@Payload UserData schedule, @Header(KafkaHeaders.OFFSET) Integer offset,
+			@Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
 			@Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
 		log.info("Processing topic = {}, partition = {}, offset = {}, workUnit = {}", topic, partition, offset,
 				schedule);

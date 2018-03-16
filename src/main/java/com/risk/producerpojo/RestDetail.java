@@ -43,11 +43,6 @@ public class RestDetail {
 		this.restMinutes = restMinutes;
 	}
 
-	public RestDetail(Integer memberId, String date, Integer restMinutes) {
-		super();
-		this.memberId = memberId;
-		this.date = date;
-		this.restMinutes = restMinutes;
-	}
+
 
 }

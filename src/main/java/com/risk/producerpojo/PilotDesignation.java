@@ -34,10 +34,5 @@ public class PilotDesignation {
 		this.pilotDesignationName = pilotDesignationName;
 	}
 
-	public PilotDesignation(String pilotDesignationCode, String pilotDesignationName) {
-		super();
-		this.pilotDesignationCode = pilotDesignationCode;
-		this.pilotDesignationName = pilotDesignationName;
-	}
 
 }

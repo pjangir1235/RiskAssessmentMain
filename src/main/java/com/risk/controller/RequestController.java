@@ -31,27 +31,28 @@ import com.risk.serviceinterface.ProducerService;
 @RequestMapping
 public class RequestController {
 
+	public static final  String ERROR = "Error->";
 	@Autowired
 	ProducerService producer;
 
 	@Autowired
 	StoreRecord record;
 
-	 private static final Logger logger =
-		 LoggerFactory.getLogger(RequestController.class);
-
+	private static final Logger logger = LoggerFactory.getLogger(RequestController.class);
 
 	@GetMapping("/aircraft")
 
 	public List<AircraftData> getaircraft() {
+		List<AircraftData> list = null;
 		try {
 
 			producer.getAircraftValues();
 			producer.checkFetchData();
-			return record.getAircraft();
+			list = record.getAircraft();
+			return list;
 		} catch (Exception e) {
-			logger.error("Error->"+e);
-			return null;
+			logger.error(ERROR + e);
+			return list;
 		} finally {
 
 			record.destroy();
@@ -62,14 +63,16 @@ public class RequestController {
 	@GetMapping("/airport")
 
 	public List<AirportData> getAirport() {
+		List<AirportData> list = null;
 		try {
 
 			producer.getAiprotValues();
 			producer.checkFetchData();
-			return record.getAirport();
+			list = record.getAirport();
+			return list;
 		} catch (Exception e) {
-			logger.error("Error->"+e);
-			return null;
+			logger.error(ERROR + e);
+			return list;
 		} finally {
 
 			record.destroy();
@@ -80,14 +83,16 @@ public class RequestController {
 	@GetMapping("/aircraftChecklist")
 
 	public List<AircraftChecklistData> getAircraftChecklist() {
+		List<AircraftChecklistData> list = null;
 		try {
 
 			producer.getAircraftChecklistValues();
 			producer.checkFetchData();
-			return record.getAircraftChecklist();
+			list = record.getAircraftChecklist();
+			return list;
 		} catch (Exception e) {
-			logger.error("Error->"+e);
-			return null;
+			logger.error(ERROR + e);
+			return list;
 		} finally {
 
 			record.destroy();
@@ -98,14 +103,16 @@ public class RequestController {
 	@GetMapping("/aircraftType")
 
 	public List<AircraftTypeData> getAircraftType() {
+		List<AircraftTypeData> list = null;
 		try {
 
 			producer.getAircraftTypeValues();
 			producer.checkFetchData();
-			return record.getAircraftType();
+			list = record.getAircraftType();
+			return list;
 		} catch (Exception e) {
-			logger.error("Error->"+e);
-			return null;
+			logger.error(ERROR + e);
+			return list;
 		} finally {
 
 			record.destroy();
@@ -116,15 +123,17 @@ public class RequestController {
 	@GetMapping("/crew")
 
 	public List<CrewData> getCrew() {
+		List<CrewData> list = null;
 		try {
 
 			producer.getCrewValues();
 			producer.checkFetchData();
 
-			return record.getCrew();
+			list = record.getCrew();
+			return list;
 		} catch (Exception e) {
-			logger.error("Error->"+e);
-			return null;
+			logger.error(ERROR + e);
+			return list;
 		} finally {
 
 			record.destroy();
@@ -135,14 +144,16 @@ public class RequestController {
 	@GetMapping("/flightScheduleCrew")
 
 	public List<FlightScheduleCrewData> getFlightScheduleCrew() {
+		List<FlightScheduleCrewData> list = null;
 		try {
 
 			producer.getFlightScheduleCrewValues();
 			producer.checkFetchData();
-			return record.getFlightScheduleCrew();
+			list= record.getFlightScheduleCrew();
+			return list;
 		} catch (Exception e) {
-			logger.error("Error->"+e);
-			return null;
+			logger.error(ERROR + e);
+			return list;
 		} finally {
 
 			record.destroy();
@@ -153,14 +164,16 @@ public class RequestController {
 	@GetMapping("/flightSchedulePilot")
 
 	public List<FlightSchedulePilotData> getFlightSchedulePilot() {
+		List<FlightSchedulePilotData> list=null;
 		try {
 
 			producer.getFlightSchedulePilotValues();
 			producer.checkFetchData();
-			return record.getFlightSchedulePilot();
+			list= record.getFlightSchedulePilot();
+			return list;
 		} catch (Exception e) {
-			logger.error("Error->"+e);
-			return null;
+			logger.error(ERROR + e);
+			return list;
 		} finally {
 
 			record.destroy();
@@ -171,15 +184,16 @@ public class RequestController {
 	@PostMapping("/flightSchedule")
 
 	public List<FlightScheduleData> getFlightSchedule(@RequestBody ScheduleRequestData req) {
+		List<FlightScheduleData>list=null;
 		try {
 
 			producer.getFlightScheduleValues(req);
 			producer.checkFetchData();
-
-			return record.getFlightSchedule();
+list= record.getFlightSchedule();
+return list;
 		} catch (Exception e) {
-			logger.error("Error->"+e);
-			return null;
+			logger.error(ERROR + e);
+			return list;
 		} finally {
 
 			record.destroy();
@@ -190,14 +204,16 @@ public class RequestController {
 	@GetMapping("/pilot")
 
 	public List<PilotData> getPilot() {
+		List<PilotData> list=null;
 		try {
 
 			producer.getPilotValues();
 			producer.checkFetchData();
-			return record.getPilot();
+			list= record.getPilot();
+			return list;
 		} catch (Exception e) {
-			logger.error("Error->"+e);
-			return null;
+			logger.error(ERROR + e);
+			return list;
 		} finally {
 
 			record.destroy();
@@ -208,14 +224,16 @@ public class RequestController {
 	@GetMapping("/pilotDesignation")
 
 	public List<PilotDesignationData> getPilotDesignationData() {
+		List<PilotDesignationData> list=null;
 		try {
 
 			producer.getPilotDesignationValues();
 			producer.checkFetchData();
-			return record.getPilotDesignation();
+			list= record.getPilotDesignation();
+			return list;
 		} catch (Exception e) {
-			logger.error("Error->"+e);
-			return null;
+			logger.error(ERROR + e);
+			return list;
 		} finally {
 
 			record.destroy();
@@ -226,37 +244,37 @@ public class RequestController {
 	@GetMapping("/restDetail")
 
 	public List<RestDetailData> getRestDetail() {
+		List<RestDetailData> list=null;
 		try {
 
 			producer.getRestDetailValues();
 			producer.checkFetchData();
-			return record.getRestDetail();
+			list= record.getRestDetail();
+			return list;
 		} catch (Exception e) {
-			logger.error("Error->"+e);
-			return null;
+			logger.error(ERROR + e);
+			return list;
 		} finally {
 
 			record.destroy();
 		}
 
 	}
+
 	@PostMapping("/user")
 
 	public List<UserData> getUser(@RequestBody UserData user) {
-			try {
-				record.DestroyUser();
-			producer.getUserValues(user.getUserName(),user.getPassword());
+		List<UserData> list=null;
+		try {
+			record.destroyUser();
+			producer.getUserValues(user.getUserName(), user.getPassword());
 			producer.checkFetchData();
-			return record.getUser();
+			list= record.getUser();
+			return list;
 		} catch (Exception e) {
-			logger.error("Error->"+e);
-			return null;
-		} finally {
-
-
+			logger.error(ERROR + e);
+			return list;
 		}
-
 	}
-
 
 }

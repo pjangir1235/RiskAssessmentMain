@@ -9,6 +9,7 @@ app.controller('welcomeController', function ($window, $scope, $state) {
     $window.sessionStorage.removeItem('userName');
     $window.location.href = './index,html';
   }
+  $scope.userName = user;
   $state.go('schedule');
 });
 
@@ -108,7 +109,7 @@ app.controller('scheduleController', function ($rootScope, $window, $scope, $sta
         });
       else {
         $window.sessionStorage.setItem('schedule', JSON.stringify($scope.schedules[$scope.SelectedScheduleId]));
-        $state.go('reportAnalysis');
+        $state.go('analysisHome');
       }
     }
   }
@@ -174,7 +175,8 @@ app.service('scheduleService', ['$http', '$window', 'growl', function ($http, $w
   }
 }]);
 
-app.controller('reportAnalysisController', function ($rootScope, $window, $scope, $state) {
+
+app.controller('analysisHomeController', function ($rootScope, $window, $scope, $state, scheduleService, growl) {
   $scope.scheduleDetail = JSON.parse($window.sessionStorage.getItem('schedule'));
   console.log($scope.scheduleDetail);
   $scope.firstPilot = $scope.scheduleDetail.firstPilot;
@@ -183,6 +185,10 @@ app.controller('reportAnalysisController', function ($rootScope, $window, $scope
   $scope.sourceDate = $scope.scheduleDetail.dateOfDeparture;
   $scope.sourceLocation = $scope.scheduleDetail.sourceAirportCode;
   $scope.destinationLocation = $scope.scheduleDetail.destinationAirportCode;
+
+})
+app.controller('reportAnalysisController', function ($rootScope, $window, $scope, $state) {
+
 
 });
 
@@ -202,14 +208,58 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
       url: '/schedule',
       templateUrl: 'schedule.html',
       controller: 'scheduleController'
-    }).state('reportAnalysis', {
-      url: '/reportAnalysis',
-      templateUrl: 'reportAnalysis.html',
-      controller: 'reportAnalysisController'
+
     })
-
-
-
+    .state('analysisHome', {
+      url: '/analysisHome',
+      templateUrl: 'analysisHome.html',
+      controller: 'analysisHomeController'
+    })
+    .state('analysisHome.aircraft', {
+      url: '/aircraft',
+      templateUrl: 'aircraft.html',
+      // controller: 'aircraftController'
+    })
+    .state('analysisHome.aircraftData', {
+      url: '/aircraftData',
+      templateUrl: 'aircraftData.html',
+      // controller: 'aircraftDataController'
+    })
+    .state('analysisHome.destinationAirport', {
+      url: '/destinationAirport',
+      templateUrl: 'destinationAirport.html',
+      //   controller: 'destinationAirportController'
+    })
+    .state('analysisHome.environmentData', {
+      url: '/environmentData',
+      templateUrl: 'environmentData.html',
+      // controller: 'environmentDataController'
+    })
+    .state('analysisHome.humanPerformance', {
+      url: '/humanPerformance',
+      templateUrl: 'humanPerformance.html',
+      // controller: 'humanPerformanceController'
+    })
+    .state('analysisHome.pilotData', {
+      url: '/pilotData',
+      templateUrl: 'pilotData.html',
+      // controller: 'pilotDataController'
+    })
+    .state('analysisHome.profeciency', {
+      url: '/profeciency',
+      templateUrl: 'profeciency.html',
+      // controller: 'profeciencyController'
+    })
+    .state('analysisHome.result', {
+      url: '/result',
+      templateUrl: 'result.html',
+      // controller: 'resultController'
+    })
+    .state('analysisHome.sourceAirport', {
+      url: '/sourceAirport',
+      templateUrl: 'sourceAirport.html',
+      // controller: 'sourceAirportController'
+    })
 }]);
 app.config(['growlProvider', function (growlProvider) {
   growlProvider.globalDisableCountDown(true);

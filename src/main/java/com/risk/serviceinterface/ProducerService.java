@@ -9,9 +9,9 @@ public interface ProducerService {
 
 	void getCrewValues();
 
-	void getFlightScheduleCrewValues();
-
 	void getFlightScheduleValues(ScheduleRequestData req);
+
+	void getFlightScheduleCrewValues();
 
 	void getFlightSchedulePilotValues();
 
@@ -25,7 +25,7 @@ public interface ProducerService {
 
 	void getRestDetailValues();
 
-	void getUserValues(String userName, String Password);
+	void getUserValues(String userName, String password);
 
 	void checkFetchData();
 

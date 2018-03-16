@@ -35,7 +35,7 @@ public class FlightSchedule {
 	@JoinTable(name = "flight_schedule_crew", joinColumns = {
 			@JoinColumn(name = "flightScheduleId") }, inverseJoinColumns = { @JoinColumn(name = "crewMemberId") })
 	List<Crew> crews;
-	
+
 	public List<Crew> getCrews() {
 		return crews;
 	}
@@ -46,20 +46,6 @@ public class FlightSchedule {
 
 	public FlightSchedule() {
 		super();
-	}
-
-	public FlightSchedule(Integer flightScheduleId, String aircraftCode, String sourceAirportCode,
-			String destinationAirportCode, String dateOfDeparture, String timeDeparture, String timeArrival,
-			Integer duration) {
-		super();
-		this.flightScheduleId = flightScheduleId;
-		this.aircraftCode = aircraftCode;
-		this.sourceAirportCode = sourceAirportCode;
-		this.destinationAirportCode = destinationAirportCode;
-		this.dateOfDeparture = dateOfDeparture;
-		this.timeDeparture = timeDeparture;
-		this.timeArrival = timeArrival;
-		this.duration = duration;
 	}
 
 	public Integer getFlightScheduleId() {

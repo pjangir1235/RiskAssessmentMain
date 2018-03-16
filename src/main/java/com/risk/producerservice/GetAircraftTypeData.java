@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.risk.intefacerepository.AircraftTypeRepo;
 import com.risk.producerdispatcher.AircraftTypeDispatcher;
-import com.risk.producerpojo.AircraftType;
+import com.risk.producerpojo.AircraftTypeValue;
 
 @Service
 public class GetAircraftTypeData {
@@ -18,8 +18,8 @@ public class GetAircraftTypeData {
 	AircraftTypeDispatcher craftDispatcher;
 
 	public void getAircraftTypeData() {
-		Iterable<AircraftType> itr = craftRepo.findAll();
-		Iterator<AircraftType> iter = itr.iterator();
+		Iterable<AircraftTypeValue> itr = craftRepo.findAll();
+		Iterator<AircraftTypeValue> iter = itr.iterator();
 		while (iter.hasNext())
 			craftDispatcher.dispatch(iter.next());
 

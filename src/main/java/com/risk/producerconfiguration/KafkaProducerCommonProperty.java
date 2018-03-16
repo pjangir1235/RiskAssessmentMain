@@ -17,16 +17,26 @@ public class KafkaProducerCommonProperty {
 
 	@Value("${kafka.bootstrap}")
 	private String bootstrap;
+	@Value("${producer-acks}")
+	private String ackConfig;
+	@Value("${producer-retries}")
+	private Integer retries;
+	@Value("${producer-batch-size}")
+	private Integer batchSize;
+	@Value("${producer-linger}")
+	private Integer lingerMsConfig;
+	@Value("${producer-buffer-memory}")
+	private Integer bufferMemory;
 
 	@Bean
 	public Map<String, Object> producerConfigs() {
 		Map<String, Object> props = new HashMap<>();
 		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrap);
-		props.put(ProducerConfig.ACKS_CONFIG, "1");
-		props.put(ProducerConfig.RETRIES_CONFIG, 0);
-		props.put(ProducerConfig.BATCH_SIZE_CONFIG, 16384);
-		props.put(ProducerConfig.LINGER_MS_CONFIG, 1);
-		props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 33554432);
+		props.put(ProducerConfig.ACKS_CONFIG, ackConfig);
+		props.put(ProducerConfig.RETRIES_CONFIG, retries);
+		props.put(ProducerConfig.BATCH_SIZE_CONFIG, batchSize);
+		props.put(ProducerConfig.LINGER_MS_CONFIG, lingerMsConfig);
+		props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, bufferMemory);
 		return props;
 	}
 	@SuppressWarnings("rawtypes")

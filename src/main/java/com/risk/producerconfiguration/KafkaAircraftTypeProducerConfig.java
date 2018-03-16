@@ -8,7 +8,7 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 
-import com.risk.producerpojo.AircraftType;
+import com.risk.producerpojo.AircraftTypeValue;
 
 @Configuration
 public class KafkaAircraftTypeProducerConfig {
@@ -20,15 +20,15 @@ public class KafkaAircraftTypeProducerConfig {
 
 	@SuppressWarnings("unchecked")
 	@Bean
-	public ProducerFactory<Integer, AircraftType> producerFactory() {
+	public ProducerFactory<Integer, AircraftTypeValue> producerFactory() {
 		return new DefaultKafkaProducerFactory<>(property.producerConfigs(), property.setIntegerKeySerializer(),
 				property.setJsonSerializer());
 	}
 
 	@Bean
-	public KafkaTemplate<Integer, AircraftType> aircraftTypetKafkaTemplate() {
+	public KafkaTemplate<Integer, AircraftTypeValue> aircraftTypetKafkaTemplate() {
 
-		KafkaTemplate<Integer, AircraftType> kafkaTemplate = new KafkaTemplate<>(producerFactory());
+		KafkaTemplate<Integer, AircraftTypeValue> kafkaTemplate = new KafkaTemplate<>(producerFactory());
 		kafkaTemplate.setDefaultTopic(topic);
 		return kafkaTemplate;
 	}

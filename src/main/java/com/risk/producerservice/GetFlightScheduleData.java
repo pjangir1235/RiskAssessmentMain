@@ -17,14 +17,12 @@ public class GetFlightScheduleData {
 	@Autowired
 	FlightScheduleDispatcher craftDispatcher;
 
-	public void getFlightScheduleData(String location,String Date) {
-		Iterable<FlightSchedule> itr = craftRepo.findSchedule(location,Date);
+	public void getFlightScheduleData(String location,String date) {
+		Iterable<FlightSchedule> itr = craftRepo.findSchedule(location,date);
 		Iterator<FlightSchedule> iter = itr.iterator();
 		while (iter.hasNext())
 			craftDispatcher.dispatch(iter.next());
 
 	}
-//	public void getFlightSchedulePilotData() {
-//		Iterable<FlightSchedule> 
-//	}
+
 }

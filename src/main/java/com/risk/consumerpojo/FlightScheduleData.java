@@ -12,6 +12,7 @@ public class FlightScheduleData {
 	private String timeArrival;
 	private List<PilotData> pilots;
 	private List<CrewData> crews;
+
 	public List<PilotData> getPilots() {
 		return pilots;
 	}
@@ -98,18 +99,6 @@ public class FlightScheduleData {
 		this.duration = duration;
 	}
 
-	public FlightScheduleData(int flightScheduleId, String aircraftCode, String sourceAirportCode,
-			String destinationAirportCode, String dateOfDeparture, String timeDeparture, String timeArrival,
-			int duration) {
-		super();
-		this.flightScheduleId = flightScheduleId;
-		this.aircraftCode = aircraftCode;
-		this.sourceAirportCode = sourceAirportCode;
-		this.destinationAirportCode = destinationAirportCode;
-		this.dateOfDeparture = dateOfDeparture;
-		this.timeDeparture = timeDeparture;
-		this.timeArrival = timeArrival;
-		this.duration = duration;
-	}
+
 
 }

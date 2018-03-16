@@ -31,7 +31,6 @@ public class AirportListener {
 				schedule);
 		record.setAirportObj(schedule);
 		record.setAirportCount(record.getAirportCount() - 1);
-		System.out.println(schedule.toString());
 		countDownLatch1.countDown();
 
 	}

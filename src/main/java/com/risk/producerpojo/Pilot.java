@@ -17,12 +17,7 @@ public class Pilot {
 		super();
 	}
 
-	public Pilot(Integer pilotId, String pilotName, String pilotDesignationCode) {
-		super();
-		this.pilotId = pilotId;
-		this.pilotName = pilotName;
-		this.pilotDesignationCode = pilotDesignationCode;
-	}
+
 
 	public Integer getPilotId() {
 		return pilotId;
