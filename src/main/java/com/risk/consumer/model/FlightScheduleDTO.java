@@ -1,8 +1,8 @@
-package com.risk.consumerpojo;
+package com.risk.consumer.model;
 
 import java.util.List;
 
-public class FlightScheduleData {
+public class FlightScheduleDTO {
 	private int flightScheduleId;
 	private String aircraftCode;
 	private String sourceAirportCode;
@@ -10,95 +10,93 @@ public class FlightScheduleData {
 	private String dateOfDeparture;
 	private String timeDeparture;
 	private String timeArrival;
-	private List<PilotData> pilots;
-	private List<CrewData> crews;
-
-	public List<PilotData> getPilots() {
-		return pilots;
-	}
-
-	public void setPilots(List<PilotData> pilots) {
-		this.pilots = pilots;
-	}
-
-	public List<CrewData> getCrews() {
-		return crews;
-	}
-
-	public void setCrews(List<CrewData> crews) {
-		this.crews = crews;
-	}
+	private List<PilotDTO> pilots;
+	private List<CrewDTO> crews;
 
 	int duration;
 
-	public FlightScheduleData() {
+	public FlightScheduleDTO() {
 		super();
-	}
-
-	public int getFlightScheduleId() {
-		return flightScheduleId;
-	}
-
-	public void setFlightScheduleId(int flightScheduleId) {
-		this.flightScheduleId = flightScheduleId;
 	}
 
 	public String getAircraftCode() {
 		return aircraftCode;
 	}
 
-	public void setAircraftCode(String aircraftCode) {
-		this.aircraftCode = aircraftCode;
-	}
-
-	public String getSourceAirportCode() {
-		return sourceAirportCode;
-	}
-
-	public void setSourceAirportCode(String sourceAirportCode) {
-		this.sourceAirportCode = sourceAirportCode;
-	}
-
-	public String getDestinationAirportCode() {
-		return destinationAirportCode;
-	}
-
-	public void setDestinationAirportCode(String destinationAirportCode) {
-		this.destinationAirportCode = destinationAirportCode;
+	public List<CrewDTO> getCrews() {
+		return crews;
 	}
 
 	public String getDateOfDeparture() {
 		return dateOfDeparture;
 	}
 
-	public void setDateOfDeparture(String dateOfDeparture) {
-		this.dateOfDeparture = dateOfDeparture;
-	}
-
-	public String getTimeDeparture() {
-		return timeDeparture;
-	}
-
-	public void setTimeDeparture(String timeDeparture) {
-		this.timeDeparture = timeDeparture;
-	}
-
-	public String getTimeArrival() {
-		return timeArrival;
-	}
-
-	public void setTimeArrival(String timeArrival) {
-		this.timeArrival = timeArrival;
+	public String getDestinationAirportCode() {
+		return destinationAirportCode;
 	}
 
 	public int getDuration() {
 		return duration;
 	}
 
+	public int getFlightScheduleId() {
+		return flightScheduleId;
+	}
+
+	public List<PilotDTO> getPilots() {
+		return pilots;
+	}
+
+	public String getSourceAirportCode() {
+		return sourceAirportCode;
+	}
+
+	public String getTimeArrival() {
+		return timeArrival;
+	}
+
+	public String getTimeDeparture() {
+		return timeDeparture;
+	}
+
+	public void setAircraftCode(String aircraftCode) {
+		this.aircraftCode = aircraftCode;
+	}
+
+	public void setCrews(List<CrewDTO> crews) {
+		this.crews = crews;
+	}
+
+	public void setDateOfDeparture(String dateOfDeparture) {
+		this.dateOfDeparture = dateOfDeparture;
+	}
+
+	public void setDestinationAirportCode(String destinationAirportCode) {
+		this.destinationAirportCode = destinationAirportCode;
+	}
+
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
 
+	public void setFlightScheduleId(int flightScheduleId) {
+		this.flightScheduleId = flightScheduleId;
+	}
 
+	public void setPilots(List<PilotDTO> pilots) {
+		this.pilots = pilots;
+	}
+
+	public void setSourceAirportCode(String sourceAirportCode) {
+		this.sourceAirportCode = sourceAirportCode;
+	}
+
+	public void setTimeArrival(String timeArrival) {
+		this.timeArrival = timeArrival;
+	}
+
+	public void setTimeDeparture(String timeDeparture) {
+		this.timeDeparture = timeDeparture;
+	}
 
 }

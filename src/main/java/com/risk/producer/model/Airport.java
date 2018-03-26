@@ -1,4 +1,4 @@
-package com.risk.producerpojo;
+package com.risk.producer.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,29 +14,10 @@ public class Airport {
 	private Integer airportId;
 	private String airportCode;
 	private String airportName;
+	private Boolean isMountain;
 
-	public Integer getAirportId() {
-		return airportId;
-	}
-
-	public void setAirportId(Integer airportId) {
-		this.airportId = airportId;
-	}
-
-	public String getAirportCode() {
-		return airportCode;
-	}
-
-	public void setAirportCode(String airportCode) {
-		this.airportCode = airportCode;
-	}
-
-	public String getAirportName() {
-		return airportName;
-	}
-
-	public void setAirportName(String airportName) {
-		this.airportName = airportName;
+	public Airport() {
+		super();
 	}
 
 	public Airport(Integer airportId, String airportCode, String airportName) {
@@ -46,8 +27,36 @@ public class Airport {
 		this.airportName = airportName;
 	}
 
-	public Airport() {
-		super();
+	public String getAirportCode() {
+		return airportCode;
+	}
+
+	public Integer getAirportId() {
+		return airportId;
+	}
+
+	public String getAirportName() {
+		return airportName;
+	}
+
+	public Boolean getIsMountain() {
+		return isMountain;
+	}
+
+	public void setAirportCode(String airportCode) {
+		this.airportCode = airportCode;
+	}
+
+	public void setAirportId(Integer airportId) {
+		this.airportId = airportId;
+	}
+
+	public void setAirportName(String airportName) {
+		this.airportName = airportName;
+	}
+
+	public void setIsMountain(Boolean isMountain) {
+		this.isMountain = isMountain;
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.risk.producerconfiguration;
+package com.risk.producer.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,7 +8,7 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 
-import com.risk.producerpojo.User;
+import com.risk.producer.model.User;
 
 @Configuration
 public class KafkaUserProducerConfig {
@@ -18,10 +18,12 @@ public class KafkaUserProducerConfig {
 
 	@Value("${kafka.topic-user}")
 	private String topic;
+
 	@SuppressWarnings("unchecked")
 	@Bean
 	public ProducerFactory<Integer, User> producerFactory() {
-		return new DefaultKafkaProducerFactory<>(property.producerConfigs(), property.setIntegerKeySerializer(), property.setJsonSerializer());
+		return new DefaultKafkaProducerFactory<>(property.producerConfigs(), property.setIntegerKeySerializer(),
+		                property.setJsonSerializer());
 	}
 
 	@Bean

@@ -1,44 +1,43 @@
-package com.risk.consumerpojo;
+package com.risk.consumer.model;
 
-public class CrewData {
+public class CrewDTO {
 
 	private int crewMemberId;
 	private String crewMemberName;
 	private long mobile;
 
-	public int getCrewMemberId() {
-		return crewMemberId;
+	public CrewDTO() {
+		super();
 	}
 
-	public void setCrewMemberId(int crewMemberId) {
-		this.crewMemberId = crewMemberId;
+	public int getCrewMemberId() {
+		return crewMemberId;
 	}
 
 	public String getCrewMemberName() {
 		return crewMemberName;
 	}
 
-	public void setCrewMemberName(String crewMemberName) {
-		this.crewMemberName = crewMemberName;
-	}
-
 	public long getMobile() {
 		return mobile;
+	}
+
+	public void setCrewMemberId(int crewMemberId) {
+		this.crewMemberId = crewMemberId;
+	}
+
+	public void setCrewMemberName(String crewMemberName) {
+		this.crewMemberName = crewMemberName;
 	}
 
 	public void setMobile(long mobile) {
 		this.mobile = mobile;
 	}
 
-	public CrewData(int crewMemberId, String crewMemberName, long mobile) {
-		super();
-		this.crewMemberId = crewMemberId;
-		this.crewMemberName = crewMemberName;
-		this.mobile = mobile;
-	}
-
-	public CrewData() {
-		super();
+	@Override
+	public String toString() {
+		return "CrewData [crewMemberId=" + crewMemberId + ", crewMemberName=" + crewMemberName + ", mobile=" + mobile
+		                + "]";
 	}
 
 }

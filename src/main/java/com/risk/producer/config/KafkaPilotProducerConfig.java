@@ -1,4 +1,4 @@
-package com.risk.producerconfiguration;
+package com.risk.producer.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,7 +8,7 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 
-import com.risk.producerpojo.Pilot;
+import com.risk.producer.model.Pilot;
 
 @Configuration
 public class KafkaPilotProducerConfig {
@@ -18,18 +18,18 @@ public class KafkaPilotProducerConfig {
 	@Value("${kafka.topic-pilot}")
 	private String topic;
 
-	@SuppressWarnings("unchecked")
-	@Bean
-	public ProducerFactory<Integer, Pilot> producerFactory() {
-		return new DefaultKafkaProducerFactory<>(property.producerConfigs(), property.setIntegerKeySerializer(),
-				property.setJsonSerializer());
-	}
-
 	@Bean
 	public KafkaTemplate<Integer, Pilot> pilotKafkaTemplate() {
 
 		KafkaTemplate<Integer, Pilot> kafkaTemplate = new KafkaTemplate<>(producerFactory());
 		kafkaTemplate.setDefaultTopic(topic);
 		return kafkaTemplate;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Bean
+	public ProducerFactory<Integer, Pilot> producerFactory() {
+		return new DefaultKafkaProducerFactory<>(property.producerConfigs(), property.setIntegerKeySerializer(),
+		                property.setJsonSerializer());
 	}
 }

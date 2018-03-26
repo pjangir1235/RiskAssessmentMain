@@ -1,43 +1,48 @@
-package com.risk.consumerpojo;
+package com.risk.consumer.model;
 
-public class RestDetailData {
+public class RestDetailDTO {
 	private int memberId;
 	private String date;
 	private int restMinutes;
 
-	public RestDetailData() {
+	public RestDetailDTO() {
 		super();
 	}
 
-	public RestDetailData(int memberId, String date, int restMinutes) {
+	public RestDetailDTO(int memberId, String date, int restMinutes) {
 		super();
 		this.memberId = memberId;
 		this.date = date;
 		this.restMinutes = restMinutes;
-	}
-
-	public int getMemberId() {
-		return memberId;
-	}
-
-	public void setMemberId(int memberId) {
-		this.memberId = memberId;
 	}
 
 	public String getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public int getMemberId() {
+		return memberId;
 	}
 
 	public int getRestMinutes() {
 		return restMinutes;
 	}
 
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
+	}
+
 	public void setRestMinutes(int restMinutes) {
 		this.restMinutes = restMinutes;
+	}
+
+	@Override
+	public String toString() {
+		return "RestDetailData [memberId=" + memberId + ", date=" + date + ", restMinutes=" + restMinutes + "]";
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.risk.producerconfiguration;
+package com.risk.producer.config;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,16 +39,19 @@ public class KafkaProducerCommonProperty {
 		props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, bufferMemory);
 		return props;
 	}
+
 	@SuppressWarnings("rawtypes")
 	@Bean
 	public Serializer setIntegerKeySerializer() {
 		return new IntegerSerializer();
 	}
+
 	@SuppressWarnings({ "rawtypes" })
 	@Bean
 	public Serializer setJsonSerializer() {
 		return new JsonSerializer();
 	}
+
 	@SuppressWarnings({ "rawtypes" })
 	@Bean
 	public Serializer setStringSerializer() {

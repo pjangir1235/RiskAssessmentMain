@@ -1,4 +1,29 @@
-<div class="top-bar div-schedule-color">
+<div class="loader-wrapper" ng-show='scheduleLoading'>
+  <div class="loader">
+    <div class="roller"></div>
+    <div class="roller"></div>
+  </div>
+
+  <div id="loader2" class="loader">
+    <div class="roller"></div>
+    <div class="roller"></div>
+  </div>
+
+  <div id="loader3" class="loader">
+    <div class="roller"></div>
+    <div class="roller"></div>
+  </div>
+  <div id="loader3" class="loader">
+    <div class="roller"></div>
+    <div class="roller"></div>
+  </div>
+  <div id="loader4" class="loader">
+    <div class="roller"></div>
+    <div class="roller"></div>
+  </div>
+</div>
+
+<div class="top-bar div-schedule-color ">
 
   <div style="float:left; width:80% ">
     <label class="text-label" style="margin-left:10%;">Location</label>
@@ -13,7 +38,7 @@
     <input type="date" class="input-date" id="date" style="height:39px;border-radius: 6px;" ng-model="dateValue" ng-change="getSchedule()">
   </div>
   <button type="button " class="button warning " style="width: 150px;margin-top: 50px;margin-left: 80px;border-radius:
-      5px " ng-click="analysis() " ng-disabled="analysisButton">Start Analysis</button>
+      5px;background: rgb(234, 98, 20); " ng-click="analysis() " ng-disabled="analysisButton">Start Analysis</button>
 
 </div>
 
@@ -51,6 +76,7 @@
     </tbody>
   </table>
 </div>
+
 <script>
   $(document).ready(function () {
     $('#example').DataTable({

@@ -1,22 +1,27 @@
-package com.risk.producerservice;
+package com.risk.services.impl;
 
 import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.risk.intefacerepository.PilotRepo;
-import com.risk.producerdispatcher.PilotDispatcher;
-import com.risk.producerpojo.Pilot;
+import com.risk.producer.dispatcher.PilotDispatcher;
+import com.risk.producer.intefacerepo.PilotRepo;
+import com.risk.producer.model.Pilot;
+import com.risk.services.interfaces.PilotService;
 
 @Service
-public class GetPilotData {
+public class PilotServiceImpl implements PilotService {
 
 	@Autowired
 	PilotRepo craftRepo;
 	@Autowired
 	PilotDispatcher craftDispatcher;
 
+	/* (non-Javadoc)
+	 * @see com.risk.services.impl.PilotService#getPilotData()
+	 */
+	@Override
 	public void getPilotData() {
 		Iterable<Pilot> itr = craftRepo.findAll();
 		Iterator<Pilot> iter = itr.iterator();

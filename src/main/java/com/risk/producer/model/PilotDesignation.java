@@ -1,4 +1,4 @@
-package com.risk.producerpojo;
+package com.risk.producer.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,17 +22,16 @@ public class PilotDesignation {
 		return pilotDesignationCode;
 	}
 
-	public void setPilotDesignationCode(String pilotDesignationCode) {
-		this.pilotDesignationCode = pilotDesignationCode;
-	}
-
 	public String getPilotDesignationName() {
 		return pilotDesignationName;
+	}
+
+	public void setPilotDesignationCode(String pilotDesignationCode) {
+		this.pilotDesignationCode = pilotDesignationCode;
 	}
 
 	public void setPilotDesignationName(String pilotDesignationName) {
 		this.pilotDesignationName = pilotDesignationName;
 	}
-
 
 }

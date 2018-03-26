@@ -1,9 +1,9 @@
-package com.risk.intefacerepository;
+package com.risk.producer.intefacerepo;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.risk.producerpojo.Pilot;
+import com.risk.producer.model.Pilot;
 
 @Repository
 public interface PilotRepo extends CrudRepository<Pilot, Long> {

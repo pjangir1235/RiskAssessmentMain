@@ -1,4 +1,4 @@
-package com.risk.producerconfiguration;
+package com.risk.producer.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,7 +8,7 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 
-import com.risk.producerpojo.AircraftChecklist;
+import com.risk.producer.model.AircraftChecklist;
 
 @Configuration
 public class KafkaAircraftChecklistProducerConfig {
@@ -17,12 +17,6 @@ public class KafkaAircraftChecklistProducerConfig {
 
 	@Value("${kafka.topic-aircraftChecklist}")
 	private String topic;
-	@SuppressWarnings("unchecked")
-	@Bean
-	public ProducerFactory<Integer, AircraftChecklist> producerFactory() {
-		return new DefaultKafkaProducerFactory<>(property.producerConfigs(), property.setIntegerKeySerializer(),
-				property.setJsonSerializer());
-	}
 
 	@Bean
 	public KafkaTemplate<Integer, AircraftChecklist> aircraftChecklistKafkaTemplate() {
@@ -30,5 +24,12 @@ public class KafkaAircraftChecklistProducerConfig {
 		KafkaTemplate<Integer, AircraftChecklist> kafkaTemplate = new KafkaTemplate<>(producerFactory());
 		kafkaTemplate.setDefaultTopic(topic);
 		return kafkaTemplate;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Bean
+	public ProducerFactory<Integer, AircraftChecklist> producerFactory() {
+		return new DefaultKafkaProducerFactory<>(property.producerConfigs(), property.setIntegerKeySerializer(),
+		                property.setJsonSerializer());
 	}
 }

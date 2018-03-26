@@ -1,15 +1,15 @@
-package com.risk.consumerpojo;
+package com.risk.consumer.model;
 
-public class FlightScheduleCrewData {
+public class FlightScheduleCrewDTO {
 
 	private int crewMemberId;
 	private int flightScheduleId;
 
-	public FlightScheduleCrewData() {
+	public FlightScheduleCrewDTO() {
 		super();
 	}
 
-	public FlightScheduleCrewData(int crewMemberId, int flightScheduleId) {
+	public FlightScheduleCrewDTO(int crewMemberId, int flightScheduleId) {
 		super();
 		this.crewMemberId = crewMemberId;
 		this.flightScheduleId = flightScheduleId;
@@ -19,12 +19,12 @@ public class FlightScheduleCrewData {
 		return crewMemberId;
 	}
 
-	public void setCrewMemberId(int crewMemberId) {
-		this.crewMemberId = crewMemberId;
-	}
-
 	public int getFlightScheduleId() {
 		return flightScheduleId;
+	}
+
+	public void setCrewMemberId(int crewMemberId) {
+		this.crewMemberId = crewMemberId;
 	}
 
 	public void setFlightScheduleId(int flightScheduleId) {

@@ -1,5 +1,6 @@
 $(document).foundation();
-var app = angular.module('module1', ['ui.router', 'angular-growl', 'angular.filter']);
+var app = angular.module('module1', ['angular-loading-bar', 'ui.router', 'angular-growl', 'angular.filter']);
+
 
 app.controller('welcomeController', function ($window, $scope, $state) {
   var user = $window.sessionStorage.getItem('userName');
@@ -15,7 +16,6 @@ app.controller('welcomeController', function ($window, $scope, $state) {
 
 app.controller('loginController', function ($rootScope, $window, $scope, $state, loginVerification, growl) {
   $scope.login = function () {
-    console.log('Hello');
     if ($scope.user == "" || $scope.user == null) {
       growl.warning("Enter User name", {
         ttl: 1500
@@ -31,7 +31,9 @@ app.controller('loginController', function ($rootScope, $window, $scope, $state,
         'userName': $scope.user,
         'password': $scope.password
       }
+      $scope.loginLoading = true;
       loginVerification.loginCheck(data).then(function (data) {
+        $scope.loginLoading = false;
         console.log(data.data);
         if (data.data == null || data.data == '') {
           growl.error("Wrong ID and Password", {
@@ -67,10 +69,13 @@ app.service('loginVerification', ['$http', '$window', 'growl', function ($http, 
 }]);
 
 app.controller('scheduleController', function ($rootScope, $window, $scope, $state, scheduleService, growl) {
+  $scope.scheduleLoading = true;
   $scope.table_hide = true;
   $scope.analysisButton = true;
   var dateAdd = (24 * 60 * 60 * 1000);
+
   scheduleService.getLocation().then(function (data) {
+    $scope.scheduleLoading = false;
     $scope.location = data.data;
   });
   $scope.checkLocation = function () {
@@ -87,8 +92,11 @@ app.controller('scheduleController', function ($rootScope, $window, $scope, $sta
         'location': $scope.locationValue,
         'date': $scope.newdate
       }
+      $scope.scheduleLoading = true;
       scheduleService.getFlightSchedule(data).then(function (data) {
+        $scope.scheduleLoading = false;
         if (data.data == null || data.data == '') {
+
           growl.error("No Flight scheduled in location " + $scope.locationValue + " on " + $scope.newdate, {
             ttl: 4000
           });
@@ -122,12 +130,16 @@ app.controller('scheduleController', function ($rootScope, $window, $scope, $sta
 })
 
 app.service('scheduleService', ['$http', '$window', 'growl', function ($http, $window, $state, growl) {
+
+
   this.getLocation = function () {
+    // 
     return (
       $http.get('/RiskAssessment/airport').success(function (data, response) {
-
+        // $scope.scheduleLoading = false;
         return data;
       }).error(function (response, status) {
+        // $scope.scheduleLoading = false;
         return status;
 
       })
@@ -207,18 +219,27 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
     .state('schedule', {
       url: '/schedule',
       templateUrl: 'schedule.html',
-      controller: 'scheduleController'
-
+      controller: 'scheduleController',
     })
     .state('analysisHome', {
       url: '/analysisHome',
       templateUrl: 'analysisHome.html',
-      controller: 'analysisHomeController'
+      controller: 'analysisHomeController',
+      resolve: {
+        timing: function ($timeout, $q) {
+          var defer = $q.defer();
+          $timeout(function () {
+            defer.resolve();
+          }, 3500);
+          return defer.promise;
+        }
+      }
     })
     .state('analysisHome.aircraft', {
       url: '/aircraft',
       templateUrl: 'aircraft.html',
-      // controller: 'aircraftController'
+      // controller: 'aircraftController',
+
     })
     .state('analysisHome.aircraftData', {
       url: '/aircraftData',

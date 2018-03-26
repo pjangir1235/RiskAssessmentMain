@@ -1,4 +1,4 @@
-package com.risk.listenerconsumer;
+package com.risk.consumer.listeners;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -11,25 +11,26 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
-import com.risk.consumerpojo.FlightScheduleCrewData;
-import com.risk.datastorageconsumer.StoreRecord;
+import com.risk.consumer.model.FlightScheduleCrewDTO;
+import com.risk.models.StoreRecord;
 
 @Component
 public class FlightScheduleCrewListener {
 
+	private static final Logger log = LoggerFactory.getLogger(FlightScheduleCrewListener.class);
 	@Autowired
 	StoreRecord record;
-	public final CountDownLatch countDownLatch1 = new CountDownLatch(3);
 
-	private static final Logger log = LoggerFactory.getLogger(FlightScheduleCrewListener.class);
+	public final CountDownLatch countDownLatch1 = new CountDownLatch(3);
 
 	@KafkaListener(topics = "${kafka.topic-flightScheduleCrew}", containerFactory = "flightScheduleCrewKafkaListenerContainerFactory")
 
-	public void flightScheduleCrewListner(@Payload FlightScheduleCrewData schedule,
-			@Header(KafkaHeaders.OFFSET) Integer offset, @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
-			@Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
+	public void flightScheduleCrewListner(@Payload FlightScheduleCrewDTO schedule,
+	                @Header(KafkaHeaders.OFFSET) Integer offset,
+	                @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
+	                @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
 		log.info("Processing topic = {}, partition = {}, offset = {}, workUnit = {}", topic, partition, offset,
-				schedule);
+		                schedule);
 		record.setFlightScheduleCrew(schedule);
 		record.setFlightScheduleCrewCount(record.getFlightScheduleCrewCount() - 1);
 		countDownLatch1.countDown();

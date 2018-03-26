@@ -1,4 +1,4 @@
-package com.risk.producerpojo;
+package com.risk.producer.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,71 +24,60 @@ public class AircraftChecklist {
 		super();
 	}
 
-	public AircraftChecklist(Integer checklistId, String aircraftCode, String date, Boolean autoPilot,
-			Boolean stormScope, Boolean weatherRadar, Boolean deIce) {
-		super();
-		this.checklistId = checklistId;
-		this.aircraftCode = aircraftCode;
-		this.date = date;
-		this.autoPilot = autoPilot;
-		this.stormScope = stormScope;
-		this.weatherRadar = weatherRadar;
-		this.deIce = deIce;
-	}
-
-	public Integer getChecklistId() {
-		return checklistId;
-	}
-
-	public void setChecklistId(Integer checklistId) {
-		this.checklistId = checklistId;
-	}
 
 	public String getAircraftCode() {
 		return aircraftCode;
-	}
-
-	public void setAircraftCode(String aircraftCode) {
-		this.aircraftCode = aircraftCode;
-	}
-
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
 	}
 
 	public Boolean getAutoPilot() {
 		return autoPilot;
 	}
 
-	public void setAutoPilot(Boolean autoPilot) {
-		this.autoPilot = autoPilot;
+	public Integer getChecklistId() {
+		return checklistId;
 	}
 
-	public Boolean getStormScope() {
-		return stormScope;
-	}
-
-	public void setStormScope(Boolean stormScope) {
-		this.stormScope = stormScope;
-	}
-
-	public Boolean getWeatherRadar() {
-		return weatherRadar;
-	}
-
-	public void setWeatherRadar(Boolean weatherRadar) {
-		this.weatherRadar = weatherRadar;
+	public String getDate() {
+		return date;
 	}
 
 	public Boolean getDeIce() {
 		return deIce;
 	}
 
+	public Boolean getStormScope() {
+		return stormScope;
+	}
+
+	public Boolean getWeatherRadar() {
+		return weatherRadar;
+	}
+
+	public void setAircraftCode(String aircraftCode) {
+		this.aircraftCode = aircraftCode;
+	}
+
+	public void setAutoPilot(Boolean autoPilot) {
+		this.autoPilot = autoPilot;
+	}
+
+	public void setChecklistId(Integer checklistId) {
+		this.checklistId = checklistId;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
 	public void setDeIce(Boolean deIce) {
 		this.deIce = deIce;
+	}
+
+	public void setStormScope(Boolean stormScope) {
+		this.stormScope = stormScope;
+	}
+
+	public void setWeatherRadar(Boolean weatherRadar) {
+		this.weatherRadar = weatherRadar;
 	}
 }

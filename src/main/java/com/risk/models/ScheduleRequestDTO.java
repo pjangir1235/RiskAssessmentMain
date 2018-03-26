@@ -1,27 +1,33 @@
-package com.risk.pojo;
+package com.risk.models;
 
-public class ScheduleRequestData {
+public class ScheduleRequestDTO {
 	private String location;
-	 private String date;
-	public ScheduleRequestData() {
+	private String date;
+
+	public ScheduleRequestDTO() {
 		super();
 	}
-	public ScheduleRequestData(String location, String date) {
+
+	public ScheduleRequestDTO(String location, String date) {
 		super();
 		this.location = location;
 		this.date = date;
 	}
-	public String getLocation() {
-		return location;
-	}
-	public void setLocation(String location) {
-		this.location = location;
-	}
+
 	public String getDate() {
 		return date;
 	}
+
+	public String getLocation() {
+		return location;
+	}
+
 	public void setDate(String date) {
 		this.date = date;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 }

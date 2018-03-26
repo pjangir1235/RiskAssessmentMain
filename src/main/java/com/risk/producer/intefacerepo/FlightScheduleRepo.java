@@ -1,4 +1,4 @@
-package com.risk.intefacerepository;
+package com.risk.producer.intefacerepo;
 
 import java.util.List;
 
@@ -6,15 +6,17 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.risk.constraint.QuerySql;
-import com.risk.producerpojo.FlightSchedule;
+import com.risk.constants.Queries;
+import com.risk.producer.model.FlightPilotSummary;
+import com.risk.producer.model.FlightSchedule;
 
 @Repository
 public interface FlightScheduleRepo extends CrudRepository<FlightSchedule, Long> {
-	
-	
-	@Query(QuerySql.SCHEDULEBYLOCATION)
-	 List<FlightSchedule>findSchedule(String location,String date);
-		
+
+	@Query(Queries.SCHEDULEBYLOCATION)
+	List<FlightSchedule> findSchedule(String location, String date);
+
+	@Query(Queries.SCHEDULEBYPILOT)
+	List<FlightPilotSummary> getPilotData(int id, String dateOfDeparture);
 
 }

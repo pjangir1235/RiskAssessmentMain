@@ -1,4 +1,4 @@
-package com.risk.producerpojo;
+package com.risk.producer.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,20 +18,20 @@ public class AircraftTypeValue {
 		super();
 	}
 
-	public Integer getAircraftTypeId() {
-		return aircraftTypeId;
-	}
-
-	public void setAircraftTypeId(Integer aircraftTypeId) {
-		this.aircraftTypeId = aircraftTypeId;
-	}
-
 	public String getAircraftType() {
 		return aircraftType;
 	}
 
+	public Integer getAircraftTypeId() {
+		return aircraftTypeId;
+	}
+
 	public void setAircraftType(String aircraftType) {
 		this.aircraftType = aircraftType;
+	}
+
+	public void setAircraftTypeId(Integer aircraftTypeId) {
+		this.aircraftTypeId = aircraftTypeId;
 	}
 
 }

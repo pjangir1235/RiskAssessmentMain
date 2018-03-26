@@ -1,4 +1,4 @@
-package com.risk.producerpojo;
+package com.risk.producer.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,17 +22,16 @@ public class FlightSchedulePilot {
 		return flightScheduleId;
 	}
 
-	public void setFlightScheduleId(Integer flightScheduleId) {
-		this.flightScheduleId = flightScheduleId;
-	}
-
 	public Integer getPilotId() {
 		return pilotId;
+	}
+
+	public void setFlightScheduleId(Integer flightScheduleId) {
+		this.flightScheduleId = flightScheduleId;
 	}
 
 	public void setPilotId(Integer pilotId) {
 		this.pilotId = pilotId;
 	}
-
 
 }

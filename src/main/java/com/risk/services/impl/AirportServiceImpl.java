@@ -1,21 +1,26 @@
-package com.risk.producerservice;
+package com.risk.services.impl;
 
 import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.risk.intefacerepository.AirportRepo;
-import com.risk.producerdispatcher.AirportDispatcher;
-import com.risk.producerpojo.Airport;
+import com.risk.producer.dispatcher.AirportDispatcher;
+import com.risk.producer.intefacerepo.AirportRepo;
+import com.risk.producer.model.Airport;
+import com.risk.services.interfaces.AirportService;
 
 @Service
-public class GetAirportData {
+public class AirportServiceImpl implements AirportService {
 	@Autowired
 	AirportRepo airport;
 	@Autowired
 	AirportDispatcher dispatcher;
 
+	/* (non-Javadoc)
+	 * @see com.risk.services.impl.AirportService#getAirportData()
+	 */
+	@Override
 	public void getAirportData() {
 		Iterable<Airport> itr = airport.findAll();
 		Iterator<Airport> iter = itr.iterator();

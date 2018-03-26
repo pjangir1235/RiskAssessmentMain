@@ -1,4 +1,4 @@
-package com.risk.listenerconsumer;
+package com.risk.consumer.listeners;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -11,25 +11,25 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
-import com.risk.consumerpojo.RestDetailData;
-import com.risk.datastorageconsumer.StoreRecord;
+import com.risk.consumer.model.RestDetailDTO;
+import com.risk.models.StoreRecord;
 
 @Component
 public class RestDetailListener {
 
+	private static final Logger log = LoggerFactory.getLogger(RestDetailListener.class);
 	@Autowired
 	StoreRecord record;
-	public final CountDownLatch countDownLatch1 = new CountDownLatch(3);
 
-	private static final Logger log = LoggerFactory.getLogger(RestDetailListener.class);
+	public final CountDownLatch countDownLatch1 = new CountDownLatch(3);
 
 	@KafkaListener(topics = "${kafka.topic-restDetail}", containerFactory = "restDetailKafkaListenerContainerFactory")
 
-	public void restDetailListner(@Payload RestDetailData schedule, @Header(KafkaHeaders.OFFSET) Integer offset,
-			@Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
-			@Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
+	public void restDetailListner(@Payload RestDetailDTO schedule, @Header(KafkaHeaders.OFFSET) Integer offset,
+	                @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
+	                @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
 		log.info("Processing topic = {}, partition = {}, offset = {}, workUnit = {}", topic, partition, offset,
-				schedule);
+		                schedule);
 		record.setRestDetail(schedule);
 		record.setRestDetailCount(record.getRestDetailCount() - 1);
 		countDownLatch1.countDown();

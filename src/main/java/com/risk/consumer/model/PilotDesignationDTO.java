@@ -1,33 +1,33 @@
-package com.risk.consumerpojo;
+package com.risk.consumer.model;
 
-public class PilotDesignationData {
+public class PilotDesignationDTO {
 
 	private String pilotDesignationCode;
 	private String pilotDesignationName;
 
-	public PilotDesignationData() {
+	public PilotDesignationDTO() {
 		super();
+	}
+
+	public PilotDesignationDTO(String pilotDesignationCode, String pilotDesignationName) {
+		super();
+		this.pilotDesignationCode = pilotDesignationCode;
+		this.pilotDesignationName = pilotDesignationName;
 	}
 
 	public String getPilotDesignationCode() {
 		return pilotDesignationCode;
 	}
 
-	public void setPilotDesignationCode(String pilotDesignationCode) {
-		this.pilotDesignationCode = pilotDesignationCode;
-	}
-
 	public String getPilotDesignationName() {
 		return pilotDesignationName;
 	}
 
-	public void setPilotDesignationName(String pilotDesignationName) {
-		this.pilotDesignationName = pilotDesignationName;
+	public void setPilotDesignationCode(String pilotDesignationCode) {
+		this.pilotDesignationCode = pilotDesignationCode;
 	}
 
-	public PilotDesignationData(String pilotDesignationCode, String pilotDesignationName) {
-		super();
-		this.pilotDesignationCode = pilotDesignationCode;
+	public void setPilotDesignationName(String pilotDesignationName) {
 		this.pilotDesignationName = pilotDesignationName;
 	}
 

@@ -1,32 +1,39 @@
-package com.risk.serviceinterface;
+package com.risk.services.interfaces;
 
-import com.risk.pojo.ScheduleRequestData;
+import java.text.ParseException;
 
-public interface ProducerService {
+import com.risk.consumer.model.FlightScheduleDTO;
+import com.risk.models.ScheduleRequestDTO;
+
+public interface MainService {
+	void checkFetchData();
+
 	void getAiprotValues();
-
-	void getAircraftValues();
-
-	void getCrewValues();
-
-	void getFlightScheduleValues(ScheduleRequestData req);
-
-	void getFlightScheduleCrewValues();
-
-	void getFlightSchedulePilotValues();
 
 	void getAircraftChecklistValues();
 
 	void getAircraftTypeValues();
 
-	void getPilotValues();
+	void getAircraftValues();
+
+	void getAnalysisData(FlightScheduleDTO data) throws ParseException;
+
+	void getCrewValues();
+
+	void getEnvironmentValues(String stationCode);
+
+	void getFlightScheduleCrewValues();
+
+	void getFlightSchedulePilotValues();
+
+	void getFlightScheduleValues(ScheduleRequestDTO req);
 
 	void getPilotDesignationValues();
+
+	void getPilotValues();
 
 	void getRestDetailValues();
 
 	void getUserValues(String userName, String password);
-
-	void checkFetchData();
 
 }

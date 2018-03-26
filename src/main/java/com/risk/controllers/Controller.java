@@ -1,79 +1,83 @@
-package com.risk.controller;
+package com.risk.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.risk.consumerpojo.AircraftChecklistData;
-import com.risk.consumerpojo.AircraftData;
-import com.risk.consumerpojo.AircraftTypeData;
-import com.risk.consumerpojo.AirportData;
-import com.risk.consumerpojo.CrewData;
-import com.risk.consumerpojo.FlightScheduleCrewData;
-import com.risk.consumerpojo.FlightScheduleData;
-import com.risk.consumerpojo.FlightSchedulePilotData;
-import com.risk.consumerpojo.PilotData;
-import com.risk.consumerpojo.PilotDesignationData;
-import com.risk.consumerpojo.RestDetailData;
-import com.risk.consumerpojo.UserData;
-import com.risk.datastorageconsumer.StoreRecord;
-import com.risk.pojo.ScheduleRequestData;
-import com.risk.serviceinterface.ProducerService;
+import com.risk.constants.CommonConstant;
+import com.risk.consumer.model.AircraftChecklistDTO;
+import com.risk.consumer.model.AircraftDTO;
+import com.risk.consumer.model.AircraftTypeDTO;
+import com.risk.consumer.model.AirportDTO;
+import com.risk.consumer.model.CrewDTO;
+import com.risk.consumer.model.FlightScheduleCrewDTO;
+import com.risk.consumer.model.FlightScheduleDTO;
+import com.risk.consumer.model.FlightSchedulePilotDTO;
+import com.risk.consumer.model.PilotDTO;
+import com.risk.consumer.model.PilotDesignationDTO;
+import com.risk.consumer.model.RestDetailDTO;
+import com.risk.consumer.model.UserDTO;
+import com.risk.models.Environment;
+import com.risk.models.ScheduleRequestDTO;
+import com.risk.models.StoreRecord;
+import com.risk.services.interfaces.MainService;
 
 @RestController
-@RequestMapping
-public class RequestController {
+public class Controller {
 
-	public static final  String ERROR = "Error->";
+
+	private static final Logger logger = LoggerFactory.getLogger(Controller.class);
+
 	@Autowired
-	ProducerService producer;
+	MainService producer;
 
 	@Autowired
 	StoreRecord record;
 
-	private static final Logger logger = LoggerFactory.getLogger(RequestController.class);
-
-	@GetMapping("/aircraft")
-
-	public List<AircraftData> getaircraft() {
-		List<AircraftData> list = null;
+	@PostMapping("analysis")
+	public List<Object> doAnalysis(@RequestBody FlightScheduleDTO schedule) {
+		List<Object> data = new ArrayList<>();
 		try {
+			producer.getAnalysisData(schedule);
+				producer.checkFetchData();
 
-			producer.getAircraftValues();
-			producer.checkFetchData();
-			list = record.getAircraft();
-			return list;
-		} catch (Exception e) {
-			logger.error(ERROR + e);
-			return list;
-		} finally {
+			return data;
+		}
+		catch (Exception e) {
+			logger.error(CommonConstant.ERROR + e);
+			return data;
+		}
+		finally {
 
 			record.destroy();
 		}
 
 	}
 
-	@GetMapping("/airport")
+	@GetMapping("/aircraft")
 
-	public List<AirportData> getAirport() {
-		List<AirportData> list = null;
+	public List<AircraftDTO> getaircraft() {
+		List<AircraftDTO> list = null;
 		try {
 
-			producer.getAiprotValues();
+			producer.getAircraftValues();
 			producer.checkFetchData();
-			list = record.getAirport();
+			list = record.getAircraft();
 			return list;
-		} catch (Exception e) {
-			logger.error(ERROR + e);
+		}
+		catch (Exception e) {
+			logger.error(CommonConstant.ERROR + e);
 			return list;
-		} finally {
+		}
+		finally {
 
 			record.destroy();
 		}
@@ -82,18 +86,20 @@ public class RequestController {
 
 	@GetMapping("/aircraftChecklist")
 
-	public List<AircraftChecklistData> getAircraftChecklist() {
-		List<AircraftChecklistData> list = null;
+	public List<AircraftChecklistDTO> getAircraftChecklist() {
+		List<AircraftChecklistDTO> list = null;
 		try {
 
 			producer.getAircraftChecklistValues();
 			producer.checkFetchData();
 			list = record.getAircraftChecklist();
 			return list;
-		} catch (Exception e) {
-			logger.error(ERROR + e);
+		}
+		catch (Exception e) {
+			logger.error(CommonConstant.ERROR + e);
 			return list;
-		} finally {
+		}
+		finally {
 
 			record.destroy();
 		}
@@ -102,18 +108,42 @@ public class RequestController {
 
 	@GetMapping("/aircraftType")
 
-	public List<AircraftTypeData> getAircraftType() {
-		List<AircraftTypeData> list = null;
+	public List<AircraftTypeDTO> getAircraftType() {
+		List<AircraftTypeDTO> list = null;
 		try {
 
 			producer.getAircraftTypeValues();
 			producer.checkFetchData();
 			list = record.getAircraftType();
 			return list;
-		} catch (Exception e) {
-			logger.error(ERROR + e);
+		}
+		catch (Exception e) {
+			logger.error(CommonConstant.ERROR + e);
 			return list;
-		} finally {
+		}
+		finally {
+
+			record.destroy();
+		}
+
+	}
+
+	@GetMapping("/airport")
+
+	public List<AirportDTO> getAirport() {
+		List<AirportDTO> list = null;
+		try {
+
+			producer.getAiprotValues();
+			producer.checkFetchData();
+			list = record.getAirport();
+			return list;
+		}
+		catch (Exception e) {
+			logger.error(CommonConstant.ERROR + e);
+			return list;
+		}
+		finally {
 
 			record.destroy();
 		}
@@ -122,8 +152,8 @@ public class RequestController {
 
 	@GetMapping("/crew")
 
-	public List<CrewData> getCrew() {
-		List<CrewData> list = null;
+	public List<CrewDTO> getCrew() {
+		List<CrewDTO> list = null;
 		try {
 
 			producer.getCrewValues();
@@ -131,50 +161,34 @@ public class RequestController {
 
 			list = record.getCrew();
 			return list;
-		} catch (Exception e) {
-			logger.error(ERROR + e);
+		}
+		catch (Exception e) {
+			logger.error(CommonConstant.ERROR + e);
 			return list;
-		} finally {
+		}
+		finally {
 
 			record.destroy();
 		}
 
 	}
 
-	@GetMapping("/flightScheduleCrew")
+	@GetMapping("/environment/{stationCode}")
 
-	public List<FlightScheduleCrewData> getFlightScheduleCrew() {
-		List<FlightScheduleCrewData> list = null;
+	public List<Environment> getEnvironmentDetail(@PathVariable("stationCode") String stationCode) {
+		List<Environment> data = null;
 		try {
 
-			producer.getFlightScheduleCrewValues();
+			producer.getEnvironmentValues(stationCode);
 			producer.checkFetchData();
-			list= record.getFlightScheduleCrew();
-			return list;
-		} catch (Exception e) {
-			logger.error(ERROR + e);
-			return list;
-		} finally {
-
-			record.destroy();
+			data = record.getEnv();
+			return data;
 		}
-
-	}
-
-	@GetMapping("/flightSchedulePilot")
-
-	public List<FlightSchedulePilotData> getFlightSchedulePilot() {
-		List<FlightSchedulePilotData> list=null;
-		try {
-
-			producer.getFlightSchedulePilotValues();
-			producer.checkFetchData();
-			list= record.getFlightSchedulePilot();
-			return list;
-		} catch (Exception e) {
-			logger.error(ERROR + e);
-			return list;
-		} finally {
+		catch (Exception e) {
+			logger.error(CommonConstant.ERROR + e);
+			return data;
+		}
+		finally {
 
 			record.destroy();
 		}
@@ -183,18 +197,64 @@ public class RequestController {
 
 	@PostMapping("/flightSchedule")
 
-	public List<FlightScheduleData> getFlightSchedule(@RequestBody ScheduleRequestData req) {
-		List<FlightScheduleData>list=null;
+	public List<FlightScheduleDTO> getFlightSchedule(@RequestBody ScheduleRequestDTO req) {
+		List<FlightScheduleDTO> list = null;
 		try {
 
 			producer.getFlightScheduleValues(req);
 			producer.checkFetchData();
-list= record.getFlightSchedule();
-return list;
-		} catch (Exception e) {
-			logger.error(ERROR + e);
+			list = record.getFlightSchedule();
 			return list;
-		} finally {
+		}
+		catch (Exception e) {
+			logger.error(CommonConstant.ERROR + e);
+			return list;
+		}
+		finally {
+
+			record.destroy();
+		}
+
+	}
+
+	@GetMapping("/flightScheduleCrew")
+
+	public List<FlightScheduleCrewDTO> getFlightScheduleCrew() {
+		List<FlightScheduleCrewDTO> list = null;
+		try {
+
+			producer.getFlightScheduleCrewValues();
+			producer.checkFetchData();
+			list = record.getFlightScheduleCrew();
+			return list;
+		}
+		catch (Exception e) {
+			logger.error(CommonConstant.ERROR + e);
+			return list;
+		}
+		finally {
+
+			record.destroy();
+		}
+
+	}
+
+	@GetMapping("/flightSchedulePilot")
+
+	public List<FlightSchedulePilotDTO> getFlightSchedulePilot() {
+		List<FlightSchedulePilotDTO> list = null;
+		try {
+
+			producer.getFlightSchedulePilotValues();
+			producer.checkFetchData();
+			list = record.getFlightSchedulePilot();
+			return list;
+		}
+		catch (Exception e) {
+			logger.error(CommonConstant.ERROR + e);
+			return list;
+		}
+		finally {
 
 			record.destroy();
 		}
@@ -203,18 +263,20 @@ return list;
 
 	@GetMapping("/pilot")
 
-	public List<PilotData> getPilot() {
-		List<PilotData> list=null;
+	public List<PilotDTO> getPilot() {
+		List<PilotDTO> list = null;
 		try {
 
 			producer.getPilotValues();
 			producer.checkFetchData();
-			list= record.getPilot();
+			list = record.getPilot();
 			return list;
-		} catch (Exception e) {
-			logger.error(ERROR + e);
+		}
+		catch (Exception e) {
+			logger.error(CommonConstant.ERROR + e);
 			return list;
-		} finally {
+		}
+		finally {
 
 			record.destroy();
 		}
@@ -223,18 +285,20 @@ return list;
 
 	@GetMapping("/pilotDesignation")
 
-	public List<PilotDesignationData> getPilotDesignationData() {
-		List<PilotDesignationData> list=null;
+	public List<PilotDesignationDTO> getPilotDesignationData() {
+		List<PilotDesignationDTO> list = null;
 		try {
 
 			producer.getPilotDesignationValues();
 			producer.checkFetchData();
-			list= record.getPilotDesignation();
+			list = record.getPilotDesignation();
 			return list;
-		} catch (Exception e) {
-			logger.error(ERROR + e);
+		}
+		catch (Exception e) {
+			logger.error(CommonConstant.ERROR + e);
 			return list;
-		} finally {
+		}
+		finally {
 
 			record.destroy();
 		}
@@ -243,18 +307,20 @@ return list;
 
 	@GetMapping("/restDetail")
 
-	public List<RestDetailData> getRestDetail() {
-		List<RestDetailData> list=null;
+	public List<RestDetailDTO> getRestDetail() {
+		List<RestDetailDTO> list = null;
 		try {
 
 			producer.getRestDetailValues();
 			producer.checkFetchData();
-			list= record.getRestDetail();
+			list = record.getRestDetail();
 			return list;
-		} catch (Exception e) {
-			logger.error(ERROR + e);
+		}
+		catch (Exception e) {
+			logger.error(CommonConstant.ERROR + e);
 			return list;
-		} finally {
+		}
+		finally {
 
 			record.destroy();
 		}
@@ -263,16 +329,17 @@ return list;
 
 	@PostMapping("/user")
 
-	public List<UserData> getUser(@RequestBody UserData user) {
-		List<UserData> list=null;
+	public List<UserDTO> getUser(@RequestBody UserDTO user) {
+		List<UserDTO> list = null;
 		try {
 			record.destroyUser();
 			producer.getUserValues(user.getUserName(), user.getPassword());
 			producer.checkFetchData();
-			list= record.getUser();
+			list = record.getUser();
 			return list;
-		} catch (Exception e) {
-			logger.error(ERROR + e);
+		}
+		catch (Exception e) {
+			logger.error(CommonConstant.ERROR + e);
 			return list;
 		}
 	}

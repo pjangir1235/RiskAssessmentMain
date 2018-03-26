@@ -1,4 +1,4 @@
-package com.risk.listenerconsumer;
+package com.risk.consumer.listeners;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -11,25 +11,25 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
-import com.risk.consumerpojo.AircraftData;
-import com.risk.datastorageconsumer.StoreRecord;
+import com.risk.consumer.model.AircraftDTO;
+import com.risk.models.StoreRecord;
 
 @Component
 public class AircraftListener {
 
+	private static final Logger log = LoggerFactory.getLogger(AircraftListener.class);
 	@Autowired
 	StoreRecord record;
-	public final CountDownLatch countDownLatch1 = new CountDownLatch(3);
 
-	private static final Logger log = LoggerFactory.getLogger(AircraftListener.class);
+	public final CountDownLatch countDownLatch1 = new CountDownLatch(3);
 
 	@KafkaListener(topics = "${kafka.topic-aircraft}", containerFactory = "aircraftKafkaListenerContainerFactory")
 
-	public void aircraftListner(@Payload AircraftData schedule, @Header(KafkaHeaders.OFFSET) Integer offset,
-			@Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
-			@Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
+	public void aircraftListner(@Payload AircraftDTO schedule, @Header(KafkaHeaders.OFFSET) Integer offset,
+	                @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
+	                @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
 		log.info("Processing topic = {}, partition = {}, offset = {}, workUnit = {}", topic, partition, offset,
-				schedule);
+		                schedule);
 		record.setAircraft(schedule);
 		record.setAircraftCount(record.getAircraftCount() - 1);
 		countDownLatch1.countDown();

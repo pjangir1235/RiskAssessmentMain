@@ -1,4 +1,4 @@
-package com.risk.producerpojo;
+package com.risk.producer.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,30 +17,6 @@ public class Crew {
 	private String crewMemberName;
 	Long mobile;
 
-	public Integer getCrewMemberId() {
-		return crewMemberId;
-	}
-
-	public void setCrewMemberId(Integer crewMemberId) {
-		this.crewMemberId = crewMemberId;
-	}
-
-	public String getCrewMemberName() {
-		return crewMemberName;
-	}
-
-	public void setCrewMemberName(String crewMemberName) {
-		this.crewMemberName = crewMemberName;
-	}
-
-	public Long getMobile() {
-		return mobile;
-	}
-
-	public void setMobile(Long mobile) {
-		this.mobile = mobile;
-	}
-
 	public Crew() {
 		super();
 	}
@@ -51,6 +27,31 @@ public class Crew {
 		this.crewMemberName = crewMemberName;
 		this.mobile = mobile;
 	}
+
+	public Integer getCrewMemberId() {
+		return crewMemberId;
+	}
+
+	public String getCrewMemberName() {
+		return crewMemberName;
+	}
+
+	public Long getMobile() {
+		return mobile;
+	}
+
+	public void setCrewMemberId(Integer crewMemberId) {
+		this.crewMemberId = crewMemberId;
+	}
+
+	public void setCrewMemberName(String crewMemberName) {
+		this.crewMemberName = crewMemberName;
+	}
+
+	public void setMobile(Long mobile) {
+		this.mobile = mobile;
+	}
+
 	@Override
 	public String toString() {
 		return this.getCrewMemberName();

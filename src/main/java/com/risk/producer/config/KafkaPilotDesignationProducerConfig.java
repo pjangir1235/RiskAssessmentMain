@@ -1,4 +1,4 @@
-package com.risk.producerconfiguration;
+package com.risk.producer.config;
 
 import javax.validation.constraints.Null;
 
@@ -10,7 +10,7 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 
-import com.risk.producerpojo.PilotDesignation;
+import com.risk.producer.model.PilotDesignation;
 
 @Configuration
 public class KafkaPilotDesignationProducerConfig {
@@ -20,11 +20,6 @@ public class KafkaPilotDesignationProducerConfig {
 
 	@Value("${kafka.topic-pilotDesignation}")
 	private String topic;
-	@SuppressWarnings("unchecked")
-	@Bean
-	public ProducerFactory<Null, PilotDesignation> producerFactory() {
-		return new DefaultKafkaProducerFactory<>(property.producerConfigs(), null, property.setJsonSerializer());
-	}
 
 	@Bean
 	public KafkaTemplate<Null, PilotDesignation> pilotDesignationKafkaTemplate() {
@@ -32,5 +27,11 @@ public class KafkaPilotDesignationProducerConfig {
 		KafkaTemplate<Null, PilotDesignation> kafkaTemplate = new KafkaTemplate<>(producerFactory());
 		kafkaTemplate.setDefaultTopic(topic);
 		return kafkaTemplate;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Bean
+	public ProducerFactory<Null, PilotDesignation> producerFactory() {
+		return new DefaultKafkaProducerFactory<>(property.producerConfigs(), null, property.setJsonSerializer());
 	}
 }

@@ -1,4 +1,4 @@
-package com.risk.producerpojo;
+package com.risk.producer.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,38 +13,38 @@ public class Pilot {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer pilotId;
 
+	private String pilotName;
+
+	private String pilotDesignationCode;
+
 	public Pilot() {
 		super();
-	}
-
-
-
-	public Integer getPilotId() {
-		return pilotId;
-	}
-
-	public void setPilotId(Integer pilotId) {
-		this.pilotId = pilotId;
-	}
-
-	public String getPilotName() {
-		return pilotName;
-	}
-
-	public void setPilotName(String pilotName) {
-		this.pilotName = pilotName;
 	}
 
 	public String getPilotDesignationCode() {
 		return pilotDesignationCode;
 	}
 
+	public Integer getPilotId() {
+		return pilotId;
+	}
+
+	public String getPilotName() {
+		return pilotName;
+	}
+
 	public void setPilotDesignationCode(String pilotDesignationCode) {
 		this.pilotDesignationCode = pilotDesignationCode;
 	}
 
-	private String pilotName;
-	private String pilotDesignationCode;
+	public void setPilotId(Integer pilotId) {
+		this.pilotId = pilotId;
+	}
+
+	public void setPilotName(String pilotName) {
+		this.pilotName = pilotName;
+	}
+
 	@Override
 	public String toString() {
 		return getPilotName();

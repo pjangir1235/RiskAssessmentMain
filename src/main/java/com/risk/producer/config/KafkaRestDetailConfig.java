@@ -1,4 +1,4 @@
-package com.risk.producerconfiguration;
+package com.risk.producer.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,7 +8,7 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 
-import com.risk.producerpojo.RestDetail;
+import com.risk.producer.model.RestDetail;
 
 @Configuration
 public class KafkaRestDetailConfig {
@@ -22,7 +22,7 @@ public class KafkaRestDetailConfig {
 	@Bean
 	public ProducerFactory<Integer, RestDetail> producerFactory() {
 		return new DefaultKafkaProducerFactory<>(property.producerConfigs(), property.setIntegerKeySerializer(),
-				property.setJsonSerializer());
+		                property.setJsonSerializer());
 	}
 
 	@Bean

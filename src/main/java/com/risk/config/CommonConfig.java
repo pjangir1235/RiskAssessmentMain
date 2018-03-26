@@ -1,9 +1,9 @@
-package com.risk.configuration;
+package com.risk.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.risk.datastorageconsumer.StoreRecord;
+import com.risk.models.StoreRecord;
 
 @Configuration
 public class CommonConfig {
