@@ -10,38 +10,52 @@ import javax.persistence.Table;
 @Table(name = "aircraft")
 public class Aircraft {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer aircraftId;
-	private String aircraftCode;
-	private Integer aircraftType;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Integer aircraftId;
 
-	public Aircraft() {
-		super();
-	}
+  private String aircraftCode;
+  private Integer aircraftType;
+  private String manufactureDate;
+  private String registrationNo;
 
-	public String getAircraftCode() {
-		return aircraftCode;
-	}
+  public String getManufactureDate() {
+return manufactureDate;}
 
-	public Integer getAircraftId() {
-		return aircraftId;
-	}
+public void setManufactureDate(String manufactureDate) {
+this.manufactureDate = manufactureDate;}
 
-	public Integer getAircraftType() {
-		return aircraftType;
-	}
+public String getRegistrationNo() {
+return registrationNo;}
 
-	public void setAircraftCode(String aircraftCode) {
-		this.aircraftCode = aircraftCode;
-	}
+public void setRegistrationNo(String registrationNo) {
+this.registrationNo = registrationNo;}
 
-	public void setAircraftId(Integer aircraftId) {
-		this.aircraftId = aircraftId;
-	}
+public Aircraft() {
+    super();
+  }
 
-	public void setAircraftType(Integer aircraftType) {
-		this.aircraftType = aircraftType;
-	}
+  public String getAircraftCode() {
+    return aircraftCode;
+  }
 
+  public Integer getAircraftId() {
+    return aircraftId;
+  }
+
+  public Integer getAircraftType() {
+    return aircraftType;
+  }
+
+  public void setAircraftCode(String aircraftCode) {
+    this.aircraftCode = aircraftCode;
+  }
+
+  public void setAircraftId(Integer aircraftId) {
+    this.aircraftId = aircraftId;
+  }
+
+  public void setAircraftType(Integer aircraftType) {
+    this.aircraftType = aircraftType;
+  }
 }

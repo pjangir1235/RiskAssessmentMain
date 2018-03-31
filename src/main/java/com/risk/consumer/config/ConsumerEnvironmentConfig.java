@@ -19,25 +19,23 @@ import com.risk.models.Environment;
 @EnableKafka
 public class ConsumerEnvironmentConfig {
 
-	@Autowired
-	ConsumerCommonConfig config;
+  @Autowired ConsumerCommonConfig config;
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public ConsumerFactory<Integer, Environment> environmentConsumerFactory() {
-		Map<String, Object> props = config.commonProperty();
+  @SuppressWarnings({"unchecked", "rawtypes"})
+  public ConsumerFactory<Integer, Environment> environmentConsumerFactory() {
+    Map<String, Object> props = config.commonProperty();
 
-		props.put(ConsumerConfig.GROUP_ID_CONFIG, "environment");
-		return new DefaultKafkaConsumerFactory<>(props, new IntegerDeserializer(),
-		                new JsonDeserializer(Environment.class));
-	}
+    props.put(ConsumerConfig.GROUP_ID_CONFIG, "environment");
+    return new DefaultKafkaConsumerFactory<>(
+        props, new IntegerDeserializer(), new JsonDeserializer(Environment.class));
+  }
 
-	@Bean
-	public ConcurrentKafkaListenerContainerFactory<Integer, Environment> environmentKafkaListenerContainerFactory() {
-		ConcurrentKafkaListenerContainerFactory<Integer, Environment> factory = new ConcurrentKafkaListenerContainerFactory<>();
-		factory.setConsumerFactory(environmentConsumerFactory());
-		return factory;
-	}
-
-
-
+  @Bean
+  public ConcurrentKafkaListenerContainerFactory<Integer, Environment>
+      environmentKafkaListenerContainerFactory() {
+    ConcurrentKafkaListenerContainerFactory<Integer, Environment> factory =
+        new ConcurrentKafkaListenerContainerFactory<>();
+    factory.setConsumerFactory(environmentConsumerFactory());
+    return factory;
+  }
 }

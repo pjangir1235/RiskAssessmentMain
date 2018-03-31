@@ -5,45 +5,51 @@ import com.risk.constants.CommonConstant;
 
 public class Environment extends Unit {
 
-	@JsonProperty(CommonConstant.STATION)
-	private String station;
+  @JsonProperty(CommonConstant.STATION)
+  private String station;
 
-	@JsonProperty(CommonConstant.UNITS)
-	private Unit unit;
-	@JsonProperty(CommonConstant.TRANSLATIONS)
-	private Translations translation;
+  @JsonProperty(CommonConstant.UNITS)
+  private Unit unit;
 
-	public Environment() {
-		super();
-	}
+  @JsonProperty(CommonConstant.TRANSLATIONS)
+  private Translations translation;
 
-	public String getStation() {
-		return station;
-	}
+  public Environment() {
+    super();
+  }
 
-	public void setStation(String station) {
-		this.station = station;
-	}
+  public String getStation() {
+    return station;
+  }
 
-	public Unit getUnit() {
-		return unit;
-	}
+  public Translations getTranslation() {
+    return translation;
+  }
 
-	public void setUnit(Unit unit) {
-		this.unit = unit;
-	}
+  public Unit getUnit() {
+    return unit;
+  }
 
-	public Translations getTranslation() {
-		return translation;
-	}
+  public void setStation(String station) {
+    this.station = station;
+  }
 
-	public void setTranslation(Translations translation) {
-		this.translation = translation;
-	}
+  public void setTranslation(Translations translation) {
+    this.translation = translation;
+  }
 
-	@Override
-	public String toString() {
-		return "Environment [station=" + station + ", unit=" + unit + ", translation=" + translation + "]";
-	}
+  public void setUnit(Unit unit) {
+    this.unit = unit;
+  }
 
+  @Override
+  public String toString() {
+    return "Environment [station="
+        + station
+        + ", unit="
+        + unit
+        + ", translation="
+        + translation
+        + "]";
+  }
 }

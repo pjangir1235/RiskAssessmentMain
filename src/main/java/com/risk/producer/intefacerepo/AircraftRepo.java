@@ -13,6 +13,9 @@ import com.risk.producer.model.AircraftCodeType;
 @Repository
 public interface AircraftRepo extends CrudRepository<Aircraft, Long> {
 
-	@Query(value = Queries.AIRCRAFTBYTYPE)
-	List<AircraftCodeType> findAllCodeforType(String aircraftCode);
+  @Query(value = Queries.AIRCRAFTBYTYPE)
+  List<AircraftCodeType> findAllCodeforType(String aircraftCode);
+
+  @Query(value = Queries.AIRCRAFTBYCode)
+  List<Aircraft> findData(String aircraftCode);
 }

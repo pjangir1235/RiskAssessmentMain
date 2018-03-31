@@ -9,29 +9,29 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "aircraft_type_detail")
 public class AircraftTypeValue {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer aircraftTypeId;
-	private String aircraftType;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Integer aircraftTypeId;
 
-	public AircraftTypeValue() {
-		super();
-	}
+  private String aircraftType;
 
-	public String getAircraftType() {
-		return aircraftType;
-	}
+  public AircraftTypeValue() {
+    super();
+  }
 
-	public Integer getAircraftTypeId() {
-		return aircraftTypeId;
-	}
+  public String getAircraftType() {
+    return aircraftType;
+  }
 
-	public void setAircraftType(String aircraftType) {
-		this.aircraftType = aircraftType;
-	}
+  public Integer getAircraftTypeId() {
+    return aircraftTypeId;
+  }
 
-	public void setAircraftTypeId(Integer aircraftTypeId) {
-		this.aircraftTypeId = aircraftTypeId;
-	}
+  public void setAircraftType(String aircraftType) {
+    this.aircraftType = aircraftType;
+  }
 
+  public void setAircraftTypeId(Integer aircraftTypeId) {
+    this.aircraftTypeId = aircraftTypeId;
+  }
 }

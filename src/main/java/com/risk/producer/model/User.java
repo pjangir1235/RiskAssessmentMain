@@ -10,38 +10,38 @@ import javax.persistence.Table;
 @Table(name = "user")
 public class User {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer userId;
-	private String userName;
-	private String password;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Integer userId;
 
-	public User() {
-		super();
-	}
+  private String userName;
+  private String passwrd;
 
-	public String getPassword() {
-		return password;
-	}
+  public User() {
+    super();
+  }
 
-	public Integer getUserId() {
-		return userId;
-	}
+  public String getPassword() {
+    return passwrd;
+  }
 
-	public String getUserName() {
-		return userName;
-	}
+  public Integer getUserId() {
+    return userId;
+  }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+  public String getUserName() {
+    return userName;
+  }
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
+  public void setPassword(String passwrd) {
+    this.passwrd = passwrd;
+  }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+  public void setUserId(Integer userId) {
+    this.userId = userId;
+  }
 
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
 }

@@ -6,6 +6,4 @@ import org.springframework.stereotype.Repository;
 import com.risk.producer.model.Airport;
 
 @Repository
-public interface AirportRepo extends CrudRepository<Airport, Long> {
-
-}
+public interface AirportRepo extends CrudRepository<Airport, Long> {}

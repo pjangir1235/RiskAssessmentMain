@@ -15,115 +15,126 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "flight_schedule")
 public class FlightSchedule {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer flightScheduleId;
-	private String aircraftCode;
-	private String sourceAirportCode;
-	private String destinationAirportCode;
-	private String dateOfDeparture;
-	private String timeDeparture;
-	private String timeArrival;
-	private Integer duration;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Integer flightScheduleId;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "flight_schedule_pilot", joinColumns = {
-	                @JoinColumn(name = "flightScheduleId") }, inverseJoinColumns = { @JoinColumn(name = "pilotId") })
-	List<Pilot> pilots;
+  private String aircraftCode;
+  private String sourceAirportCode;
+  private String destinationAirportCode;
+  private String dateOfDeparture;
+  private String timeDeparture;
+  private String timeArrival;
+  private Integer duration;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "flight_schedule_crew", joinColumns = {
-	                @JoinColumn(name = "flightScheduleId") }, inverseJoinColumns = {
-	                                @JoinColumn(name = "crewMemberId") })
-	List<Crew> crews;
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(
+    name = "flight_schedule_pilot",
+    joinColumns = {@JoinColumn(name = "flightScheduleId")},
+    inverseJoinColumns = {@JoinColumn(name = "pilotId")}
+  )
+  List<Pilot> pilots;
 
-	public FlightSchedule() {
-		super();
-	}
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(
+    name = "flight_schedule_crew",
+    joinColumns = {@JoinColumn(name = "flightScheduleId")},
+    inverseJoinColumns = {@JoinColumn(name = "crewMemberId")}
+  )
+  List<Crew> crews;
 
-	public String getAircraftCode() {
-		return aircraftCode;
-	}
+  public FlightSchedule() {
+    super();
+  }
 
-	public List<Crew> getCrews() {
-		return crews;
-	}
+  public String getAircraftCode() {
+    return aircraftCode;
+  }
 
-	public String getDateOfDeparture() {
-		return dateOfDeparture;
-	}
+  public List<Crew> getCrews() {
+    return crews;
+  }
 
-	public String getDestinationAirportCode() {
-		return destinationAirportCode;
-	}
+  public String getDateOfDeparture() {
+    return dateOfDeparture;
+  }
 
-	public Integer getDuration() {
-		return duration;
-	}
+  public String getDestinationAirportCode() {
+    return destinationAirportCode;
+  }
 
-	public Integer getFlightScheduleId() {
-		return flightScheduleId;
-	}
+  public Integer getDuration() {
+    return duration;
+  }
 
-	public List<Pilot> getPilots() {
-		return pilots;
-	}
+  public Integer getFlightScheduleId() {
+    return flightScheduleId;
+  }
 
-	public String getSourceAirportCode() {
-		return sourceAirportCode;
-	}
+  public List<Pilot> getPilots() {
+    return pilots;
+  }
 
-	public String getTimeArrival() {
-		return timeArrival;
-	}
+  public String getSourceAirportCode() {
+    return sourceAirportCode;
+  }
 
-	public String getTimeDeparture() {
-		return timeDeparture;
-	}
+  public String getTimeArrival() {
+    return timeArrival;
+  }
 
-	public void setAircraftCode(String aircraftCode) {
-		this.aircraftCode = aircraftCode;
-	}
+  public String getTimeDeparture() {
+    return timeDeparture;
+  }
 
-	public void setCrews(List<Crew> crews) {
-		this.crews = crews;
-	}
+  public void setAircraftCode(String aircraftCode) {
+    this.aircraftCode = aircraftCode;
+  }
 
-	public void setDateOfDeparture(String dateOfDeparture) {
-		this.dateOfDeparture = dateOfDeparture;
-	}
+  public void setCrews(List<Crew> crews) {
+    this.crews = crews;
+  }
 
-	public void setDestinationAirportCode(String destinationAirportCode) {
-		this.destinationAirportCode = destinationAirportCode;
-	}
+  public void setDateOfDeparture(String dateOfDeparture) {
+    this.dateOfDeparture = dateOfDeparture;
+  }
 
-	public void setDuration(Integer duration) {
-		this.duration = duration;
-	}
+  public void setDestinationAirportCode(String destinationAirportCode) {
+    this.destinationAirportCode = destinationAirportCode;
+  }
 
-	public void setFlightScheduleId(Integer flightScheduleId) {
-		this.flightScheduleId = flightScheduleId;
-	}
+  public void setDuration(Integer duration) {
+    this.duration = duration;
+  }
 
-	public void setPilots(List<Pilot> pilots) {
-		this.pilots = pilots;
-	}
+  public void setFlightScheduleId(Integer flightScheduleId) {
+    this.flightScheduleId = flightScheduleId;
+  }
 
-	public void setSourceAirportCode(String sourceAirportCode) {
-		this.sourceAirportCode = sourceAirportCode;
-	}
+  public void setPilots(List<Pilot> pilots) {
+    this.pilots = pilots;
+  }
 
-	public void setTimeArrival(String timeArrival) {
-		this.timeArrival = timeArrival;
-	}
+  public void setSourceAirportCode(String sourceAirportCode) {
+    this.sourceAirportCode = sourceAirportCode;
+  }
 
-	public void setTimeDeparture(String timeDeparture) {
-		this.timeDeparture = timeDeparture;
-	}
+  public void setTimeArrival(String timeArrival) {
+    this.timeArrival = timeArrival;
+  }
 
-	@Override
-	public String toString() {
-		return this.sourceAirportCode + "  " + this.flightScheduleId + " " + this.getPilots() + " " + this.getCrews();
-	}
+  public void setTimeDeparture(String timeDeparture) {
+    this.timeDeparture = timeDeparture;
+  }
 
+  @Override
+  public String toString() {
+    return this.sourceAirportCode
+        + "  "
+        + this.flightScheduleId
+        + " "
+        + this.getPilots()
+        + " "
+        + this.getCrews();
+  }
 }

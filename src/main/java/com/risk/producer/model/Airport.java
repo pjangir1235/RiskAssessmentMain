@@ -9,54 +9,54 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "airport")
 public class Airport {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer airportId;
-	private String airportCode;
-	private String airportName;
-	private Boolean isMountain;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Integer airportId;
 
-	public Airport() {
-		super();
-	}
+  private String airportCode;
+  private String airportName;
+  private Boolean isMountain;
 
-	public Airport(Integer airportId, String airportCode, String airportName) {
-		super();
-		this.airportId = airportId;
-		this.airportCode = airportCode;
-		this.airportName = airportName;
-	}
+  public Airport() {
+    super();
+  }
 
-	public String getAirportCode() {
-		return airportCode;
-	}
+  public Airport(Integer airportId, String airportCode, String airportName) {
+    super();
+    this.airportId = airportId;
+    this.airportCode = airportCode;
+    this.airportName = airportName;
+  }
 
-	public Integer getAirportId() {
-		return airportId;
-	}
+  public String getAirportCode() {
+    return airportCode;
+  }
 
-	public String getAirportName() {
-		return airportName;
-	}
+  public Integer getAirportId() {
+    return airportId;
+  }
 
-	public Boolean getIsMountain() {
-		return isMountain;
-	}
+  public String getAirportName() {
+    return airportName;
+  }
 
-	public void setAirportCode(String airportCode) {
-		this.airportCode = airportCode;
-	}
+  public Boolean getIsMountain() {
+    return isMountain;
+  }
 
-	public void setAirportId(Integer airportId) {
-		this.airportId = airportId;
-	}
+  public void setAirportCode(String airportCode) {
+    this.airportCode = airportCode;
+  }
 
-	public void setAirportName(String airportName) {
-		this.airportName = airportName;
-	}
+  public void setAirportId(Integer airportId) {
+    this.airportId = airportId;
+  }
 
-	public void setIsMountain(Boolean isMountain) {
-		this.isMountain = isMountain;
-	}
+  public void setAirportName(String airportName) {
+    this.airportName = airportName;
+  }
 
+  public void setIsMountain(Boolean isMountain) {
+    this.isMountain = isMountain;
+  }
 }

@@ -9,29 +9,29 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "pilot_designation")
 public class PilotDesignation {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String pilotDesignationCode;
-	private String pilotDesignationName;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private String pilotDesignationCode;
 
-	public PilotDesignation() {
-		super();
-	}
+  private String pilotDesignationName;
 
-	public String getPilotDesignationCode() {
-		return pilotDesignationCode;
-	}
+  public PilotDesignation() {
+    super();
+  }
 
-	public String getPilotDesignationName() {
-		return pilotDesignationName;
-	}
+  public String getPilotDesignationCode() {
+    return pilotDesignationCode;
+  }
 
-	public void setPilotDesignationCode(String pilotDesignationCode) {
-		this.pilotDesignationCode = pilotDesignationCode;
-	}
+  public String getPilotDesignationName() {
+    return pilotDesignationName;
+  }
 
-	public void setPilotDesignationName(String pilotDesignationName) {
-		this.pilotDesignationName = pilotDesignationName;
-	}
+  public void setPilotDesignationCode(String pilotDesignationCode) {
+    this.pilotDesignationCode = pilotDesignationCode;
+  }
 
+  public void setPilotDesignationName(String pilotDesignationName) {
+    this.pilotDesignationName = pilotDesignationName;
+  }
 }

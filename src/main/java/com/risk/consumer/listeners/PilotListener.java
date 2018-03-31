@@ -17,23 +17,28 @@ import com.risk.models.StoreRecord;
 @Component
 public class PilotListener {
 
-	private static final Logger log = LoggerFactory.getLogger(PilotListener.class);
-	@Autowired
-	StoreRecord record;
+  private static final Logger log = LoggerFactory.getLogger(PilotListener.class);
+  @Autowired StoreRecord record;
 
-	public final CountDownLatch countDownLatch1 = new CountDownLatch(3);
+  public final CountDownLatch countDownLatch1 = new CountDownLatch(3);
 
-	@KafkaListener(topics = "${kafka.topic-pilot}", containerFactory = "pilotKafkaListenerContainerFactory")
-
-	public void pilotListner(@Payload PilotDTO schedule, @Header(KafkaHeaders.OFFSET) Integer offset,
-	                @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
-	                @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
-		log.info("Processing topic = {}, partition = {}, offset = {}, workUnit = {}", topic, partition, offset,
-		                schedule);
-		record.setPilot(schedule);
-		record.setPilotCount(record.getPilotCount() - 1);
-		countDownLatch1.countDown();
-
-	}
-
+  @KafkaListener(
+    topics = "${kafka.topic-pilot}",
+    containerFactory = "pilotKafkaListenerContainerFactory"
+  )
+  public void pilotListner(
+      @Payload PilotDTO schedule,
+      @Header(KafkaHeaders.OFFSET) Integer offset,
+      @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
+      @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
+    log.info(
+        "Processing topic = {}, partition = {}, offset = {}, workUnit = {}",
+        topic,
+        partition,
+        offset,
+        schedule);
+    record.setPilot(schedule);
+    record.setPilotCount(record.getPilotCount() - 1);
+    countDownLatch1.countDown();
+  }
 }

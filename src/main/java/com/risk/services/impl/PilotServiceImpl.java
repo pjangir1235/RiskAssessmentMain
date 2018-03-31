@@ -13,20 +13,15 @@ import com.risk.services.interfaces.PilotService;
 @Service
 public class PilotServiceImpl implements PilotService {
 
-	@Autowired
-	PilotRepo craftRepo;
-	@Autowired
-	PilotDispatcher craftDispatcher;
+  @Autowired PilotRepo craftRepo;
+  @Autowired PilotDispatcher craftDispatcher;
 
-	/* (non-Javadoc)
-	 * @see com.risk.services.impl.PilotService#getPilotData()
-	 */
-	@Override
-	public void getPilotData() {
-		Iterable<Pilot> itr = craftRepo.findAll();
-		Iterator<Pilot> iter = itr.iterator();
-		while (iter.hasNext())
-			craftDispatcher.dispatch(iter.next());
+  @Override
+  public void getPilotData() {
 
-	}
+     Iterable<Pilot> itr = craftRepo.findAll();
+      Iterator<Pilot> iter = itr.iterator();
+      while (iter.hasNext()) craftDispatcher.dispatch(iter.next());
+    }
+
 }

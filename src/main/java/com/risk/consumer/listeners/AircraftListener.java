@@ -17,23 +17,29 @@ import com.risk.models.StoreRecord;
 @Component
 public class AircraftListener {
 
-	private static final Logger log = LoggerFactory.getLogger(AircraftListener.class);
-	@Autowired
-	StoreRecord record;
+  private static final Logger log = LoggerFactory.getLogger(AircraftListener.class);
+  @Autowired StoreRecord record;
 
-	public final CountDownLatch countDownLatch1 = new CountDownLatch(3);
+  public final CountDownLatch countDownLatch1 = new CountDownLatch(3);
 
-	@KafkaListener(topics = "${kafka.topic-aircraft}", containerFactory = "aircraftKafkaListenerContainerFactory")
+  @KafkaListener(
+    topics = "${kafka.topic-aircraft}",
+    containerFactory = "aircraftKafkaListenerContainerFactory"
+  )
+  public void aircraftListner(
+      @Payload AircraftDTO schedule,
+      @Header(KafkaHeaders.OFFSET) Integer offset,
+      @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
+      @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
+    log.info(
+        "Processing topic = {}, partition = {}, offset = {}, workUnit = {}",
+        topic,
+        partition,
+        offset,
+        schedule);
+    record.setAircraftCount(record.getAircraftCount() - 1);
+    record.setAircraft(schedule);
 
-	public void aircraftListner(@Payload AircraftDTO schedule, @Header(KafkaHeaders.OFFSET) Integer offset,
-	                @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
-	                @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
-		log.info("Processing topic = {}, partition = {}, offset = {}, workUnit = {}", topic, partition, offset,
-		                schedule);
-		record.setAircraft(schedule);
-		record.setAircraftCount(record.getAircraftCount() - 1);
-		countDownLatch1.countDown();
-
-	}
-
+    countDownLatch1.countDown();
+  }
 }

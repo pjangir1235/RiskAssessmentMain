@@ -9,44 +9,54 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "pilot")
 public class Pilot {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer pilotId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Integer pilotId;
 
-	private String pilotName;
+  private String pilotName;
 
-	private String pilotDesignationCode;
+  private String pilotDesignationCode;
 
-	public Pilot() {
-		super();
-	}
+  private String mobile;
 
-	public String getPilotDesignationCode() {
-		return pilotDesignationCode;
-	}
+  public Pilot() {
+    super();
+  }
 
-	public Integer getPilotId() {
-		return pilotId;
-	}
+  public String getMobile() {
+    return mobile;
+  }
 
-	public String getPilotName() {
-		return pilotName;
-	}
+  public void setMobile(String mobile) {
+    this.mobile = mobile;
+  }
 
-	public void setPilotDesignationCode(String pilotDesignationCode) {
-		this.pilotDesignationCode = pilotDesignationCode;
-	}
+  public String getPilotDesignationCode() {
+    return pilotDesignationCode;
+  }
 
-	public void setPilotId(Integer pilotId) {
-		this.pilotId = pilotId;
-	}
+  public Integer getPilotId() {
+    return pilotId;
+  }
 
-	public void setPilotName(String pilotName) {
-		this.pilotName = pilotName;
-	}
+  public String getPilotName() {
+    return pilotName;
+  }
 
-	@Override
-	public String toString() {
-		return getPilotName();
-	}
+  public void setPilotDesignationCode(String pilotDesignationCode) {
+    this.pilotDesignationCode = pilotDesignationCode;
+  }
+
+  public void setPilotId(Integer pilotId) {
+    this.pilotId = pilotId;
+  }
+
+  public void setPilotName(String pilotName) {
+    this.pilotName = pilotName;
+  }
+
+  @Override
+  public String toString() {
+    return getPilotName();
+  }
 }

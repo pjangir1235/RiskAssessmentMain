@@ -11,6 +11,6 @@ import com.risk.producer.model.RestDetail;
 
 @Repository
 public interface RestDetailRepo extends CrudRepository<RestDetail, Long> {
-	@Query(value = Queries.RESTDETAILBYID)
-	List<RestDetail> findById(int crewMemberId, String date);
+  @Query(value = Queries.RESTDETAILBYID)
+  List<RestDetail> findById(int crewMemberId, String date);
 }

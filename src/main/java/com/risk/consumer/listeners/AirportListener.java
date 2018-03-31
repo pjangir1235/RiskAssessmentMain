@@ -12,27 +12,33 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 import com.risk.consumer.model.AirportDTO;
-import com.risk.models.StoreRecord;
+import com.risk.models.AirportRecord;
 
 @Component
 public class AirportListener {
 
-	private static final Logger log = LoggerFactory.getLogger(AirportListener.class);
-	@Autowired
-	StoreRecord record;
+  private static final Logger log = LoggerFactory.getLogger(AirportListener.class);
+  @Autowired AirportRecord record;
 
-	public final CountDownLatch countDownLatch1 = new CountDownLatch(3);
+  public final CountDownLatch countDownLatch1 = new CountDownLatch(3);
 
-	@KafkaListener(topics = "${kafka.topic-airport}", containerFactory = "airportKafkaListenerContainerFactory")
-	public void airportListener(@Payload AirportDTO schedule, @Header(KafkaHeaders.OFFSET) Integer offset,
-	                @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
-	                @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
-		log.info("Processing topic = {}, partition = {}, offset = {}, workUnit = {}", topic, partition, offset,
-		                schedule);
-		record.setAirportObj(schedule);
-		record.setAirportCount(record.getAirportCount() - 1);
-		countDownLatch1.countDown();
-
-	}
-
+  @KafkaListener(
+    topics = "${kafka.topic-airport}",
+    containerFactory = "airportKafkaListenerContainerFactory"
+  )
+  public void airportListener(
+      @Payload AirportDTO airport,
+      @Header(KafkaHeaders.OFFSET) Integer offset,
+      @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
+      @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
+    log.info(
+        "Processing topic = {}, partition = {}, offset = {}, workUnit = {}",
+        topic,
+        partition,
+        offset,
+        airport);
+    record.setAirport(airport);
+    record.setAirportCount(record.getAirportCount() - 1);
+    countDownLatch1.countDown();
+  }
 }

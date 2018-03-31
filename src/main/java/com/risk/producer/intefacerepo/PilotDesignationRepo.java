@@ -6,6 +6,4 @@ import org.springframework.stereotype.Repository;
 import com.risk.producer.model.PilotDesignation;
 
 @Repository
-public interface PilotDesignationRepo extends CrudRepository<PilotDesignation, Long> {
-
-}
+public interface PilotDesignationRepo extends CrudRepository<PilotDesignation, Long> {}

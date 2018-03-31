@@ -13,20 +13,13 @@ import com.risk.services.interfaces.FlightSchedulePilotService;
 @Service
 public class FlightSchedulePilotServiceImpl implements FlightSchedulePilotService {
 
-	@Autowired
-	FlightSchedulePilotRepo craftRepo;
-	@Autowired
-	FlightSchedulePilotDispatcher craftDispatcher;
+  @Autowired FlightSchedulePilotRepo craftRepo;
+  @Autowired FlightSchedulePilotDispatcher craftDispatcher;
 
-	/* (non-Javadoc)
-	 * @see com.risk.services.impl.FlightSchedulePilotService#getFlightSchedulePilotData()
-	 */
-	@Override
-	public void getFlightSchedulePilotData() {
-		Iterable<FlightSchedulePilot> itr = craftRepo.findAll();
-		Iterator<FlightSchedulePilot> iter = itr.iterator();
-		while (iter.hasNext())
-			craftDispatcher.dispatch(iter.next());
-
-	}
+  @Override
+  public void getFlightSchedulePilotData() {
+    Iterable<FlightSchedulePilot> itr = craftRepo.findAll();
+    Iterator<FlightSchedulePilot> iter = itr.iterator();
+    while (iter.hasNext()) craftDispatcher.dispatch(iter.next());
+  }
 }

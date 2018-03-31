@@ -13,29 +13,31 @@ import com.risk.producer.model.FlightSchedule;
 
 @Service
 public class FlightScheduleDispatcher {
-	private static final Logger log = LoggerFactory.getLogger(FlightScheduleDispatcher.class);
+  private static final Logger log = LoggerFactory.getLogger(FlightScheduleDispatcher.class);
 
-	@Autowired
-	private KafkaTemplate<Integer, FlightSchedule> kafkaTemplate;
-	@Autowired
-	StoreRecord record;
+  @Autowired private KafkaTemplate<Integer, FlightSchedule> kafkaTemplate;
+  @Autowired StoreRecord record;
 
-	public boolean dispatch(FlightSchedule craft) {
+  public boolean dispatch(FlightSchedule craft) {
 
-		try {
-			SendResult<Integer, FlightSchedule> sendResult = kafkaTemplate
-			                .sendDefault(craft.getFlightScheduleId(), craft).get();
-			record.setFlightScheduleCount(record.getFlightScheduleCount() + 1);
-			RecordMetadata recordMetadata = sendResult.getRecordMetadata();
-			String metaRecord = "{offset - " + recordMetadata.offset() + " partition - " + recordMetadata.partition()
-			                + " TimeStamp - " + recordMetadata.timestamp() + " }";
-			log.info(metaRecord);
-			return true;
-		}
-		catch (Exception e) {
-			log.error(" " + e);
-			return false;
-		}
-	}
-
+    try {
+      SendResult<Integer, FlightSchedule> sendResult =
+          kafkaTemplate.sendDefault(craft.getFlightScheduleId(), craft).get();
+      record.setFlightScheduleCount(record.getFlightScheduleCount() + 1);
+      RecordMetadata recordMetadata = sendResult.getRecordMetadata();
+      String metaRecord =
+          "{offset - "
+              + recordMetadata.offset()
+              + " partition - "
+              + recordMetadata.partition()
+              + " TimeStamp - "
+              + recordMetadata.timestamp()
+              + " }";
+      log.info(metaRecord);
+      return true;
+    } catch (Exception e) {
+      log.error(" " + e);
+      return false;
+    }
+  }
 }

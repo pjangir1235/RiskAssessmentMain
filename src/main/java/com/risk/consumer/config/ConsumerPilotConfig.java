@@ -19,23 +19,23 @@ import com.risk.consumer.model.PilotDTO;
 @EnableKafka
 public class ConsumerPilotConfig {
 
-	@Autowired
-	ConsumerCommonConfig config;
+  @Autowired ConsumerCommonConfig config;
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public ConsumerFactory<Integer, PilotDTO> pilotConsumerFactory() {
-		Map<String, Object> props = config.commonProperty();
+  @SuppressWarnings({"unchecked", "rawtypes"})
+  public ConsumerFactory<Integer, PilotDTO> pilotConsumerFactory() {
+    Map<String, Object> props = config.commonProperty();
 
-		props.put(ConsumerConfig.GROUP_ID_CONFIG, "pilot");
-		return new DefaultKafkaConsumerFactory<>(props, new IntegerDeserializer(),
-		                new JsonDeserializer(PilotDTO.class));
-	}
-@Bean
-	public ConcurrentKafkaListenerContainerFactory<Integer, PilotDTO> pilotKafkaListenerContainerFactory() {
-		ConcurrentKafkaListenerContainerFactory<Integer, PilotDTO> factory = new ConcurrentKafkaListenerContainerFactory<>();
-		factory.setConsumerFactory(pilotConsumerFactory());
-		return factory;
-	}
+    props.put(ConsumerConfig.GROUP_ID_CONFIG, "pilot");
+    return new DefaultKafkaConsumerFactory<>(
+        props, new IntegerDeserializer(), new JsonDeserializer(PilotDTO.class));
+  }
 
-
+  @Bean
+  public ConcurrentKafkaListenerContainerFactory<Integer, PilotDTO>
+      pilotKafkaListenerContainerFactory() {
+    ConcurrentKafkaListenerContainerFactory<Integer, PilotDTO> factory =
+        new ConcurrentKafkaListenerContainerFactory<>();
+    factory.setConsumerFactory(pilotConsumerFactory());
+    return factory;
+  }
 }

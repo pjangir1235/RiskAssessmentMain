@@ -12,25 +12,26 @@ import com.risk.producer.model.FlightScheduleCrew;
 
 @Configuration
 public class KafkaFlightScheduleCrewProducerConfig {
-	@Autowired
-	private KafkaProducerCommonProperty property;
+  @Autowired private KafkaProducerCommonProperty property;
 
-	@Value("${kafka.topic-flightScheduleCrew}")
-	private String topic;
+  @Value("${kafka.topic-flightScheduleCrew}")
+  private String topic;
 
-	@Bean
-	public KafkaTemplate<Integer, FlightScheduleCrew> flightScheduleCrewKafkaTemplate() {
+  @Bean
+  public KafkaTemplate<Integer, FlightScheduleCrew> flightScheduleCrewKafkaTemplate() {
 
-		KafkaTemplate<Integer, FlightScheduleCrew> kafkaTemplate = new KafkaTemplate<>(producerFactory());
-		kafkaTemplate.setDefaultTopic(topic);
-		return kafkaTemplate;
-	}
+    KafkaTemplate<Integer, FlightScheduleCrew> kafkaTemplate =
+        new KafkaTemplate<>(producerFactory());
+    kafkaTemplate.setDefaultTopic(topic);
+    return kafkaTemplate;
+  }
 
-	@SuppressWarnings("unchecked")
-	@Bean
-	public ProducerFactory<Integer, FlightScheduleCrew> producerFactory() {
-		return new DefaultKafkaProducerFactory<>(property.producerConfigs(), property.setIntegerKeySerializer(),
-		                property.setJsonSerializer());
-	}
-
+  @SuppressWarnings("unchecked")
+  @Bean
+  public ProducerFactory<Integer, FlightScheduleCrew> producerFactory() {
+    return new DefaultKafkaProducerFactory<>(
+        property.producerConfigs(),
+        property.setIntegerKeySerializer(),
+        property.setJsonSerializer());
+  }
 }

@@ -13,28 +13,34 @@ import org.springframework.stereotype.Component;
 
 import com.risk.consumer.model.AircraftChecklistDTO;
 import com.risk.models.StoreRecord;
+import com.risk.services.analysis.impl.AircraftAnalysisServiceImpl;
 
 @Component
 public class AircraftChecklistListener {
 
-	private static final Logger log = LoggerFactory.getLogger(AircraftChecklistListener.class);
-	@Autowired
-	StoreRecord record;
+  private static final Logger log = LoggerFactory.getLogger(AircraftChecklistListener.class);
+  @Autowired StoreRecord record;
 
-	public final CountDownLatch countDownLatch1 = new CountDownLatch(3);
+  @Autowired AircraftAnalysisServiceImpl service;
+  public final CountDownLatch countDownLatch1 = new CountDownLatch(3);
 
-	@KafkaListener(topics = "${kafka.topic-aircraftChecklist}", containerFactory = "aircraftChecklistKafkaListenerContainerFactory")
-
-	public void aircraftChecklistListner(@Payload AircraftChecklistDTO schedule,
-	                @Header(KafkaHeaders.OFFSET) Integer offset,
-	                @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
-	                @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
-		log.info("Processing topic = {}, partition = {}, offset = {}, workUnit = {}", topic, partition, offset,
-		                schedule);
-		record.setAircraftChecklist(schedule);
-		record.setAircraftChecklistCount(record.getAircraftChecklistCount() - 1);
-		countDownLatch1.countDown();
-
-	}
-
+  @KafkaListener(
+    topics = "${kafka.topic-aircraftChecklist}",
+    containerFactory = "aircraftChecklistKafkaListenerContainerFactory"
+  )
+  public void aircraftChecklistListner(
+      @Payload AircraftChecklistDTO checkList,
+      @Header(KafkaHeaders.OFFSET) Integer offset,
+      @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
+      @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
+    log.info(
+        "Processing topic = {}, partition = {}, offset = {}, workUnit = {}",
+        topic,
+        partition,
+        offset,
+        checkList);
+    service.getDataAnalysis(checkList);
+    record.setAircraftChecklistCount(record.getAircraftChecklistCount() - 1);
+    countDownLatch1.countDown();
+  }
 }

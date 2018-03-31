@@ -6,6 +6,4 @@ import org.springframework.stereotype.Repository;
 import com.risk.producer.model.FlightSchedulePilot;
 
 @Repository
-public interface FlightSchedulePilotRepo extends CrudRepository<FlightSchedulePilot, Long> {
-
-}
+public interface FlightSchedulePilotRepo extends CrudRepository<FlightSchedulePilot, Long> {}

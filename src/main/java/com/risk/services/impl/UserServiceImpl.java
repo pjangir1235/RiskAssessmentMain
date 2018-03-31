@@ -13,18 +13,13 @@ import com.risk.services.interfaces.UserService;
 @Service
 public class UserServiceImpl implements UserService {
 
-	@Autowired
-	UserRepo userRepo;
-	@Autowired
-	UserDispatcher userDispatcher;
+  @Autowired UserRepo userRepo;
+  @Autowired UserDispatcher userDispatcher;
 
-
-	@Override
-	public void getUserData(String userName, String password) {
-		Iterable<User> itr = userRepo.findByName(userName, password);
-		Iterator<User> iter = itr.iterator();
-		while (iter.hasNext())
-			userDispatcher.dispatch(iter.next());
-
-	}
+  @Override
+  public void getUserData(String userName, String password) {
+    Iterable<User> itr = userRepo.findByName(userName, password);
+    Iterator<User> iter = itr.iterator();
+    while (iter.hasNext()) userDispatcher.dispatch(iter.next());
+  }
 }

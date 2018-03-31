@@ -8,53 +8,52 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "crew")
-
 public class Crew {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer crewMemberId;
-	private String crewMemberName;
-	Long mobile;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Integer crewMemberId;
 
-	public Crew() {
-		super();
-	}
+  private String crewMemberName;
+  Long mobile;
 
-	public Crew(Integer crewMemberId, String crewMemberName, Long mobile) {
-		super();
-		this.crewMemberId = crewMemberId;
-		this.crewMemberName = crewMemberName;
-		this.mobile = mobile;
-	}
+  public Crew() {
+    super();
+  }
 
-	public Integer getCrewMemberId() {
-		return crewMemberId;
-	}
+  public Crew(Integer crewMemberId, String crewMemberName, Long mobile) {
+    super();
+    this.crewMemberId = crewMemberId;
+    this.crewMemberName = crewMemberName;
+    this.mobile = mobile;
+  }
 
-	public String getCrewMemberName() {
-		return crewMemberName;
-	}
+  public Integer getCrewMemberId() {
+    return crewMemberId;
+  }
 
-	public Long getMobile() {
-		return mobile;
-	}
+  public String getCrewMemberName() {
+    return crewMemberName;
+  }
 
-	public void setCrewMemberId(Integer crewMemberId) {
-		this.crewMemberId = crewMemberId;
-	}
+  public Long getMobile() {
+    return mobile;
+  }
 
-	public void setCrewMemberName(String crewMemberName) {
-		this.crewMemberName = crewMemberName;
-	}
+  public void setCrewMemberId(Integer crewMemberId) {
+    this.crewMemberId = crewMemberId;
+  }
 
-	public void setMobile(Long mobile) {
-		this.mobile = mobile;
-	}
+  public void setCrewMemberName(String crewMemberName) {
+    this.crewMemberName = crewMemberName;
+  }
 
-	@Override
-	public String toString() {
-		return this.getCrewMemberName();
-	}
+  public void setMobile(Long mobile) {
+    this.mobile = mobile;
+  }
 
+  @Override
+  public String toString() {
+    return this.getCrewMemberName();
+  }
 }

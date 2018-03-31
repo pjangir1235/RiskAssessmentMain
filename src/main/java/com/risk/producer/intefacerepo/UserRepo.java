@@ -12,7 +12,6 @@ import com.risk.producer.model.User;
 @Repository
 public interface UserRepo extends CrudRepository<User, Long> {
 
-	@Query(Queries.USERBYID)
-	List<User> findByName(String userName, String password);
-
+  @Query(Queries.USERBYID)
+  List<User> findByName(String userName, String password);
 }

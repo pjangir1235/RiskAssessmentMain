@@ -9,29 +9,29 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "flight_schedule_crew")
 public class FlightScheduleCrew {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer flightScheduleId;
-	private Integer crewMemberId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Integer flightScheduleId;
 
-	public FlightScheduleCrew() {
-		super();
-	}
+  private Integer crewMemberId;
 
-	public Integer getCrewMemberId() {
-		return crewMemberId;
-	}
+  public FlightScheduleCrew() {
+    super();
+  }
 
-	public Integer getFlightScheduleId() {
-		return flightScheduleId;
-	}
+  public Integer getCrewMemberId() {
+    return crewMemberId;
+  }
 
-	public void setCrewMemberId(Integer crewMemberId) {
-		this.crewMemberId = crewMemberId;
-	}
+  public Integer getFlightScheduleId() {
+    return flightScheduleId;
+  }
 
-	public void setFlightScheduleId(Integer flightScheduleId) {
-		this.flightScheduleId = flightScheduleId;
-	}
+  public void setCrewMemberId(Integer crewMemberId) {
+    this.crewMemberId = crewMemberId;
+  }
 
+  public void setFlightScheduleId(Integer flightScheduleId) {
+    this.flightScheduleId = flightScheduleId;
+  }
 }

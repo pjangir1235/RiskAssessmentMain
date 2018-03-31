@@ -13,27 +13,30 @@ import com.risk.producer.model.RestDetail;
 
 @Service
 public class RestDetailDispatcher {
-	private static final Logger log = LoggerFactory.getLogger(RestDetailDispatcher.class);
+  private static final Logger log = LoggerFactory.getLogger(RestDetailDispatcher.class);
 
-	@Autowired
-	private KafkaTemplate<Integer, RestDetail> kafkaTemplate;
-	@Autowired
-	StoreRecord record;
+  @Autowired private KafkaTemplate<Integer, RestDetail> kafkaTemplate;
+  @Autowired StoreRecord record;
 
-	public boolean dispatch(RestDetail craft) {
-		try {
-			SendResult<Integer, RestDetail> sendResult = kafkaTemplate.sendDefault(craft.getMemberId(), craft).get();
-			record.setRestDetailCount(record.getRestDetailCount() + 1);
-			RecordMetadata recordMetadata = sendResult.getRecordMetadata();
-			String metaRecord = "{offset - " + recordMetadata.offset() + " partition - " + recordMetadata.partition()
-			                + " TimeStamp - " + recordMetadata.timestamp() + " }";
-			log.info(metaRecord);
-			return true;
-		}
-		catch (Exception e) {
-			log.error(" " + e);
-			return false;
-		}
-	}
+  public boolean dispatch(RestDetail craft) {
+    try {
+      SendResult<Integer, RestDetail> sendResult =
+          kafkaTemplate.sendDefault(craft.getMemberId(), craft).get();
+      RecordMetadata recordMetadata = sendResult.getRecordMetadata();
+      String metaRecord =
+          "{offset - "
+              + recordMetadata.offset()
+              + " partition - "
+              + recordMetadata.partition()
+              + " TimeStamp - "
+              + recordMetadata.timestamp()
+              + " }";
 
+      log.info(metaRecord);
+      return true;
+    } catch (Exception e) {
+      log.error(" " + e);
+      return false;
+    }
+  }
 }

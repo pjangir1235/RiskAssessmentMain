@@ -12,24 +12,25 @@ import com.risk.producer.model.FlightSchedule;
 
 @Configuration
 public class KafkaFlightScheduleProducerConfig {
-	@Autowired
-	private KafkaProducerCommonProperty property;
+  @Autowired private KafkaProducerCommonProperty property;
 
-	@Value("${kafka.topic-flightSchedule}")
-	private String topic;
+  @Value("${kafka.topic-flightSchedule}")
+  private String topic;
 
-	@Bean
-	public KafkaTemplate<Integer, FlightSchedule> flightScheduleKafkaTemplate() {
+  @Bean
+  public KafkaTemplate<Integer, FlightSchedule> flightScheduleKafkaTemplate() {
 
-		KafkaTemplate<Integer, FlightSchedule> kafkaTemplate = new KafkaTemplate<>(producerFactory());
-		kafkaTemplate.setDefaultTopic(topic);
-		return kafkaTemplate;
-	}
+    KafkaTemplate<Integer, FlightSchedule> kafkaTemplate = new KafkaTemplate<>(producerFactory());
+    kafkaTemplate.setDefaultTopic(topic);
+    return kafkaTemplate;
+  }
 
-	@SuppressWarnings("unchecked")
-	@Bean
-	public ProducerFactory<Integer, FlightSchedule> producerFactory() {
-		return new DefaultKafkaProducerFactory<>(property.producerConfigs(), property.setIntegerKeySerializer(),
-		                property.setJsonSerializer());
-	}
+  @SuppressWarnings("unchecked")
+  @Bean
+  public ProducerFactory<Integer, FlightSchedule> producerFactory() {
+    return new DefaultKafkaProducerFactory<>(
+        property.producerConfigs(),
+        property.setIntegerKeySerializer(),
+        property.setJsonSerializer());
+  }
 }

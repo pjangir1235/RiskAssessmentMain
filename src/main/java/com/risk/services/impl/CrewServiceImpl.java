@@ -13,20 +13,16 @@ import com.risk.services.interfaces.CrewService;
 @Service
 public class CrewServiceImpl implements CrewService {
 
-	@Autowired
-	CrewRepo craftRepo;
-	@Autowired
-	CrewDispatcher craftDispatcher;
+  @Autowired CrewRepo craftRepo;
+  @Autowired CrewDispatcher craftDispatcher;
 
-	/* (non-Javadoc)
-	 * @see com.risk.services.impl.CrewService#getCrewData()
-	 */
-	@Override
-	public void getCrewData() {
-		Iterable<Crew> itr = craftRepo.findAll();
-		Iterator<Crew> iter = itr.iterator();
-		while (iter.hasNext())
-			craftDispatcher.dispatch(iter.next());
-
-	}
+  /* (non-Javadoc)
+   * @see com.risk.services.impl.CrewService#getCrewData()
+   */
+  @Override
+  public void getCrewData() {
+    Iterable<Crew> itr = craftRepo.findAll();
+    Iterator<Crew> iter = itr.iterator();
+    while (iter.hasNext()) craftDispatcher.dispatch(iter.next());
+  }
 }

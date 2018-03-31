@@ -122,24 +122,16 @@ app.controller('scheduleController', function ($rootScope, $window, $scope, $sta
     }
   }
 
-
-
-
-
-
 })
 
 app.service('scheduleService', ['$http', '$window', 'growl', function ($http, $window, $state, growl) {
 
 
   this.getLocation = function () {
-    // 
     return (
       $http.get('/RiskAssessment/airport').success(function (data, response) {
-        // $scope.scheduleLoading = false;
         return data;
       }).error(function (response, status) {
-        // $scope.scheduleLoading = false;
         return status;
 
       })
@@ -188,9 +180,10 @@ app.service('scheduleService', ['$http', '$window', 'growl', function ($http, $w
 }]);
 
 
-app.controller('analysisHomeController', function ($rootScope, $window, $scope, $state, scheduleService, growl) {
+app.controller('analysisHomeController', function ($rootScope, $window, $scope, $state, analysisService, growl) {
+  $scope.analysisLoading = true;
   $scope.scheduleDetail = JSON.parse($window.sessionStorage.getItem('schedule'));
-  console.log($scope.scheduleDetail);
+
   $scope.firstPilot = $scope.scheduleDetail.firstPilot;
   $scope.aircraftCode = $scope.scheduleDetail.aircraftCode;
   $scope.captain = $scope.scheduleDetail.captain;
@@ -198,12 +191,217 @@ app.controller('analysisHomeController', function ($rootScope, $window, $scope, 
   $scope.sourceLocation = $scope.scheduleDetail.sourceAirportCode;
   $scope.destinationLocation = $scope.scheduleDetail.destinationAirportCode;
 
+  analysisService.doAnalysisData($scope.scheduleDetail).then(function (data) {
+    $scope.analysisLoading = false;
+    if (data.data == null || data.data == '') {
+
+      growl.error("ERROR in Analysis! Do Again  ", {
+        ttl: 4000
+      });
+    }
+    else {
+      console.log(data.data);
+      $scope.result = data.data;
+
+
+    }
+  });
+
 })
-app.controller('reportAnalysisController', function ($rootScope, $window, $scope, $state) {
+app.service('analysisService', ['$http', 'growl', function ($http, $state, growl) {
+
+  var result = {};
+  this.doAnalysisData = function (data) {
+
+    return (
+
+      $http.post('/RiskAssessment/analysis', data).success(function (data, response) {
+        result = data;
+        console.log('result=' + data);
+        return data;
+      }).error(function (response, status) {
+        console.log(status);
+        return status;
+
+      })
+    );
+  }
+  this.getAnalysisData = function () {
+    return result;
+  }
+
+}]);
+app.controller('pilotDataController', function ($scope, $window, growl, aircraftService) {
+
+  $scope.scheduleDetail = JSON.parse($window.sessionStorage.getItem('schedule'));
+  console.log($scope.scheduleDetail.pilots);
+  $scope.pilotData = $scope.scheduleDetail.pilots;
+
+})
+app.controller('aircraftDataController', function ($scope, $window, growl, aircraftService) {
+
+  $scope.scheduleDetail = JSON.parse($window.sessionStorage.getItem('schedule'));
+  $scope.aircraftLoading = true;
+  aircraftService.getAircraftData($scope.scheduleDetail.aircraftCode).then(function (data) {
+    $scope.aircraftLoading = false;
+    if (data.data == null || data.data == '') {
+      growl.error("ERROR in getting Aircraft Data! Do Again  ", {
+        ttl: 4000
+      });
+    }
+    else {
+      console.log(data.data);
+      $scope.aircraftData = data.data;
 
 
-});
+    }
+  });
 
+})
+app.service('aircraftService', ['$http', '$window', 'growl', function ($http, $window, $state, growl) {
+
+  this.getAircraftData = function (code) {
+
+    return (
+
+      $http.get('/RiskAssessment/aircraft/' + code).success(function (data, response) {
+
+
+        return data;
+      }).error(function (response, status) {
+
+        return status;
+
+      })
+    );
+  }
+}]);
+
+
+
+app.controller('environmentDataController', function ($scope, growl, envService) {
+
+  $scope.analysisLoading = true;
+  envService.getEnvData().then(function (data) {
+    $scope.analysisLoading = false;
+    if (data.data == null || data.data == '') {
+      growl.error("ERROR in getting Environment Data! Do Again  ", {
+        ttl: 4000
+      });
+    }
+    else {
+      console.log(data.data);
+      $scope.environmentData = data.data;
+
+
+    }
+  });
+
+})
+app.service('envService', ['$http', '$window', function ($http, $window, $state) {
+
+  this.getEnvData = function (code) {
+
+    return (
+
+      $http.get('/RiskAssessment/environment').success(function (data, response) {
+
+
+        return data;
+      }).error(function (response, status) {
+
+        return status;
+
+      })
+    );
+  }
+}]);
+
+app.controller('aircraftController', function ($scope, analysisService) {
+  var aircraftData = analysisService.getAnalysisData().aircraftCheckList;
+  var result = analysisService.getAnalysisData().result;
+  $scope.stormScope = aircraftData.stormScope;
+  $scope.weatherRadar = aircraftData.wetherRadar;
+  $scope.deIce = aircraftData.deIce;
+  $scope.autoPilot = aircraftData.autoPilot;
+  $scope.perAircraft = result.aircraft;
+  console.log(aircraftData);
+})
+app.controller('destinationAirportController', function ($scope, analysisService) {
+  var destEnvData = analysisService.getAnalysisData().destEnv;
+  var result = analysisService.getAnalysisData().result;
+  $scope.dMountain = destEnvData.mountain;
+  $scope.dNight = destEnvData.nightOperation;
+  $scope.dWinter = destEnvData.winterOper;
+  $scope.dThunderStorm = destEnvData.thunderStorm;
+  $scope.dRain = destEnvData.rain;
+  $scope.dForzen = destEnvData.frozen;
+  $scope.dNoWeather = destEnvData.noWeather;
+  $scope.dWind = destEnvData.windSpeed;
+  $scope.dVisibility = destEnvData.visibility;
+  $scope.perDest = result.destinationEnvironment;
+  console.log(destEnvData);
+
+
+})
+app.controller('humanPerformanceController', function ($scope, analysisService) {
+  var humanData = analysisService.getAnalysisData().crewTotal;
+  var result = analysisService.getAnalysisData().result;
+  $scope.dutyDay = humanData.dutyTime;
+  $scope.restTime = humanData.restTime;
+  $scope.perHuman = result.human;
+  console.log(humanData);
+})
+app.controller('profeciencyController', function ($scope, analysisService) {
+  var captainData = analysisService.getAnalysisData().captainDetail;
+  var pilotData = analysisService.getAnalysisData().pilotDetail;
+  var result = analysisService.getAnalysisData().result;
+  $scope.cTotal = captainData.totHour;
+  $scope.cTotalMsg = captainData.messTotHour;
+  $scope.cDutyTime = captainData.durTot;
+  $scope.cDutyTimeMsg = captainData.messDurTot;
+  $scope.cNinty = captainData.durLNinty;
+  $scope.cNintyMsg = captainData.messDurLNinty;
+  $scope.pNoPilot = pilotData.noPilot;
+  $scope.pNoPilotMsg = pilotData.messNoPilot;
+  $scope.pNinty = pilotData.durLNinty;
+  $scope.pNintyMsg = pilotData.messDurLNinty;
+  $scope.pTotal = pilotData.totDur;
+  $scope.pTotalMsg = pilotData.messTotDur;
+  $scope.cLanding = captainData.landing;
+  $scope.cLandingMsg = captainData.messLanding;
+  $scope.perProficiency = result.proficiency;
+  console.log(captainData);
+  console.log(pilotData);
+
+
+})
+app.controller('sourceAirportController', function ($scope, analysisService) {
+  var sourceEnvData = analysisService.getAnalysisData().sourceEnv;
+  var result = analysisService.getAnalysisData().result;
+  $scope.sMountain = sourceEnvData.mountain;
+  $scope.sNight = sourceEnvData.nightOperation;
+  $scope.sWinter = sourceEnvData.winterOper;
+  $scope.sThunderStorm = sourceEnvData.thunderStorm;
+  $scope.sRain = sourceEnvData.rain;
+  $scope.sForzen = sourceEnvData.frozen;
+  $scope.sNoWeather = sourceEnvData.noWeather;
+  $scope.sWind = sourceEnvData.windSpeed;
+  $scope.sVisibility = sourceEnvData.visibility;
+  $scope.perSource = result.sourceEnvironment;
+  console.log(sourceEnvData);
+})
+app.controller('resultController', function ($scope, analysisService) {
+  var resultData = analysisService.getAnalysisData().result;
+  $scope.proficiency = resultData.proficiency;
+  $scope.sourceEnv = resultData.sourceEnvironment;
+  $scope.destEnv = resultData.destinationEnvironment;
+  $scope.aircraft = resultData.aircraft;
+  $scope.human = resultData.human;
+  $scope.total = resultData.finalPercent;
+  $scope.conclusion = resultData.conclusion;
+  console.log(resultData);
+})
 
 
 
@@ -225,61 +423,53 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
       url: '/analysisHome',
       templateUrl: 'analysisHome.html',
       controller: 'analysisHomeController',
-      resolve: {
-        timing: function ($timeout, $q) {
-          var defer = $q.defer();
-          $timeout(function () {
-            defer.resolve();
-          }, 3500);
-          return defer.promise;
-        }
-      }
+
     })
     .state('analysisHome.aircraft', {
       url: '/aircraft',
       templateUrl: 'aircraft.html',
-      // controller: 'aircraftController',
+      controller: 'aircraftController',
 
     })
     .state('analysisHome.aircraftData', {
       url: '/aircraftData',
       templateUrl: 'aircraftData.html',
-      // controller: 'aircraftDataController'
+      controller: 'aircraftDataController'
     })
     .state('analysisHome.destinationAirport', {
       url: '/destinationAirport',
       templateUrl: 'destinationAirport.html',
-      //   controller: 'destinationAirportController'
+      controller: 'destinationAirportController'
     })
     .state('analysisHome.environmentData', {
       url: '/environmentData',
       templateUrl: 'environmentData.html',
-      // controller: 'environmentDataController'
+      controller: 'environmentDataController'
     })
     .state('analysisHome.humanPerformance', {
       url: '/humanPerformance',
       templateUrl: 'humanPerformance.html',
-      // controller: 'humanPerformanceController'
+      controller: 'humanPerformanceController'
     })
     .state('analysisHome.pilotData', {
       url: '/pilotData',
       templateUrl: 'pilotData.html',
-      // controller: 'pilotDataController'
+      controller: 'pilotDataController'
     })
     .state('analysisHome.profeciency', {
       url: '/profeciency',
       templateUrl: 'profeciency.html',
-      // controller: 'profeciencyController'
+      controller: 'profeciencyController'
     })
     .state('analysisHome.result', {
       url: '/result',
       templateUrl: 'result.html',
-      // controller: 'resultController'
+      controller: 'resultController'
     })
     .state('analysisHome.sourceAirport', {
       url: '/sourceAirport',
       templateUrl: 'sourceAirport.html',
-      // controller: 'sourceAirportController'
+      controller: 'sourceAirportController'
     })
 }]);
 app.config(['growlProvider', function (growlProvider) {

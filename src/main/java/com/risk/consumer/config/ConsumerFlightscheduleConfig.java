@@ -19,25 +19,23 @@ import com.risk.consumer.model.FlightScheduleDTO;
 @EnableKafka
 public class ConsumerFlightscheduleConfig {
 
-	@Autowired
-	ConsumerCommonConfig config;
+  @Autowired ConsumerCommonConfig config;
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public ConsumerFactory<Integer, FlightScheduleDTO> flightScheduleConsumerFactory() {
-		Map<String, Object> props = config.commonProperty();
+  @SuppressWarnings({"unchecked", "rawtypes"})
+  public ConsumerFactory<Integer, FlightScheduleDTO> flightScheduleConsumerFactory() {
+    Map<String, Object> props = config.commonProperty();
 
-		props.put(ConsumerConfig.GROUP_ID_CONFIG, "flightSchedule");
-		return new DefaultKafkaConsumerFactory<>(props, new IntegerDeserializer(),
-		                new JsonDeserializer(FlightScheduleDTO.class));
-	}
-	@Bean
-	public ConcurrentKafkaListenerContainerFactory<Integer, FlightScheduleDTO> flightScheduleKafkaListenerContainerFactory() {
-		ConcurrentKafkaListenerContainerFactory<Integer, FlightScheduleDTO> factory = new ConcurrentKafkaListenerContainerFactory<>();
-		factory.setConsumerFactory(flightScheduleConsumerFactory());
-		return factory;
-	}
+    props.put(ConsumerConfig.GROUP_ID_CONFIG, "flightSchedule");
+    return new DefaultKafkaConsumerFactory<>(
+        props, new IntegerDeserializer(), new JsonDeserializer(FlightScheduleDTO.class));
+  }
 
-
-
-
+  @Bean
+  public ConcurrentKafkaListenerContainerFactory<Integer, FlightScheduleDTO>
+      flightScheduleKafkaListenerContainerFactory() {
+    ConcurrentKafkaListenerContainerFactory<Integer, FlightScheduleDTO> factory =
+        new ConcurrentKafkaListenerContainerFactory<>();
+    factory.setConsumerFactory(flightScheduleConsumerFactory());
+    return factory;
+  }
 }

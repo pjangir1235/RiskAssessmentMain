@@ -12,24 +12,25 @@ import com.risk.producer.model.Aircraft;
 
 @Configuration
 public class KafkaAircraftProducerConfig {
-	@Autowired
-	private KafkaProducerCommonProperty property;
+  @Autowired private KafkaProducerCommonProperty property;
 
-	@Value("${kafka.topic-aircraft}")
-	private String topic;
+  @Value("${kafka.topic-aircraft}")
+  private String topic;
 
-	@Bean
-	public KafkaTemplate<Integer, Aircraft> aircraftKafkaTemplate() {
+  @Bean
+  public KafkaTemplate<Integer, Aircraft> aircraftKafkaTemplate() {
 
-		KafkaTemplate<Integer, Aircraft> kafkaTemplate = new KafkaTemplate<>(producerFactory());
-		kafkaTemplate.setDefaultTopic(topic);
-		return kafkaTemplate;
-	}
+    KafkaTemplate<Integer, Aircraft> kafkaTemplate = new KafkaTemplate<>(producerFactory());
+    kafkaTemplate.setDefaultTopic(topic);
+    return kafkaTemplate;
+  }
 
-	@SuppressWarnings("unchecked")
-	@Bean
-	public ProducerFactory<Integer, Aircraft> producerFactory() {
-		return new DefaultKafkaProducerFactory<>(property.producerConfigs(), property.setIntegerKeySerializer(),
-		                property.setJsonSerializer());
-	}
+  @SuppressWarnings("unchecked")
+  @Bean
+  public ProducerFactory<Integer, Aircraft> producerFactory() {
+    return new DefaultKafkaProducerFactory<>(
+        property.producerConfigs(),
+        property.setIntegerKeySerializer(),
+        property.setJsonSerializer());
+  }
 }

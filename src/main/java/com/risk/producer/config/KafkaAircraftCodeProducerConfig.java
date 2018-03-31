@@ -12,24 +12,25 @@ import com.risk.producer.model.AircraftCodeType;
 
 @Configuration
 public class KafkaAircraftCodeProducerConfig {
-	@Autowired
-	private KafkaProducerCommonProperty property;
+  @Autowired private KafkaProducerCommonProperty property;
 
-	@Value("${kafka.topic-aircraftCode}")
-	private String topic;
+  @Value("${kafka.topic-aircraftCode}")
+  private String topic;
 
-	@Bean
-	public KafkaTemplate<String, AircraftCodeType> aircraftCodeKafkaTemplate() {
+  @Bean
+  public KafkaTemplate<Integer, AircraftCodeType> aircraftCodeKafkaTemplate() {
 
-		KafkaTemplate<String, AircraftCodeType> kafkaTemplate = new KafkaTemplate<>(producerFactory());
-		kafkaTemplate.setDefaultTopic(topic);
-		return kafkaTemplate;
-	}
+    KafkaTemplate<Integer, AircraftCodeType> kafkaTemplate = new KafkaTemplate<>(producerFactory());
+    kafkaTemplate.setDefaultTopic(topic);
+    return kafkaTemplate;
+  }
 
-	@SuppressWarnings("unchecked")
-	@Bean
-	public ProducerFactory<String, AircraftCodeType> producerFactory() {
-		return new DefaultKafkaProducerFactory<>(property.producerConfigs(), property.setStringSerializer(),
-		                property.setJsonSerializer());
-	}
+  @SuppressWarnings("unchecked")
+  @Bean
+  public ProducerFactory<Integer, AircraftCodeType> producerFactory() {
+    return new DefaultKafkaProducerFactory<>(
+        property.producerConfigs(),
+        property.setIntegerKeySerializer(),
+        property.setJsonSerializer());
+  }
 }

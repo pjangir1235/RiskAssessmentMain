@@ -13,24 +13,25 @@ import com.risk.producer.model.User;
 @Configuration
 public class KafkaUserProducerConfig {
 
-	@Autowired
-	private KafkaProducerCommonProperty property;
+  @Autowired private KafkaProducerCommonProperty property;
 
-	@Value("${kafka.topic-user}")
-	private String topic;
+  @Value("${kafka.topic-user}")
+  private String topic;
 
-	@SuppressWarnings("unchecked")
-	@Bean
-	public ProducerFactory<Integer, User> producerFactory() {
-		return new DefaultKafkaProducerFactory<>(property.producerConfigs(), property.setIntegerKeySerializer(),
-		                property.setJsonSerializer());
-	}
+  @SuppressWarnings("unchecked")
+  @Bean
+  public ProducerFactory<Integer, User> producerFactory() {
+    return new DefaultKafkaProducerFactory<>(
+        property.producerConfigs(),
+        property.setIntegerKeySerializer(),
+        property.setJsonSerializer());
+  }
 
-	@Bean
-	public KafkaTemplate<Integer, User> userKafkaTemplate() {
+  @Bean
+  public KafkaTemplate<Integer, User> userKafkaTemplate() {
 
-		KafkaTemplate<Integer, User> kafkaTemplate = new KafkaTemplate<>(producerFactory());
-		kafkaTemplate.setDefaultTopic(topic);
-		return kafkaTemplate;
-	}
+    KafkaTemplate<Integer, User> kafkaTemplate = new KafkaTemplate<>(producerFactory());
+    kafkaTemplate.setDefaultTopic(topic);
+    return kafkaTemplate;
+  }
 }

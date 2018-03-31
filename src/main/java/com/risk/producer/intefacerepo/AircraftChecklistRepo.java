@@ -12,7 +12,6 @@ import com.risk.producer.model.AircraftChecklist;
 @Repository
 public interface AircraftChecklistRepo extends CrudRepository<AircraftChecklist, Long> {
 
-	@Query(value = Queries.AIRCRAFTCHECKLIST)
-	List<AircraftChecklist> findAircraft(String aircraftCode, String dateOfDeparture);
-
+  @Query(value = Queries.AIRCRAFTCHECKLIST)
+  List<AircraftChecklist> findAircraft(String aircraftCode, String dateOfDeparture);
 }

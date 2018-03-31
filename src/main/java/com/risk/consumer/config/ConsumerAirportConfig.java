@@ -19,24 +19,22 @@ import com.risk.consumer.model.AirportDTO;
 @EnableKafka
 public class ConsumerAirportConfig {
 
-	@Autowired
-	ConsumerCommonConfig config;
+  @Autowired ConsumerCommonConfig config;
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public ConsumerFactory<Integer, AirportDTO> airportConsumerFactory() {
-		Map<String, Object> props = config.commonProperty();
-		props.put(ConsumerConfig.GROUP_ID_CONFIG, "airport");
-		return new DefaultKafkaConsumerFactory<>(props, new IntegerDeserializer(),
-		                new JsonDeserializer(AirportDTO.class));
-	}
+  @SuppressWarnings({"unchecked", "rawtypes"})
+  public ConsumerFactory<Integer, AirportDTO> airportConsumerFactory() {
+    Map<String, Object> props = config.commonProperty();
+    props.put(ConsumerConfig.GROUP_ID_CONFIG, "airport");
+    return new DefaultKafkaConsumerFactory<>(
+        props, new IntegerDeserializer(), new JsonDeserializer(AirportDTO.class));
+  }
 
-	@Bean
-	public ConcurrentKafkaListenerContainerFactory<Integer, AirportDTO> airportKafkaListenerContainerFactory() {
-		ConcurrentKafkaListenerContainerFactory<Integer, AirportDTO> factory = new ConcurrentKafkaListenerContainerFactory<>();
-		factory.setConsumerFactory(airportConsumerFactory());
-		return factory;
-	}
-
-
-
+  @Bean
+  public ConcurrentKafkaListenerContainerFactory<Integer, AirportDTO>
+      airportKafkaListenerContainerFactory() {
+    ConcurrentKafkaListenerContainerFactory<Integer, AirportDTO> factory =
+        new ConcurrentKafkaListenerContainerFactory<>();
+    factory.setConsumerFactory(airportConsumerFactory());
+    return factory;
+  }
 }

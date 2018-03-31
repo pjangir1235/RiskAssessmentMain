@@ -12,21 +12,16 @@ import com.risk.services.interfaces.AirportService;
 
 @Service
 public class AirportServiceImpl implements AirportService {
-	@Autowired
-	AirportRepo airport;
-	@Autowired
-	AirportDispatcher dispatcher;
+  @Autowired AirportRepo airport;
+  @Autowired AirportDispatcher dispatcher;
 
-	/* (non-Javadoc)
-	 * @see com.risk.services.impl.AirportService#getAirportData()
-	 */
-	@Override
-	public void getAirportData() {
-		Iterable<Airport> itr = airport.findAll();
-		Iterator<Airport> iter = itr.iterator();
-		while (iter.hasNext())
-			dispatcher.dispatch(iter.next());
-
-	}
-
+  /* (non-Javadoc)
+   * @see com.risk.services.impl.AirportService#getAirportData()
+   */
+  @Override
+  public void getAirportData() {
+    Iterable<Airport> itr = airport.findAll();
+    Iterator<Airport> iter = itr.iterator();
+    while (iter.hasNext()) dispatcher.dispatch(iter.next());
+  }
 }

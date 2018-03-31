@@ -13,25 +13,25 @@ import com.risk.producer.model.Crew;
 @Configuration
 public class KafkaCrewProducerConfig {
 
-	@Autowired
-	private KafkaProducerCommonProperty property;
+  @Autowired private KafkaProducerCommonProperty property;
 
-	@Value("${kafka.topic-crew}")
-	private String topic;
+  @Value("${kafka.topic-crew}")
+  private String topic;
 
-	@Bean
-	public KafkaTemplate<Integer, Crew> crewKafkaTemplate() {
+  @Bean
+  public KafkaTemplate<Integer, Crew> crewKafkaTemplate() {
 
-		KafkaTemplate<Integer, Crew> kafkaTemplate = new KafkaTemplate<>(producerFactory());
-		kafkaTemplate.setDefaultTopic(topic);
-		return kafkaTemplate;
-	}
+    KafkaTemplate<Integer, Crew> kafkaTemplate = new KafkaTemplate<>(producerFactory());
+    kafkaTemplate.setDefaultTopic(topic);
+    return kafkaTemplate;
+  }
 
-	@SuppressWarnings("unchecked")
-	@Bean
-	public ProducerFactory<Integer, Crew> producerFactory() {
-		return new DefaultKafkaProducerFactory<>(property.producerConfigs(), property.setIntegerKeySerializer(),
-		                property.setJsonSerializer());
-	}
-
+  @SuppressWarnings("unchecked")
+  @Bean
+  public ProducerFactory<Integer, Crew> producerFactory() {
+    return new DefaultKafkaProducerFactory<>(
+        property.producerConfigs(),
+        property.setIntegerKeySerializer(),
+        property.setJsonSerializer());
+  }
 }

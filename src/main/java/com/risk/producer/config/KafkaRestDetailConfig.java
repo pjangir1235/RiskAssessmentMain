@@ -12,24 +12,25 @@ import com.risk.producer.model.RestDetail;
 
 @Configuration
 public class KafkaRestDetailConfig {
-	@Autowired
-	private KafkaProducerCommonProperty property;
+  @Autowired private KafkaProducerCommonProperty property;
 
-	@Value("${kafka.topic-restDetail}")
-	private String topic;
+  @Value("${kafka.topic-restDetail}")
+  private String topic;
 
-	@SuppressWarnings("unchecked")
-	@Bean
-	public ProducerFactory<Integer, RestDetail> producerFactory() {
-		return new DefaultKafkaProducerFactory<>(property.producerConfigs(), property.setIntegerKeySerializer(),
-		                property.setJsonSerializer());
-	}
+  @SuppressWarnings("unchecked")
+  @Bean
+  public ProducerFactory<Integer, RestDetail> producerFactory() {
+    return new DefaultKafkaProducerFactory<>(
+        property.producerConfigs(),
+        property.setIntegerKeySerializer(),
+        property.setJsonSerializer());
+  }
 
-	@Bean
-	public KafkaTemplate<Integer, RestDetail> restDetailKafkaTemplate() {
+  @Bean
+  public KafkaTemplate<Integer, RestDetail> restDetailKafkaTemplate() {
 
-		KafkaTemplate<Integer, RestDetail> kafkaTemplate = new KafkaTemplate<>(producerFactory());
-		kafkaTemplate.setDefaultTopic(topic);
-		return kafkaTemplate;
-	}
+    KafkaTemplate<Integer, RestDetail> kafkaTemplate = new KafkaTemplate<>(producerFactory());
+    kafkaTemplate.setDefaultTopic(topic);
+    return kafkaTemplate;
+  }
 }

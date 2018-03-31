@@ -17,24 +17,28 @@ import com.risk.models.StoreRecord;
 @Component
 public class FlightSchedulePilotListener {
 
-	private static final Logger log = LoggerFactory.getLogger(FlightSchedulePilotListener.class);
-	@Autowired
-	StoreRecord record;
+  private static final Logger log = LoggerFactory.getLogger(FlightSchedulePilotListener.class);
+  @Autowired StoreRecord record;
 
-	public final CountDownLatch countDownLatch1 = new CountDownLatch(3);
+  public final CountDownLatch countDownLatch1 = new CountDownLatch(3);
 
-	@KafkaListener(topics = "${kafka.topic-flightSchedulePilot}", containerFactory = "flightSchedulePilotKafkaListenerContainerFactory")
-
-	public void flightSchedulePilot6Listner(@Payload FlightSchedulePilotDTO schedule,
-	                @Header(KafkaHeaders.OFFSET) Integer offset,
-	                @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
-	                @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
-		log.info("Processing topic = {}, partition = {}, offset = {}, workUnit = {}", topic, partition, offset,
-		                schedule);
-		record.setFlightSchedulePilot(schedule);
-		record.setFlightSchedulePilotCount(record.getFlightSchedulePilotCount() - 1);
-		countDownLatch1.countDown();
-
-	}
-
+  @KafkaListener(
+    topics = "${kafka.topic-flightSchedulePilot}",
+    containerFactory = "flightSchedulePilotKafkaListenerContainerFactory"
+  )
+  public void flightSchedulePilotListner(
+      @Payload FlightSchedulePilotDTO schedule,
+      @Header(KafkaHeaders.OFFSET) Integer offset,
+      @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
+      @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
+    log.info(
+        "Processing topic = {}, partition = {}, offset = {}, workUnit = {}",
+        topic,
+        partition,
+        offset,
+        schedule);
+    record.setFlightSchedulePilot(schedule);
+    record.setFlightSchedulePilotCount(record.getFlightSchedulePilotCount() - 1);
+    countDownLatch1.countDown();
+  }
 }

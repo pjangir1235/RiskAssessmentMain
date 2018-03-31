@@ -13,20 +13,16 @@ import com.risk.services.interfaces.PilotDesignationService;
 @Service
 public class PilotDesignationServiceImpl implements PilotDesignationService {
 
-	@Autowired
-	PilotDesignationRepo craftRepo;
-	@Autowired
-	PilotDesignationDispatcher craftDispatcher;
+  @Autowired PilotDesignationRepo craftRepo;
+  @Autowired PilotDesignationDispatcher craftDispatcher;
 
-	/* (non-Javadoc)
-	 * @see com.risk.services.impl.PilotDesignationService#getPilotDesignationData()
-	 */
-	@Override
-	public void getPilotDesignationData() {
-		Iterable<PilotDesignation> itr = craftRepo.findAll();
-		Iterator<PilotDesignation> iter = itr.iterator();
-		while (iter.hasNext())
-			craftDispatcher.dispatch(iter.next());
-
-	}
+  /* (non-Javadoc)
+   * @see com.risk.services.impl.PilotDesignationService#getPilotDesignationData()
+   */
+  @Override
+  public void getPilotDesignationData() {
+    Iterable<PilotDesignation> itr = craftRepo.findAll();
+    Iterator<PilotDesignation> iter = itr.iterator();
+    while (iter.hasNext()) craftDispatcher.dispatch(iter.next());
+  }
 }

@@ -13,20 +13,16 @@ import com.risk.services.interfaces.AircraftTypeService;
 @Service
 public class AircraftTypeServiceImpl implements AircraftTypeService {
 
-	@Autowired
-	AircraftTypeRepo craftRepo;
-	@Autowired
-	AircraftTypeDispatcher craftDispatcher;
+  @Autowired AircraftTypeRepo craftRepo;
+  @Autowired AircraftTypeDispatcher craftDispatcher;
 
-	/* (non-Javadoc)
-	 * @see com.risk.services.impl.AircraftTypeService#getAircraftTypeData()
-	 */
-	@Override
-	public void getAircraftTypeData() {
-		Iterable<AircraftTypeValue> itr = craftRepo.findAll();
-		Iterator<AircraftTypeValue> iter = itr.iterator();
-		while (iter.hasNext())
-			craftDispatcher.dispatch(iter.next());
-
-	}
+  /* (non-Javadoc)
+   * @see com.risk.services.impl.AircraftTypeService#getAircraftTypeData()
+   */
+  @Override
+  public void getAircraftTypeData() {
+    Iterable<AircraftTypeValue> itr = craftRepo.findAll();
+    Iterator<AircraftTypeValue> iter = itr.iterator();
+    while (iter.hasNext()) craftDispatcher.dispatch(iter.next());
+  }
 }

@@ -1,43 +1,44 @@
 package com.risk.consumer.model;
 
 public class PilotDTO {
-	private int pilotId;
-	private String pilotName;
-	private String pilotDesignationCode;
+  private int pilotId;
+  private String pilotName;
+  private String pilotDesignationCode;
+  private String mobile;
 
-	public PilotDTO() {
-		super();
-	}
+  public PilotDTO() {
+    super();
+  }
 
-	public PilotDTO(int pilotId, String pilotName, String pilotDesignationCode) {
-		super();
-		this.pilotId = pilotId;
-		this.pilotName = pilotName;
-		this.pilotDesignationCode = pilotDesignationCode;
-	}
+  public String getMobile() {
+    return mobile;
+  }
 
-	public String getPilotDesignationCode() {
-		return pilotDesignationCode;
-	}
+  public void setMobile(String mobile) {
+    this.mobile = mobile;
+  }
 
-	public int getPilotId() {
-		return pilotId;
-	}
+  public String getPilotDesignationCode() {
+    return pilotDesignationCode;
+  }
 
-	public String getPilotName() {
-		return pilotName;
-	}
+  public int getPilotId() {
+    return pilotId;
+  }
 
-	public void setPilotDesignationCode(String pilotDesignationCode) {
-		this.pilotDesignationCode = pilotDesignationCode;
-	}
+  public String getPilotName() {
+    return pilotName;
+  }
 
-	public void setPilotId(int pilotId) {
-		this.pilotId = pilotId;
-	}
+  public void setPilotDesignationCode(String pilotDesignationCode) {
+    this.pilotDesignationCode = pilotDesignationCode;
+  }
 
-	public void setPilotName(String pilotName) {
-		this.pilotName = pilotName;
-	}
+  public void setPilotId(int pilotId) {
+    this.pilotId = pilotId;
+  }
 
+  public void setPilotName(String pilotName) {
+    this.pilotName = pilotName;
+  }
 }

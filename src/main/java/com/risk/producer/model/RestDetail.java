@@ -9,44 +9,49 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "rest_detail")
 public class RestDetail {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer memberId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Integer memberId;
 
-	private String date;
-	private Integer restMinutes;
+  private String date;
+  private Integer restMinutes;
 
-	public RestDetail() {
-		super();
-	}
+  public RestDetail() {
+    super();
+  }
 
-	public String getDate() {
-		return date;
-	}
+  public String getDate() {
+    return date;
+  }
 
-	public Integer getMemberId() {
-		return memberId;
-	}
+  public Integer getMemberId() {
+    return memberId;
+  }
 
-	public Integer getRestMinutes() {
-		return restMinutes;
-	}
+  public Integer getRestMinutes() {
+    return restMinutes;
+  }
 
-	public void setDate(String date) {
-		this.date = date;
-	}
+  public void setDate(String date) {
+    this.date = date;
+  }
 
-	public void setMemberId(Integer memberId) {
-		this.memberId = memberId;
-	}
+  public void setMemberId(Integer memberId) {
+    this.memberId = memberId;
+  }
 
-	public void setRestMinutes(Integer restMinutes) {
-		this.restMinutes = restMinutes;
-	}
+  public void setRestMinutes(Integer restMinutes) {
+    this.restMinutes = restMinutes;
+  }
 
-	@Override
-	public String toString() {
-		return "RestDetail [memberId=" + memberId + ", date=" + date + ", restMinutes=" + restMinutes + "]";
-	}
-
+  @Override
+  public String toString() {
+    return "RestDetail [memberId="
+        + memberId
+        + ", date="
+        + date
+        + ", restMinutes="
+        + restMinutes
+        + "]";
+  }
 }

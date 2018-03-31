@@ -3,10 +3,9 @@ package com.risk.models;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.risk.consumer.model.AircraftChecklistDTO;
+import com.risk.consumer.model.AircraftCodeDTO;
 import com.risk.consumer.model.AircraftDTO;
 import com.risk.consumer.model.AircraftTypeDTO;
-import com.risk.consumer.model.AirportDTO;
 import com.risk.consumer.model.CrewDTO;
 import com.risk.consumer.model.FlightScheduleCrewDTO;
 import com.risk.consumer.model.FlightScheduleDTO;
@@ -15,287 +14,382 @@ import com.risk.consumer.model.PilotDTO;
 import com.risk.consumer.model.PilotDesignationDTO;
 import com.risk.consumer.model.RestDetailDTO;
 import com.risk.consumer.model.UserDTO;
+import com.risk.result.model.AircraftCheckListDetail;
+import com.risk.result.model.CaptainDetail;
+import com.risk.result.model.DestinationEnvironment;
+import com.risk.result.model.FinalAnalysisData;
+import com.risk.result.model.HumanPerformance;
+import com.risk.result.model.PilotDetail;
+import com.risk.result.model.SourceEnvironment;
 
 public class StoreRecord {
 
-	private List<AirportDTO> airport;
-	private List<AircraftDTO> aircraft ;
-	private List<AircraftChecklistDTO> aircraftChecklist;
-	private List<AircraftTypeDTO> aircraftType;
-	private List<CrewDTO> crew;
-	private List<FlightScheduleDTO> flightSchedule;
-	private List<FlightScheduleCrewDTO> flightScheduleCrew;
-	private List<FlightSchedulePilotDTO> flightSchedulePilot;
-	private List<PilotDesignationDTO> pilotDesignation;
-	private List<RestDetailDTO> restDetail;
-	private List<PilotDTO> pilot;
-	private List<UserDTO> user;
-	private List<Environment> env;
+  private List<AircraftDTO> aircraft;
+  private List<AircraftTypeDTO> aircraftType;
+  private List<CrewDTO> crew;
+  private List<FlightScheduleDTO> flightSchedule;
+  private List<FlightScheduleCrewDTO> flightScheduleCrew;
+  private List<FlightSchedulePilotDTO> flightSchedulePilot;
+  private List<PilotDesignationDTO> pilotDesignation;
+  private RestDetailDTO restDetail;
+  private List<PilotDTO> pilot;
+  private List<UserDTO> user;
+  private List<AircraftCodeDTO> craftCode;
+  private List<Environment> env;
+  private AircraftCheckListDetail aircraftCheckList;
+  private CaptainDetail captainDetail;
+  private HumanPerformance crewTotal;
+  private DestinationEnvironment envDestination;
+  private PilotDetail pilotDetail;
 
-	private int environmentCount = 0;
-	private int airportCount = 0;
-	private int aircraftCount = 0;
-	private int aircraftChecklistCount = 0;
-	private int aircraftCodeCount = 0;
-	private int userCount = 0;
-	private int aircraftTypeCount = 0;
-	private int crewCount = 0;
-	private int flightScheduleCount = 0;
-	private int flightScheduleCrewCount = 0;
-	private int flightSchedulePilotCount = 0;
-	private int pilotCount = 0;
-	private int pilotDesignationCount = 0;
-	private int restDetailCount = 0;
+  private SourceEnvironment envSource;
+  private FinalAnalysisData finalData;
 
-	public StoreRecord() {
-		super();
-		init();
-		user = new ArrayList<>();
-	}
+  private FlightScheduleDTO schedule;
 
-	private void init() {
-		airport = new ArrayList<>();
-		aircraft = new ArrayList<>();
-		aircraftChecklist = new ArrayList<>();
-		aircraftType = new ArrayList<>();
-		crew = new ArrayList<>();
-		flightSchedule = new ArrayList<>();
-		flightScheduleCrew = new ArrayList<>();
-		flightSchedulePilot = new ArrayList<>();
-		pilotDesignation = new ArrayList<>();
-		restDetail = new ArrayList<>();
-		pilot = new ArrayList<>();
-		env = new ArrayList<>();
-	}
+  private int environmentCount = 0;
+  private int flightPilotSummaryCount = 0;
+  private int flightCaptainSummaryCount = 0;
 
-	public void destroy() {
-		init();
-	}
+  private int aircraftCount = 0;
+  private int aircraftChecklistCount = 0;
+  private int aircraftCodeCount = 0;
+  private int userCount = 0;
+  private int aircraftTypeCount = 0;
+  private int crewCount = 0;
+  private int flightScheduleCount = 0;
+  private int flightScheduleCrewCount = 0;
+  private int flightSchedulePilotCount = 0;
+  private int pilotCount = 0;
+  private int pilotDesignationCount = 0;
+  private int restDetailCount = 0;
+  private int restDetailTotal = 0;
 
-	public void destroyUser() {
-		user = new ArrayList<>();
-	}
+  public FinalAnalysisData getFinalData() {
+    return finalData;
+  }
 
-	public List<AircraftDTO> getAircraft() {
-		return aircraft;
-	}
+  public void setFinalData(FinalAnalysisData finalData) {
+    this.finalData = finalData;
+  }
 
-	public List<AircraftChecklistDTO> getAircraftChecklist() {
-		return aircraftChecklist;
-	}
+  public int getRestDetailTotal() {
+    return restDetailTotal;
+  }
 
-	public int getAircraftChecklistCount() {
-		return aircraftChecklistCount;
-	}
+  public void setPilotDetail(PilotDetail pilotDetail) {
+    this.pilotDetail = pilotDetail;
+  }
 
-	public int getAircraftCodeCount() {
-		return aircraftCodeCount;
-	}
+  public void setRestDetailTotal(int restDetailTotal) {
+    this.restDetailTotal = restDetailTotal;
+  }
 
-	public int getAircraftCount() {
-		return aircraftCount;
-	}
+  public StoreRecord() {
+    super();
+    init();
+    user = new ArrayList<>();
+  }
 
-	public List<AircraftTypeDTO> getAircraftType() {
-		return aircraftType;
-	}
+  public void destroy() {
+    init();
+  }
 
-	public int getAircraftTypeCount() {
-		return aircraftTypeCount;
-	}
+  public AircraftCheckListDetail getAircraftCheckList() {
+    return aircraftCheckList;
+  }
 
-	public List<AirportDTO> getAirport() {
-		return airport;
-	}
+  public void setAircraftCheckList(AircraftCheckListDetail aircraftCheckList) {
+    this.aircraftCheckList = aircraftCheckList;
+  }
 
-	public int getAirportCount() {
-		return airportCount;
+  public CaptainDetail getCaptainDetail() {
+    return captainDetail;
+  }
 
-	}
+  public void setCaptainDetail(CaptainDetail captainDetail) {
+    this.captainDetail = captainDetail;
+  }
 
-	public List<CrewDTO> getCrew() {
-		return crew;
-	}
+  public HumanPerformance getCrewTotal() {
+    return crewTotal;
+  }
 
-	public int getCrewCount() {
-		return crewCount;
-	}
+  public void setCrewTotal(HumanPerformance crewTotal) {
+    this.crewTotal = crewTotal;
+  }
 
-	public List<Environment> getEnv() {
-		return env;
-	}
+  public DestinationEnvironment getEnvDestination() {
+    return envDestination;
+  }
 
-	public int getEnvironmentCount() {
-		return environmentCount;
-	}
+  public void setEnvDestination(DestinationEnvironment envDestination) {
+    this.envDestination = envDestination;
+  }
 
-	public List<FlightScheduleDTO> getFlightSchedule() {
-		return flightSchedule;
-	}
+  public PilotDetail getPilotDetail() {
+    return pilotDetail;
+  }
 
-	public int getFlightScheduleCount() {
-		return flightScheduleCount;
-	}
+  public void resultFinal(PilotDetail pilotDetail) {
+    this.pilotDetail = pilotDetail;
+  }
 
-	public List<FlightScheduleCrewDTO> getFlightScheduleCrew() {
-		return flightScheduleCrew;
-	}
+  public SourceEnvironment getEnvSource() {
+    return envSource;
+  }
 
-	public int getFlightScheduleCrewCount() {
-		return flightScheduleCrewCount;
-	}
+  public void setEnvSource(SourceEnvironment envSource) {
+    this.envSource = envSource;
+  }
 
-	public List<FlightSchedulePilotDTO> getFlightSchedulePilot() {
-		return flightSchedulePilot;
-	}
+  public FlightScheduleDTO getSchedule() {
+    return schedule;
+  }
 
-	public int getFlightSchedulePilotCount() {
-		return flightSchedulePilotCount;
-	}
+  public void setSchedule(FlightScheduleDTO schedule) {
+    this.schedule = schedule;
+  }
 
-	public List<PilotDTO> getPilot() {
-		return pilot;
-	}
+  public int getFlightCaptainSummaryCount() {
+    return flightCaptainSummaryCount;
+  }
 
-	public int getPilotCount() {
-		return pilotCount;
-	}
+  public void setFlightCaptainSummaryCount(int flightCaptainSummaryCount) {
+    this.flightCaptainSummaryCount = flightCaptainSummaryCount;
+  }
 
-	public List<PilotDesignationDTO> getPilotDesignation() {
-		return pilotDesignation;
-	}
+  public int getFlightPilotSummaryCount() {
+    return flightPilotSummaryCount;
+  }
 
-	public int getPilotDesignationCount() {
-		return pilotDesignationCount;
-	}
+  public void setFlightPilotSummaryCount(int flightPilotSummaryCount) {
+    this.flightPilotSummaryCount = flightPilotSummaryCount;
+  }
 
-	public List<RestDetailDTO> getRestDetail() {
-		return restDetail;
-	}
+  public void destroyUser() {
+    user = new ArrayList<>();
+  }
 
-	public int getRestDetailCount() {
-		return restDetailCount;
-	}
+  public List<AircraftDTO> getAircraft() {
+    return aircraft;
+  }
 
-	public List<UserDTO> getUser() {
-		return user;
-	}
+  public int getAircraftChecklistCount() {
+    return aircraftChecklistCount;
+  }
 
-	public int getUserCount() {
-		return userCount;
-	}
+  public int getAircraftCodeCount() {
+    return aircraftCodeCount;
+  }
 
-	public void setAircraft(AircraftDTO aircraft) {
-		this.aircraft.add(aircraft);
-	}
+  public int getAircraftCount() {
+    return aircraftCount;
+  }
 
-	public void setAircraftChecklist(AircraftChecklistDTO aircraftChecklist) {
-		this.aircraftChecklist.add(aircraftChecklist);
-	}
+  public List<AircraftTypeDTO> getAircraftType() {
+    return aircraftType;
+  }
 
-	public void setAircraftChecklistCount(int aircraftChecklistCount) {
-		this.aircraftChecklistCount = aircraftChecklistCount;
-	}
+  public int getAircraftTypeCount() {
+    return aircraftTypeCount;
+  }
 
-	public void setAircraftCodeCount(int aircraftCodeCount) {
-		this.aircraftCodeCount = aircraftCodeCount;
-	}
+  public List<AircraftCodeDTO> getCraftCode() {
+    return craftCode;
+  }
 
-	public void setAircraftCount(int aircraftCount) {
-		this.aircraftCount = aircraftCount;
-	}
+  public List<CrewDTO> getCrew() {
+    return crew;
+  }
 
-	public void setAircraftType(AircraftTypeDTO aircraftType) {
-		this.aircraftType.add(aircraftType);
-	}
+  public int getCrewCount() {
+    return crewCount;
+  }
 
-	public void setAircraftTypeCount(int aircraftTypeCount) {
-		this.aircraftTypeCount = aircraftTypeCount;
-	}
+  public int getEnvironmentCount() {
+    return environmentCount;
+  }
 
-	public void setAirport(AirportDTO airport) {
-		this.airport.add(airport);
-	}
+  public List<FlightScheduleDTO> getFlightSchedule() {
+    return flightSchedule;
+  }
 
-	public void setAirportCount(int airportCount) {
+  public int getFlightScheduleCount() {
+    return flightScheduleCount;
+  }
 
-		this.airportCount = airportCount;
+  public List<FlightScheduleCrewDTO> getFlightScheduleCrew() {
+    return flightScheduleCrew;
+  }
 
-	}
+  public int getFlightScheduleCrewCount() {
+    return flightScheduleCrewCount;
+  }
 
-	public void setAirportObj(AirportDTO airport) {
-		this.airport.add(airport);
-	}
+  public List<FlightSchedulePilotDTO> getFlightSchedulePilot() {
+    return flightSchedulePilot;
+  }
 
-	public void setCrew(CrewDTO crew) {
-		this.crew.add(crew);
-	}
+  public int getFlightSchedulePilotCount() {
+    return flightSchedulePilotCount;
+  }
 
-	public void setCrewCount(int crewCount) {
-		this.crewCount = crewCount;
-	}
+  public List<PilotDTO> getPilot() {
+    return pilot;
+  }
 
-	public void setEnv(Environment env) {
-		this.env.add(env);
-	}
+  public int getPilotCount() {
+    return pilotCount;
+  }
 
-	public void setEnvironmentCount(int environmentCount) {
-		this.environmentCount = environmentCount;
-	}
+  public List<PilotDesignationDTO> getPilotDesignation() {
+    return pilotDesignation;
+  }
 
-	public void setFlightSchedule(FlightScheduleDTO flightSchedule) {
-		this.flightSchedule.add(flightSchedule);
-	}
+  public int getPilotDesignationCount() {
+    return pilotDesignationCount;
+  }
 
-	public void setFlightScheduleCount(int flightScheduleCount) {
-		this.flightScheduleCount = flightScheduleCount;
-	}
+  public RestDetailDTO getRestDetail() {
+    return restDetail;
+  }
 
-	public void setFlightScheduleCrew(FlightScheduleCrewDTO flightScheduleCrew) {
-		this.flightScheduleCrew.add(flightScheduleCrew);
-	}
+  public int getRestDetailCount() {
+    return restDetailCount;
+  }
 
-	public void setFlightScheduleCrewCount(int flightScheduleCrewCount) {
-		this.flightScheduleCrewCount = flightScheduleCrewCount;
-	}
+  public List<UserDTO> getUser() {
+    return user;
+  }
 
-	public void setFlightSchedulePilot(FlightSchedulePilotDTO flightSchedulePilot) {
-		this.flightSchedulePilot.add(flightSchedulePilot);
-	}
+  public int getUserCount() {
+    return userCount;
+  }
 
-	public void setFlightSchedulePilotCount(int flightSchedulePilotCount) {
-		this.flightSchedulePilotCount = flightSchedulePilotCount;
-	}
+  public List<Environment> getEnv() {
+    return env;
+  }
 
-	public void setPilot(PilotDTO pilot) {
-		this.pilot.add(pilot);
-	}
+  public void setEnv(Environment env) {
+    this.env.add(env);
+  }
 
-	public void setPilotCount(int pilotCount) {
-		this.pilotCount = pilotCount;
-	}
+  private void init() {
+    aircraft = new ArrayList<>();
+    aircraftType = new ArrayList<>();
+    crew = new ArrayList<>();
+    flightSchedule = new ArrayList<>();
+    flightScheduleCrew = new ArrayList<>();
+    flightSchedulePilot = new ArrayList<>();
+    pilotDesignation = new ArrayList<>();
+    restDetail = new RestDetailDTO();
+    pilot = new ArrayList<>();
+    craftCode = new ArrayList<>();
+    schedule = new FlightScheduleDTO();
+    aircraftCheckList = new AircraftCheckListDetail();
+    captainDetail = new CaptainDetail();
+    crewTotal = new HumanPerformance();
+    envDestination = new DestinationEnvironment();
+    pilotDetail = new PilotDetail();
+    envSource = new SourceEnvironment();
+    finalData = new FinalAnalysisData();
+    env = new ArrayList<>();
+  }
 
-	public void setPilotDesignation(PilotDesignationDTO pilotDesignation) {
-		this.pilotDesignation.add(pilotDesignation);
-	}
+  public void setAircraft(AircraftDTO aircraft) {
+    this.aircraft.add(aircraft);
+  }
 
-	public void setPilotDesignationCount(int pilotDesignationCount) {
-		this.pilotDesignationCount = pilotDesignationCount;
-	}
+  public void setAircraftChecklistCount(int aircraftChecklistCount) {
+    this.aircraftChecklistCount = aircraftChecklistCount;
+  }
 
-	public void setRestDetail(RestDetailDTO restDetail) {
-		this.restDetail.add(restDetail);
-	}
+  public void setAircraftCodeCount(int aircraftCodeCount) {
+    this.aircraftCodeCount = aircraftCodeCount;
+  }
 
-	public void setRestDetailCount(int restDetailCount) {
-		this.restDetailCount = restDetailCount;
-	}
+  public void setAircraftCount(int aircraftCount) {
+    this.aircraftCount = aircraftCount;
+  }
 
-	public void setUser(UserDTO user) {
-		this.user.add(user);
-	}
+  public void setAircraftType(AircraftTypeDTO aircraftType) {
+    this.aircraftType.add(aircraftType);
+  }
 
-	public void setUserCount(int userCount) {
-		this.userCount = userCount;
-	}
+  public void setAircraftTypeCount(int aircraftTypeCount) {
+    this.aircraftTypeCount = aircraftTypeCount;
+  }
+
+  public void setCraftCode(AircraftCodeDTO craftCode) {
+    this.craftCode.add(craftCode);
+  }
+
+  public void setCrew(CrewDTO crew) {
+    this.crew.add(crew);
+  }
+
+  public void setCrewCount(int crewCount) {
+    this.crewCount = crewCount;
+  }
+
+  public void setEnvironmentCount(int environmentCount) {
+    this.environmentCount = environmentCount;
+  }
+
+  public void setFlightSchedule(FlightScheduleDTO flightSchedule) {
+    this.flightSchedule.add(flightSchedule);
+  }
+
+  public void setFlightScheduleCount(int flightScheduleCount) {
+    this.flightScheduleCount = flightScheduleCount;
+  }
+
+  public void setFlightScheduleCrew(FlightScheduleCrewDTO flightScheduleCrew) {
+    this.flightScheduleCrew.add(flightScheduleCrew);
+  }
+
+  public void setFlightScheduleCrewCount(int flightScheduleCrewCount) {
+    this.flightScheduleCrewCount = flightScheduleCrewCount;
+  }
+
+  public void setFlightSchedulePilot(FlightSchedulePilotDTO flightSchedulePilot) {
+    this.flightSchedulePilot.add(flightSchedulePilot);
+  }
+
+  public void setFlightSchedulePilotCount(int flightSchedulePilotCount) {
+    this.flightSchedulePilotCount = flightSchedulePilotCount;
+  }
+
+  public void setPilot(PilotDTO pilot) {
+    this.pilot.add(pilot);
+  }
+
+  public void setPilotCount(int pilotCount) {
+    this.pilotCount = pilotCount;
+  }
+
+  public void setPilotDesignation(PilotDesignationDTO pilotDesignation) {
+    this.pilotDesignation.add(pilotDesignation);
+  }
+
+  public void setPilotDesignationCount(int pilotDesignationCount) {
+    this.pilotDesignationCount = pilotDesignationCount;
+  }
+
+  public void setRestDetail(RestDetailDTO restDetail) {
+    this.restDetail = restDetail;
+  }
+
+  public void setRestDetailCount(int restDetailCount) {
+    this.restDetailCount = restDetailCount;
+  }
+
+  public void setUser(UserDTO user) {
+    this.user.add(user);
+  }
+
+  public void setUserCount(int userCount) {
+    this.userCount = userCount;
+  }
 }

@@ -13,20 +13,16 @@ import com.risk.services.interfaces.FlightScheduleCrewService;
 @Service
 public class FlightScheduleCrewServiceImpl implements FlightScheduleCrewService {
 
-	@Autowired
-	FlightScheduleCrewRepo craftRepo;
-	@Autowired
-	FlightScheduleCrewDispatcher craftDispatcher;
+  @Autowired FlightScheduleCrewRepo craftRepo;
+  @Autowired FlightScheduleCrewDispatcher craftDispatcher;
 
-	/* (non-Javadoc)
-	 * @see com.risk.services.impl.FlightScheduleCrewService#getFlightScheduleCrewData()
-	 */
-	@Override
-	public void getFlightScheduleCrewData() {
-		Iterable<FlightScheduleCrew> itr = craftRepo.findAll();
-		Iterator<FlightScheduleCrew> iter = itr.iterator();
-		while (iter.hasNext())
-			craftDispatcher.dispatch(iter.next());
-
-	}
+  /* (non-Javadoc)
+   * @see com.risk.services.impl.FlightScheduleCrewService#getFlightScheduleCrewData()
+   */
+  @Override
+  public void getFlightScheduleCrewData() {
+    Iterable<FlightScheduleCrew> itr = craftRepo.findAll();
+    Iterator<FlightScheduleCrew> iter = itr.iterator();
+    while (iter.hasNext()) craftDispatcher.dispatch(iter.next());
+  }
 }

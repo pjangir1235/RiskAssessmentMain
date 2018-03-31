@@ -2,8 +2,7 @@ package com.risk.services.interfaces;
 
 public interface AircraftService {
 
-	void getAircraftData();
+  void getAircraftData(String aircraftCode);
 
-	void getAllAircraftCodeforType(String aircraftCode);
-
+  void getAllAircraftCodeforType(String aircraftCode);
 }

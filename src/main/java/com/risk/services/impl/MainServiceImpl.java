@@ -15,6 +15,7 @@ import com.risk.consumer.model.CrewDTO;
 import com.risk.consumer.model.FlightScheduleDTO;
 import com.risk.consumer.model.PilotDTO;
 import com.risk.controllers.Controller;
+import com.risk.models.AirportRecord;
 import com.risk.models.ScheduleRequestDTO;
 import com.risk.models.StoreRecord;
 import com.risk.services.interfaces.AircraftChecklistService;
@@ -36,219 +37,187 @@ import com.risk.util.LocalDateString;
 @Service
 public class MainServiceImpl implements MainService {
 
-	private static final Logger logger = LoggerFactory.getLogger(Controller.class);
+  private static final Logger logger = LoggerFactory.getLogger(Controller.class);
 
-	@Autowired
-	private AirportService airportData;
+  @Autowired private AirportService airportData;
 
-	@Autowired
-	private AircraftService aircraftData;
+  @Autowired private AircraftService aircraftData;
 
-	@Autowired
-	private AircraftTypeService aircraftTypeData;
+  @Autowired private AircraftTypeService aircraftTypeData;
 
-	@Autowired
-	private AircraftChecklistService aircraftChecklistData;
+  @Autowired private AircraftChecklistService aircraftChecklistData;
 
-	@Autowired
-	private CrewService crewData;
+  @Autowired private CrewService crewData;
 
-	@Autowired
-	private FlightScheduleService flightScheduleData;
+  @Autowired private FlightScheduleService flightScheduleData;
 
-	@Autowired
-	private FlightScheduleCrewService flightScheduleCrewData;
-	@Autowired
-	private FlightSchedulePilotService flightSchedulePilotData;
-	@Autowired
-	private PilotService pilotData;
+  @Autowired private FlightScheduleCrewService flightScheduleCrewData;
+  @Autowired private FlightSchedulePilotService flightSchedulePilotData;
+  @Autowired private PilotService pilotData;
 
-	@Autowired
-	private PilotDesignationService pilotDesignationData;
+  @Autowired private PilotDesignationService pilotDesignationData;
 
-	@Autowired
-	private RestDetailService restDetailData;
+  @Autowired private RestDetailService restDetailData;
 
-	@Autowired
-	private UserService userData;
+  @Autowired private UserService userData;
 
-	@Autowired
-	private EnvironmentService environmentData;
+  @Autowired private EnvironmentService environmentData;
 
-	@Autowired
-	StoreRecord record;
+  @Autowired StoreRecord record;
+  @Autowired AirportRecord recordAirport;
+  @Autowired AnalysisServiceImpl analysisService;
+  @Autowired LocalDateString dateConverter;
 
-	@Autowired
-	LocalDateString dateConverter;
+  @Override
+  public void checkFetchData() {
+    try {
 
-	@Override
-	public void checkFetchData() {
-		try {
+      while (record.getFlightScheduleCount() != 0
+          || record.getAircraftChecklistCount() != 0
+          || record.getUserCount() != 0
+          || record.getRestDetailCount() != 0
+          || recordAirport.getAirportCount() != 0
+          || record.getEnvironmentCount() != 0
+          || record.getAircraftCodeCount() != 0
+          || record.getAircraftCount() != 0
+          || record.getFlightPilotSummaryCount() != 0
+          || record.getFlightCaptainSummaryCount() != 0) Thread.sleep(1000);
+    } catch (Exception e) {
+      logger.error(CommonConstant.ERROR + e);
+    }
+  }
 
-			while (record.getFlightScheduleCount() != 0 || record.getFlightSchedulePilotCount() != 0
-			                || record.getFlightScheduleCrewCount() != 0 || record.getPilotCount() != 0
-			                || record.getAircraftChecklistCount() != 0 || record.getAircraftCount() != 0
-			                || record.getUserCount() != 0 || record.getPilotDesignationCount() != 0
-			                || record.getRestDetailCount() != 0 || record.getCrewCount() != 0
-			                || record.getAirportCount() != 0 || record.getAircraftTypeCount() != 0
-			                || record.getEnvironmentCount() != 0)
-				Thread.sleep(1000);
-		}
-		catch (Exception e) {
-			logger.error(CommonConstant.ERROR + e);
-		}
+  @Override
+  public void getAiprotValues() {
+    airportData.getAirportData();
+  }
 
-	}
+  @Override
+  public void getAircraftChecklistValues() {
+    aircraftChecklistData.getAircraftChecklistData();
+  }
 
-	@Override
-	public void getAiprotValues() {
-		airportData.getAirportData();
-	}
+  @Override
+  public void getAircraftTypeValues() {
+    aircraftTypeData.getAircraftTypeData();
+  }
 
-	@Override
-	public void getAircraftChecklistValues() {
-		aircraftChecklistData.getAircraftChecklistData();
+  @Override
+  public void getAircraftValues(String aircraftCode) {
+    aircraftData.getAircraftData(aircraftCode);
+  }
 
-	}
+  @Override
+  public void getAnalysisData() throws ParseException {
+    analysisService.initializeAnalysis();
+    FlightScheduleDTO data = record.getSchedule();
+    LocalDate date;
+    try {
+      CrewDTO crew = null;
 
-	@Override
-	public void getAircraftTypeValues() {
-		aircraftTypeData.getAircraftTypeData();
-	}
+      List<CrewDTO> crews = null;
+      crews = data.getCrews();
 
-	@Override
-	public void getAircraftValues() {
-		aircraftData.getAircraftData();
+      record.setRestDetailCount(crews.size());
+      record.setRestDetailTotal(crews.size());
+      System.out.println(crews.size());
+      Iterable<CrewDTO> itr = crews;
+      Iterator<CrewDTO> iter = itr.iterator();
+      while (iter.hasNext()) {
+        System.out.println("RestDetail " + record.getRestDetailCount());
+        record.setRestDetailCount(record.getRestDetailCount() - 1);
+        System.out.println("RestDetail " + record.getRestDetailCount());
+        date = dateConverter.stringToLocalDate(data.getDateOfDeparture());
+        date = date.minusDays(1);
+        crew = iter.next();
+        try {
+          restDetailData.getCrewRestDetail(
+              crew.getCrewMemberId(), dateConverter.localDateToString(date));
+        } catch (Exception e) {
+          logger.error(CommonConstant.ERROR + e);
+        }
+      }
 
-	}
+    } catch (Exception e) {
+      logger.error(CommonConstant.ERROR + e);
+    }
+    try {
 
+      PilotDTO pilot = null;
+      List<PilotDTO> pilotdetails = data.getPilots();
+      Iterable<PilotDTO> itr = pilotdetails;
+      Iterator<PilotDTO> iter = itr.iterator();
+      // Get Pilot Working Detail
 
+      while (iter.hasNext()) {
+        pilot = iter.next();
+        flightScheduleData.getFlightSchedulePilotData(
+            pilot.getPilotId(), pilot.getPilotDesignationCode(), data.getDateOfDeparture());
+      }
+    } catch (Exception e) {
+      logger.error(CommonConstant.ERROR + e);
+    }
+    //Aircraft Data
+    try {
+      aircraftChecklistData.getAircraftChecklistOnAircraftCodeData(
+          data.getAircraftCode(), data.getDateOfDeparture());
+    } catch (Exception e) {
+      logger.error(CommonConstant.ERROR + e);
+    }
+    // Get Environment Source
+    try {
+      environmentData.getEnvironmentData(data.getSourceAirportCode());
+    } catch (Exception e) {
+      logger.error(CommonConstant.ERROR + e);
+    }
+    // Get Environment Destination
+    try {
+      environmentData.getEnvironmentData(data.getDestinationAirportCode());
+    } catch (Exception e) {
+      logger.error(CommonConstant.ERROR + e);
+    }
 
-	@Override
-	public void getCrewValues() {
-		crewData.getCrewData();
+    checkFetchData();
+    analysisService.startCalculation();
+  }
 
-	}
+  @Override
+  public void getCrewValues() {
+    crewData.getCrewData();
+  }
 
-	@Override
-	public void getEnvironmentValues(String stationCode) {
-		environmentData.getEnvironmentData(stationCode);
+  @Override
+  public void getEnvironmentValues(String stationCode) {
+    environmentData.getEnvironmentData(stationCode);
+  }
 
-	}
+  @Override
+  public void getFlightScheduleCrewValues() {
+    flightScheduleCrewData.getFlightScheduleCrewData();
+  }
 
-	@Override
-	public void getFlightScheduleCrewValues() {
-		flightScheduleCrewData.getFlightScheduleCrewData();
+  @Override
+  public void getFlightSchedulePilotValues() {
+    flightSchedulePilotData.getFlightSchedulePilotData();
+  }
 
-	}
+  @Override
+  public void getFlightScheduleValues(ScheduleRequestDTO req) {
+    flightScheduleData.getFlightScheduleData(req.getLocation(), req.getDate());
+  }
 
-	@Override
-	public void getFlightSchedulePilotValues() {
-		flightSchedulePilotData.getFlightSchedulePilotData();
+  @Override
+  public void getPilotDesignationValues() {
+    pilotDesignationData.getPilotDesignationData();
+  }
 
-	}
+  @Override
+  public void getPilotValues() {
+    pilotData.getPilotData();
+  }
 
-	@Override
-	public void getFlightScheduleValues(ScheduleRequestDTO req) {
-		flightScheduleData.getFlightScheduleData(req.getLocation(), req.getDate());
-
-	}
-
-	@Override
-	public void getPilotDesignationValues() {
-		pilotDesignationData.getPilotDesignationData();
-	}
-
-	@Override
-	public void getPilotValues() {
-		pilotData.getPilotData();
-	}
-
-	@Override
-	public void getRestDetailValues() {
-		restDetailData.getRestDetailData();
-	}
-
-	@Override
-	public void getUserValues(String userName, String password) {
-		userData.getUserData(userName, password);
-
-	}
-
-	@Override
-	public void getAnalysisData(FlightScheduleDTO data) throws ParseException {
-		LocalDate date;
-		try {
-			PilotDTO pilot = null;
-			List<PilotDTO> pilotdetails = data.getPilots();
-			Iterable<PilotDTO> itr = pilotdetails;
-			Iterator<PilotDTO> iter = itr.iterator();
-
-			// Get Pilot Working Detail
-
-			while (iter.hasNext()) {
-				pilot = iter.next();
-				flightScheduleData.getFlightSchedulePilotData(pilot.getPilotId(), pilot.getPilotDesignationCode(),
-				                data.getDateOfDeparture());
-			}
-		}
-
-		catch (Exception e) {
-			logger.error(CommonConstant.ERROR + e);
-		}
-		// Get Environment Source
-		try {
-
-			environmentData.getEnvironmentData(data.getSourceAirportCode());
-		}
-		catch (Exception e) {
-			logger.error(CommonConstant.ERROR + e);
-		}
-		// Get Environment Destination
-		try {
-
-			environmentData.getEnvironmentData(data.getDestinationAirportCode());
-		}
-		catch (Exception e) {
-			logger.error(CommonConstant.ERROR + e);
-		}
-
-		try {
-
-			aircraftChecklistData.getAircraftChecklistOnAircraftCodeData(data.getAircraftCode(),
-			                data.getDateOfDeparture());
-		}
-		catch (Exception e) {
-			logger.error(CommonConstant.ERROR + e);
-		}
-		// get all aircraft Code
-
-		try {
-
-			aircraftData.getAllAircraftCodeforType(data.getAircraftCode());
-		}
-		catch (Exception e) {
-			logger.error(CommonConstant.ERROR + e);
-		}
-
-		try {
-			CrewDTO crew = null;
-			List<CrewDTO> crews = null;
-			crews = data.getCrews();
-			Iterable<CrewDTO> itr = crews;
-			Iterator<CrewDTO> iter = itr.iterator();
-			while (iter.hasNext()) {
-				date = dateConverter.stringToLocalDate(data.getDateOfDeparture());
-				date = date.minusDays(1);
-				crew = iter.next();
-				restDetailData.getCrewRestDetail(crew.getCrewMemberId(), dateConverter.localDateToString(date));
-			}
-
-		}
-		catch (Exception e) {
-			logger.error(CommonConstant.ERROR + e);
-		}
-
-	}
-
+  @Override
+  public void getUserValues(String userName, String password) {
+    userData.getUserData(userName, password);
+  }
 }

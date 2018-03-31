@@ -12,24 +12,25 @@ import com.risk.producer.model.Pilot;
 
 @Configuration
 public class KafkaPilotProducerConfig {
-	@Autowired
-	private KafkaProducerCommonProperty property;
+  @Autowired private KafkaProducerCommonProperty property;
 
-	@Value("${kafka.topic-pilot}")
-	private String topic;
+  @Value("${kafka.topic-pilot}")
+  private String topic;
 
-	@Bean
-	public KafkaTemplate<Integer, Pilot> pilotKafkaTemplate() {
+  @Bean
+  public KafkaTemplate<Integer, Pilot> pilotKafkaTemplate() {
 
-		KafkaTemplate<Integer, Pilot> kafkaTemplate = new KafkaTemplate<>(producerFactory());
-		kafkaTemplate.setDefaultTopic(topic);
-		return kafkaTemplate;
-	}
+    KafkaTemplate<Integer, Pilot> kafkaTemplate = new KafkaTemplate<>(producerFactory());
+    kafkaTemplate.setDefaultTopic(topic);
+    return kafkaTemplate;
+  }
 
-	@SuppressWarnings("unchecked")
-	@Bean
-	public ProducerFactory<Integer, Pilot> producerFactory() {
-		return new DefaultKafkaProducerFactory<>(property.producerConfigs(), property.setIntegerKeySerializer(),
-		                property.setJsonSerializer());
-	}
+  @SuppressWarnings("unchecked")
+  @Bean
+  public ProducerFactory<Integer, Pilot> producerFactory() {
+    return new DefaultKafkaProducerFactory<>(
+        property.producerConfigs(),
+        property.setIntegerKeySerializer(),
+        property.setJsonSerializer());
+  }
 }

@@ -19,24 +19,22 @@ import com.risk.consumer.model.RestDetailDTO;
 @EnableKafka
 public class ConsumerRestDetailConfig {
 
-	@Autowired
-	ConsumerCommonConfig config;
+  @Autowired ConsumerCommonConfig config;
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public ConsumerFactory<Integer, RestDetailDTO> restDetailConsumerFactory() {
-		Map<String, Object> props = config.commonProperty();
-		props.put(ConsumerConfig.GROUP_ID_CONFIG, "restDetail");
-		return new DefaultKafkaConsumerFactory<>(props, new IntegerDeserializer(),
-		                new JsonDeserializer(RestDetailDTO.class));
-	}
+  @SuppressWarnings({"unchecked", "rawtypes"})
+  public ConsumerFactory<Integer, RestDetailDTO> restDetailConsumerFactory() {
+    Map<String, Object> props = config.commonProperty();
+    props.put(ConsumerConfig.GROUP_ID_CONFIG, "restDetail");
+    return new DefaultKafkaConsumerFactory<>(
+        props, new IntegerDeserializer(), new JsonDeserializer(RestDetailDTO.class));
+  }
 
-	@Bean
-	public ConcurrentKafkaListenerContainerFactory<Integer, RestDetailDTO> restDetailKafkaListenerContainerFactory() {
-		ConcurrentKafkaListenerContainerFactory<Integer, RestDetailDTO> factory = new ConcurrentKafkaListenerContainerFactory<>();
-		factory.setConsumerFactory(restDetailConsumerFactory());
-		return factory;
-	}
-
-
-
+  @Bean
+  public ConcurrentKafkaListenerContainerFactory<Integer, RestDetailDTO>
+      restDetailKafkaListenerContainerFactory() {
+    ConcurrentKafkaListenerContainerFactory<Integer, RestDetailDTO> factory =
+        new ConcurrentKafkaListenerContainerFactory<>();
+    factory.setConsumerFactory(restDetailConsumerFactory());
+    return factory;
+  }
 }
