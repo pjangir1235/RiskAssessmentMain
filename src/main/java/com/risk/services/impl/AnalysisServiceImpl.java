@@ -1,5 +1,6 @@
 package com.risk.services.impl;
 
+import org.decimal4j.util.DoubleRounder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -218,7 +219,6 @@ public class AnalysisServiceImpl {
     percentageInHundered = calc.getFinalPercentage(percentageHuman, 25, 100);
     result.setHuman(percentageInHundered);
   }
-
   public void FinalResult() {
     double finalPercentage =
         percentageAircraft
@@ -226,7 +226,7 @@ public class AnalysisServiceImpl {
             + percentageHuman
             + percentageProficiency
             + percentageSource;
-    result.setFinalPercent(finalPercentage);
+    result.setFinalPercent( DoubleRounder.round(finalPercentage,2));
     if (finalPercentage <= 33) result.setConclusion("CLEAR");
     else if (finalPercentage > 33 && finalPercentage <= 66) result.setConclusion("NEED TO CHECK");
     else result.setConclusion("RISKY");

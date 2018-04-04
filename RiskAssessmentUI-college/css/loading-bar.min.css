@@ -1,4 +1,4 @@
-#loading-bar, #loading-bar-spinner {
+/* #loading-bar, #loading-bar-spinner {
 	pointer-events: none;
 	-webkit-pointer-events: none;
 	-webkit-transition: 350ms linear all;
@@ -131,4 +131,4 @@ keyframes loading-bar-spinner { 0%{
 transform
 :rotate(360deg)
 }
-}
+} */
